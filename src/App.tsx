@@ -1,35 +1,24 @@
-import {useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import "@/App.css"
+import {Canvas} from "@react-three/fiber";
+import {CameraControls, OrthographicCamera} from "@react-three/drei";
+import LdtkMap from "@/common/ldtk/components/LdtkMap.tsx";
 
 function App() {
-    const [count, setCount] = useState(0)
 
-    return (
-        <>
-            <div>
-                <a href="https://vite.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo"/>
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo"/>
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
-        </>
-    )
+    return <Canvas style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#000000",
+        position: "absolute",
+        top: 0,
+        left: 0
+    }}>
+        <OrthographicCamera position={[0, 0, -10]}>
+            <ambientLight intensity={1}/>
+            <CameraControls/>
+            <LdtkMap ldtkPath={"/assets/ldtk/test.ldtk"}/>
+        </OrthographicCamera>
+    </Canvas>
 }
 
 export default App
