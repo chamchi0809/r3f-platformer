@@ -44,53 +44,55 @@ export interface Ldtk {
     worldGridWidth?: number | null;
     worldLayout?: WorldLayout | null;
     worlds: World[];
+
     [property: string]: any;
 }
 
 export interface ForcedRefs {
-    AutoLayerRuleGroup?:   AutoLayerRuleGroup;
-    AutoRuleDef?:          AutoLayerRuleDefinition;
-    CustomCommand?:        LdtkCustomCommand;
-    Definitions?:          Definitions;
-    EntityDef?:            EntityDefinition;
-    EntityInstance?:       EntityInstance;
+    AutoLayerRuleGroup?: AutoLayerRuleGroup;
+    AutoRuleDef?: AutoLayerRuleDefinition;
+    CustomCommand?: LdtkCustomCommand;
+    Definitions?: Definitions;
+    EntityDef?: EntityDefinition;
+    EntityInstance?: EntityInstance;
     EntityReferenceInfos?: ReferenceToAnEntityInstance;
-    EnumDef?:              EnumDefinition;
-    EnumDefValues?:        EnumValueDefinition;
-    EnumTagValue?:         EnumTagValue;
-    FieldDef?:             FieldDefinition;
-    FieldInstance?:        FieldInstance;
-    GridPoint?:            GridPoint;
-    IntGridValueDef?:      IntGridValueDefinition;
+    EnumDef?: EnumDefinition;
+    EnumDefValues?: EnumValueDefinition;
+    EnumTagValue?: EnumTagValue;
+    FieldDef?: FieldDefinition;
+    FieldInstance?: FieldInstance;
+    GridPoint?: GridPoint;
+    IntGridValueDef?: IntGridValueDefinition;
     IntGridValueGroupDef?: IntGridValueGroupDefinition;
     IntGridValueInstance?: IntGridValueInstance;
-    LayerDef?:             LayerDefinition;
-    LayerInstance?:        LayerInstance;
-    Level?:                Level;
-    LevelBgPosInfos?:      LevelBackgroundPosition;
-    NeighbourLevel?:       NeighbourLevel;
-    TableOfContentEntry?:  LdtkTableOfContentEntry;
-    Tile?:                 TileInstance;
-    TileCustomMetadata?:   TileCustomMetadata;
-    TilesetDef?:           TilesetDefinition;
-    TilesetRect?:          TilesetRectangle;
-    TocInstanceData?:      LdtkTocInstanceData;
-    World?:                World;
+    LayerDef?: LayerDefinition;
+    LayerInstance?: LayerInstance;
+    Level?: Level;
+    LevelBgPosInfos?: LevelBackgroundPosition;
+    NeighbourLevel?: NeighbourLevel;
+    TableOfContentEntry?: LdtkTableOfContentEntry;
+    Tile?: TileInstance;
+    TileCustomMetadata?: TileCustomMetadata;
+    TilesetDef?: TilesetDefinition;
+    TilesetRect?: TilesetRectangle;
+    TocInstanceData?: LdtkTocInstanceData;
+    World?: World;
+
     [property: string]: any;
 }
 
 export interface AutoLayerRuleGroup {
-    active:               boolean;
+    active: boolean;
     biomeRequirementMode: number;
-    collapsed?:          boolean | null;
-    color?:              null | string;
-    icon?:               TilesetRectangle | null;
-    isOptional:          boolean;
-    name:                string;
+    collapsed?: boolean | null;
+    color?: null | string;
+    icon?: TilesetRectangle | null;
+    isOptional: boolean;
+    name: string;
     requiredBiomeValues: string[];
-    rules:               AutoLayerRuleDefinition[];
-    uid:                 number;
-    usesWizard:          boolean;
+    rules: AutoLayerRuleDefinition[];
+    uid: number;
+    usesWizard: boolean;
 }
 
 export interface TilesetRectangle {
@@ -103,7 +105,7 @@ export interface TilesetRectangle {
 
 export interface AutoLayerRuleDefinition {
     active: boolean;
-    alpha:  number;
+    alpha: number;
     breakOnMatch: boolean;
     chance: number;
     checker: Checker;
@@ -112,10 +114,10 @@ export interface AutoLayerRuleDefinition {
     invalidated: boolean;
     outOfBoundsValue?: number | null;
     pattern: number[];
-    perlinActive:  boolean;
+    perlinActive: boolean;
     perlinOctaves: number;
-    perlinScale:   number;
-    perlinSeed:    number;
+    perlinScale: number;
+    perlinSeed: number;
     pivotX: number;
     pivotY: number;
     size: number;
@@ -213,14 +215,14 @@ export interface EntityDefinition {
     color: string;
     doc?: null | string;
     exportToToc: boolean;
-    fieldDefs:   FieldDefinition[];
+    fieldDefs: FieldDefinition[];
     fillOpacity: number;
     height: number;
     hollow: boolean;
     identifier: string;
     keepAspectRatio: boolean;
     limitBehavior: LimitBehavior;
-    limitScope:  LimitScope;
+    limitScope: LimitScope;
     lineOpacity: number;
     maxCount: number;
     maxHeight?: number | null;
@@ -235,7 +237,7 @@ export interface EntityDefinition {
     resizableY: boolean;
     showName: boolean;
     tags: string[];
-    tileId?:     number | null;
+    tileId?: number | null;
     tileOpacity: number;
     tileRect?: TilesetRectangle | null;
     tileRenderMode: TileRenderMode;
@@ -248,23 +250,23 @@ export interface EntityDefinition {
 export interface FieldDefinition {
     __type: string;
     acceptFileTypes?: string[] | null;
-    allowedRefs:           AllowedRefs;
+    allowedRefs: AllowedRefs;
     allowedRefsEntityUid?: number | null;
-    allowedRefTags:        string[];
-    allowOutOfLevelRef:    boolean;
+    allowedRefTags: string[];
+    allowOutOfLevelRef: boolean;
     arrayMaxLength?: number | null;
     arrayMinLength?: number | null;
-    autoChainRef:    boolean;
+    autoChainRef: boolean;
     canBeNull: boolean;
     defaultOverride?: any;
-    doc?:                null | string;
-    editorAlwaysShow:    boolean;
+    doc?: null | string;
+    editorAlwaysShow: boolean;
     editorCutLongValues: boolean;
     editorDisplayColor?: null | string;
     editorDisplayMode: EditorDisplayMode;
-    editorDisplayPos:   EditorDisplayPos;
+    editorDisplayPos: EditorDisplayPos;
     editorDisplayScale: number;
-    editorLinkStyle:   EditorLinkStyle;
+    editorLinkStyle: EditorLinkStyle;
     editorShowInWorld: boolean;
     editorTextPrefix?: null | string;
     editorTextSuffix?: null | string;
@@ -274,7 +276,7 @@ export interface FieldDefinition {
     max?: number | null;
     min?: number | null;
     regex?: null | string;
-    searchable:     boolean;
+    searchable: boolean;
     symmetricalRef: boolean;
     textLanguageMode?: TextLanguageMode | null;
     tilesetUid?: number | null;
@@ -303,18 +305,18 @@ export interface EnumValueDefinition {
 
 export interface LayerDefinition {
     __type: string;
-    autoRuleGroups:         AutoLayerRuleGroup[];
+    autoRuleGroups: AutoLayerRuleGroup[];
     autoSourceLayerDefUid?: number | null;
-    autoTilesetDefUid?:              number | null;
+    autoTilesetDefUid?: number | null;
     autoTilesKilledByOtherLayerUid?: number | null;
-    biomeFieldUid?:                  number | null;
+    biomeFieldUid?: number | null;
     canSelectWhenInactive: boolean;
     displayOpacity: number;
     doc?: null | string;
     excludedTags: string[];
     gridSize: number;
     guideGridHei: number;
-    guideGridWid:           number;
+    guideGridWid: number;
     hideFieldsWhenInactive: boolean;
     hideInList: boolean;
     identifier: string;
@@ -342,7 +344,7 @@ export interface IntGridValueDefinition {
     color: string;
     groupUid: number;
     identifier?: null | string;
-    tile?:       TilesetRectangle | null;
+    tile?: TilesetRectangle | null;
     value: number;
 }
 
@@ -368,18 +370,18 @@ export interface TilesetDefinition {
     spacing: number;
     tags: string[];
     tagsSourceEnumUid?: number | null;
-    tileGridSize:       number;
+    tileGridSize: number;
     uid: number;
 }
 
 export interface TileCustomMetadata {
-    data:   string;
+    data: string;
     tileId: number;
 }
 
 export interface EnumTagValue {
     enumValueId: string;
-    tileIds:     number[];
+    tileIds: number[];
 }
 
 export interface EntityInstance {
@@ -425,6 +427,8 @@ export interface IntGridValueInstance {
     v: number;
 }
 
+export type LayerInstanceType = "AutoLayer" | "Entities" | "IntGrid" | "Tiles";
+
 export interface LayerInstance {
     __cHei: number;
     __cWid: number;
@@ -435,10 +439,10 @@ export interface LayerInstance {
     __pxTotalOffsetY: number;
     __tilesetDefUid?: number | null;
     __tilesetRelPath?: null | string;
-    __type: string;
-    autoLayerTiles:  TileInstance[];
+    __type: LayerInstanceType;
+    autoLayerTiles: TileInstance[];
     entityInstances: EntityInstance[];
-    gridTiles:       TileInstance[];
+    gridTiles: TileInstance[];
     iid: string;
     intGrid?: IntGridValueInstance[] | null;
     intGridCsv: number[];
@@ -499,15 +503,15 @@ export interface NeighbourLevel {
 
 export interface LdtkTableOfContentEntry {
     identifier: string;
-    instances?:    ReferenceToAnEntityInstance[];
+    instances?: ReferenceToAnEntityInstance[];
     instancesData: LdtkTocInstanceData[];
 }
 
 export interface LdtkTocInstanceData {
     fields: any;
-    heiPx:  number;
-    iids:   ReferenceToAnEntityInstance;
-    widPx:  number;
+    heiPx: number;
+    iids: ReferenceToAnEntityInstance;
+    widPx: number;
     worldX: number;
     worldY: number;
 }

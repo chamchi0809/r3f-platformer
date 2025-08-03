@@ -1,28 +1,22 @@
 import React, {useMemo} from "react";
 import * as THREE from "three";
-import {SpriteMaterial} from "three";
 import type {TileInstance, TilesetDefinition} from "@/common/ldtk/models/LdtkTypes.ts";
 
-type TileSpriteProps = {
-    tile: TileInstance;
-    tileset: TilesetDefinition;
-    texture: THREE.Texture;
-    tileSize: number;
-    levelHeight: number;
-};
 export default function TileSprite(
     {
         tile,
         tileset,
         texture,
         tileSize,
-        levelHeight,
+        layerDimensions,
+        layerPxOffsets,
     }: {
         tile: TileInstance;
         tileset: TilesetDefinition;
         texture: THREE.Texture;
         tileSize: number;
-        levelHeight: number;
+        layerDimensions: [number, number];
+        layerPxOffsets: [number, number];
     }) {
     // tile.px is [x, y] in pixels in level
     // tile.src is [x, y] in pixels in tileset
@@ -33,10 +27,9 @@ export default function TileSprite(
     // Compute UVs for this tile
     const {px, src, f, a} = tile;
     // TODO: replact /tileSize with global pixel per unit (PPU) setting
-    const posX = (px[0] + tileSize / 2) / tileSize;
-    const posY = (levelHeight - px[1] - tileSize / 2) / tileSize;
+    const posX = (px[0] + layerPxOffsets[0] + tileSize / 2) / tileSize;
+    const posY = (layerDimensions[1] * tileSize - px[1] - layerPxOffsets[1] - tileSize / 2) / tileSize;
     const tileCols = Math.floor(tileset.pxWid / tileset.tileGridSize);
-    console.log(posX, posY)
 
     // Flipping
     const scaleX = (f & 1) ? -1 : 1;

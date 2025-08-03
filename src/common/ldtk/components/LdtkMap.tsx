@@ -1,16 +1,24 @@
-import React, {useEffect, useMemo, useState} from "react";
-import * as THREE from "three";
-import type {Ldtk, TilesetDefinition} from "@/common/ldtk/models/LdtkTypes.ts";
-import LayerRenderer from "@/common/ldtk/components/LayerRenderer.tsx";
-import {getTilesetByUid, getTilesetTexture} from "@/common/ldtk/utils/tilesetUtils.ts";
+import React, {createContext, useContext, useEffect, useMemo, useState} from "react";
+import type {Ldtk, Level} from "@/common/ldtk/models/LdtkTypes.ts";
+import LayerRenderer from "@/common/ldtk/components/layers/LayerRenderer.tsx";
+import type {EntityRendererMap} from "@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx";
+
+export const LdtkLevelContext = createContext<{
+    ldtk: Ldtk;
+    ldtkPath: string;
+    level: Level;
+    entityRendererMap?: EntityRendererMap;
+} | null>(null);
 
 export default function LdtkMap(
     {
         ldtkPath,
         levelIdentifier,
+        entityRendererMap,
     }: {
         ldtkPath: string;
         levelIdentifier?: string; // Optional level identifier to render a specific level
+        entityRendererMap?: EntityRendererMap; // Optional entity renderer map
     }) {
 
     const [ldtk, setLdtk] = useState<Ldtk | undefined>(undefined);
@@ -40,27 +48,28 @@ export default function LdtkMap(
 
     if (!level || !ldtk) return null;
 
-    // For each layer, find its tileset if applicable
-    return <group>
-        {(level.layerInstances || []).map((layer, i) => {
-            let tileset: TilesetDefinition | undefined;
-            let texture: THREE.Texture | undefined;
-            // For tile layers, get tileset
-            const tilesetUid = layer.__tilesetDefUid;
-            if (tilesetUid) {
-                tileset = getTilesetByUid(ldtk.defs.tilesets, tilesetUid);
-                if (tileset && tileset.relPath) {
-                    const ldtkDir = ldtkPath.substring(0, ldtkPath.lastIndexOf("/")) + "/";
-                    texture = getTilesetTexture(ldtkDir + tileset.relPath);
-                }
-            }
-            return <LayerRenderer
-                key={layer.iid}
-                layer={layer}
-                tileset={tileset}
-                texture={texture}
-                levelHeight={level.pxHei}
-            />
-        })}
-    </group>
+    return <LdtkLevelContext value={{
+        ldtk,
+        level,
+        ldtkPath,
+        entityRendererMap,
+    }}>
+        <group>
+            {(level.layerInstances ?? []).map((layer, i) => {
+
+                return <LayerRenderer
+                    key={layer.iid}
+                    layer={layer}
+                />
+            })}
+        </group>
+    </LdtkLevelContext>
 };
+
+export const useLdtkLevelContext = () => {
+    const context = useContext(LdtkLevelContext);
+    if (!context) {
+        throw new Error("useLdtkLevelContext must be used within a LdtkMap component");
+    }
+    return context;
+}

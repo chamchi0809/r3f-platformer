@@ -16,7 +16,15 @@ function App() {
         <OrthographicCamera position={[0, 0, -10]}>
             <ambientLight intensity={1}/>
             <CameraControls/>
-            <LdtkMap ldtkPath={"/assets/ldtk/test.ldtk"}/>
+            <LdtkMap
+                ldtkPath={"/assets/ldtk/test.ldtk"}
+                entityRendererMap={{
+                    "PlayerStart": ({entity}) => {
+                        console.log(entity)
+                        return <></>
+                    }
+                }}
+            />
         </OrthographicCamera>
     </Canvas>
 }
