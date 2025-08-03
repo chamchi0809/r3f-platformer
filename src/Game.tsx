@@ -2,6 +2,7 @@ import {CameraControls, OrthographicCamera} from "@react-three/drei";
 import LdtkMap from "@/common/ldtk/components/LdtkMap.tsx";
 import {layerPxToWorldPx, pxToGridPosition} from "@/common/ldtk/utils/positionUtils.ts";
 import {centerTilePivot} from "@/common/ldtk/utils/tilesetUtils.ts";
+import {RigidBody} from "@react-three/rapier";
 
 export default function Game() {
 
@@ -17,10 +18,12 @@ export default function Game() {
                         const worldPx = centerTilePivot(layerPxToWorldPx(entity.px as [number, number], layerPxOffsets, layerPxDimensions), layer.__gridSize);
                         const worldPos = pxToGridPosition(worldPx, layer.__gridSize);
 
-                        return <mesh position={[worldPos[0], worldPos[1], 0]}>
-                            <boxGeometry args={[1, 1, 1]}/>
-                            <meshStandardMaterial color={"#00ff00"}/>
-                        </mesh>
+                        return <RigidBody colliders={"hull"} position={[worldPos[0], worldPos[1], 0]}>
+                            <mesh>
+                                <boxGeometry args={[1, 1, 1]}/>
+                                <meshStandardMaterial color={"#00ff00"}/>
+                            </mesh>
+                        </RigidBody>
                     }
                 }}
             />

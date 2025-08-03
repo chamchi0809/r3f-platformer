@@ -1,8 +1,8 @@
 import "@/App.css"
 import {Canvas} from "@react-three/fiber";
-import {CameraControls, OrthographicCamera} from "@react-three/drei";
-import LdtkMap from "@/common/ldtk/components/LdtkMap.tsx";
 import Game from "@/Game.tsx";
+import {Suspense} from "react";
+import {Physics} from "@react-three/rapier";
 
 function App() {
 
@@ -14,7 +14,11 @@ function App() {
         top: 0,
         left: 0
     }}>
-        <Game/>
+        <Suspense>
+            <Physics debug>
+                <Game/>
+            </Physics>
+        </Suspense>
     </Canvas>
 }
 
