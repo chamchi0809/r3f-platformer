@@ -17,3 +17,10 @@ export const getTilesetTexture = (publicPath: string): THREE.Texture => {
     }
     return textureCache[publicPath];
 }
+
+export const centerTilePivot = (px: [number, number], tileSize: number): [number, number] => {
+    return [
+        px[0] + tileSize / 2,
+        px[1] - tileSize / 2,
+    ];
+}

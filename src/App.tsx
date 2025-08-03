@@ -2,6 +2,7 @@ import "@/App.css"
 import {Canvas} from "@react-three/fiber";
 import {CameraControls, OrthographicCamera} from "@react-three/drei";
 import LdtkMap from "@/common/ldtk/components/LdtkMap.tsx";
+import Game from "@/Game.tsx";
 
 function App() {
 
@@ -13,19 +14,7 @@ function App() {
         top: 0,
         left: 0
     }}>
-        <OrthographicCamera position={[0, 0, -10]}>
-            <ambientLight intensity={1}/>
-            <CameraControls/>
-            <LdtkMap
-                ldtkPath={"/assets/ldtk/test.ldtk"}
-                entityRendererMap={{
-                    "PlayerStart": ({entity}) => {
-                        console.log(entity)
-                        return <></>
-                    }
-                }}
-            />
-        </OrthographicCamera>
+        <Game/>
     </Canvas>
 }
 

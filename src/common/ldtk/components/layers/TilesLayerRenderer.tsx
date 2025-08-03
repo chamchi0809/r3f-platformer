@@ -8,7 +8,7 @@ export default function TilesLayerRenderer() {
         layer,
         tileset,
         texture,
-        layerDimensions,
+        layerPxDimensions,
         layerPxOffsets,
     } = useLdtkLayerContext();
     return <>
@@ -20,7 +20,7 @@ export default function TilesLayerRenderer() {
                 texture={texture}
                 tileSize={layer.__gridSize}
                 layerPxOffsets={layerPxOffsets}
-                layerDimensions={layerDimensions}
+                layerPxDimensions={layerPxDimensions}
             />
         ))}
     </>;

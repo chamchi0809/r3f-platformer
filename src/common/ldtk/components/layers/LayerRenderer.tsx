@@ -30,7 +30,7 @@ export default function LayerRenderer(
         layer,
         tileset,
         texture,
-        layerDimensions: [layer.__cWid, layer.__cHei],
+        layerPxDimensions: [layer.__cWid * layer.__gridSize, layer.__cHei * layer.__gridSize],
         layerPxOffsets: [layer.__pxTotalOffsetX + level.worldX, layer.__pxTotalOffsetY + (level.worldY + level.pxHei)]
     }}>
         {layer.__type === "Tiles" && <TilesLayerRenderer/>}
@@ -42,7 +42,7 @@ export const LdtkLayerContext = createContext<{
     layer: LayerInstance;
     tileset?: TilesetDefinition;
     texture?: THREE.Texture;
-    layerDimensions: [number, number];
+    layerPxDimensions: [number, number];
     layerPxOffsets: [number, number];
 } | null>(null);
 

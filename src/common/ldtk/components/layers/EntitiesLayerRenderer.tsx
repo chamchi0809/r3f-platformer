@@ -9,6 +9,8 @@ export interface EntityRendererProps {
     layer: LayerInstance;
     tileset?: TilesetDefinition;
     texture?: THREE.Texture;
+    layerPxOffsets: [number, number];
+    layerPxDimensions: [number, number];
 }
 
 export type EntityRenderer = (props: EntityRendererProps) => JSX.Element | null;
@@ -17,7 +19,7 @@ export type EntityRendererMap = Record<string, EntityRenderer>;
 
 export default function EntitiesLayerRenderer() {
 
-    const {layer, tileset, texture} = useLdtkLayerContext();
+    const {layer, tileset, texture, layerPxOffsets, layerPxDimensions} = useLdtkLayerContext();
     const {entityRendererMap} = useLdtkLevelContext();
 
     return <>
@@ -28,6 +30,8 @@ export default function EntitiesLayerRenderer() {
                     layer,
                     tileset,
                     texture,
+                    layerPxOffsets,
+                    layerPxDimensions
                 })}
             </Fragment>
         })}

@@ -1,6 +1,8 @@
 import React, {useMemo} from "react";
 import * as THREE from "three";
 import type {TileInstance, TilesetDefinition} from "@/common/ldtk/models/LdtkTypes.ts";
+import {layerPxToWorldPx, pxToGridPosition} from "@/common/ldtk/utils/positionUtils.ts";
+import {centerTilePivot} from "@/common/ldtk/utils/tilesetUtils.ts";
 
 export default function TileSprite(
     {
@@ -8,14 +10,14 @@ export default function TileSprite(
         tileset,
         texture,
         tileSize,
-        layerDimensions,
+        layerPxDimensions,
         layerPxOffsets,
     }: {
         tile: TileInstance;
         tileset: TilesetDefinition;
         texture: THREE.Texture;
         tileSize: number;
-        layerDimensions: [number, number];
+        layerPxDimensions: [number, number];
         layerPxOffsets: [number, number];
     }) {
     // tile.px is [x, y] in pixels in level
@@ -24,11 +26,15 @@ export default function TileSprite(
     // tile.f is flip flags
     // tile.a is alpha
 
-    // Compute UVs for this tile
     const {px, src, f, a} = tile;
     // TODO: replact /tileSize with global pixel per unit (PPU) setting
-    const posX = (px[0] + layerPxOffsets[0] + tileSize / 2) / tileSize;
-    const posY = (layerDimensions[1] * tileSize - px[1] - layerPxOffsets[1] - tileSize / 2) / tileSize;
+    const posInPx = centerTilePivot(
+        layerPxToWorldPx(px as [number, number], layerPxOffsets, layerPxDimensions),
+        tileSize);
+    const posInGrid = pxToGridPosition(
+        posInPx,
+        tileSize);
+    const [posX, posY] = posInGrid;
     const tileCols = Math.floor(tileset.pxWid / tileset.tileGridSize);
 
     // Flipping
