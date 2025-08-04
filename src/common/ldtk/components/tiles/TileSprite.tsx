@@ -3,7 +3,7 @@ import * as THREE from "three";
 import type {TileInstance, TilesetDefinition} from "@/common/ldtk/models/LdtkTypes.ts";
 import {layerPxToWorldPx, pxToGridPosition} from "@/common/ldtk/utils/positionUtils.ts";
 import {centerTilePivot} from "@/common/ldtk/utils/tilesetUtils.ts";
-import {CuboidCollider} from "@react-three/rapier";
+import type {BaseTileRendererProps} from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx";
 
 export default function TileSprite(
     {
@@ -13,14 +13,7 @@ export default function TileSprite(
         tileSize,
         layerPxDimensions,
         layerPxOffsets,
-    }: {
-        tile: TileInstance;
-        tileset: TilesetDefinition;
-        texture: THREE.Texture;
-        tileSize: number;
-        layerPxDimensions: [number, number];
-        layerPxOffsets: [number, number];
-    }) {
+    }: BaseTileRendererProps) {
     // tile.px is [x, y] in pixels in level
     // tile.src is [x, y] in pixels in tileset
     // tile.t is the tileId in tileset
@@ -55,12 +48,10 @@ export default function TileSprite(
         return cutTexture;
     }, [texture])
 
-    return <CuboidCollider position={[posX, posY, 0]} args={[.5, .5, .2]}>
-        <mesh scale={[scaleX, scaleY, 1]}>
-            <planeGeometry args={[1, 1, 1]}/>
-            <meshLambertMaterial transparent opacity={a}>
-                <primitive attach={"map"} object={cutTexture}/>
-            </meshLambertMaterial>
-        </mesh>
-    </CuboidCollider>
+    return <mesh position={[posX, posY, 0]} scale={[scaleX * 1.01, scaleY * 1.01, 1]}>
+        <planeGeometry args={[1, 1, 1]}/>
+        <meshLambertMaterial transparent opacity={a}>
+            <primitive attach={"map"} object={cutTexture}/>
+        </meshLambertMaterial>
+    </mesh>
 };

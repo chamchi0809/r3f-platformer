@@ -2,12 +2,14 @@ import React, {createContext, useContext, useEffect, useMemo, useState} from "re
 import type {Ldtk, Level} from "@/common/ldtk/models/LdtkTypes.ts";
 import LayerRenderer from "@/common/ldtk/components/layers/LayerRenderer.tsx";
 import type {EntityRendererMap} from "@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx";
+import type {TileRendererMap} from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx";
 
 export const LdtkLevelContext = createContext<{
     ldtk: Ldtk;
     ldtkPath: string;
     level: Level;
     entityRendererMap?: EntityRendererMap;
+    tileRendererMap?: TileRendererMap;
 } | null>(null);
 
 export default function LdtkMap(
@@ -15,10 +17,12 @@ export default function LdtkMap(
         ldtkPath,
         levelIdentifier,
         entityRendererMap,
+        tileRendererMap,
     }: {
         ldtkPath: string;
         levelIdentifier?: string; // Optional level identifier to render a specific level
         entityRendererMap?: EntityRendererMap; // Optional entity renderer map
+        tileRendererMap?: TileRendererMap; // Optional tile renderer map
     }) {
 
     const [ldtk, setLdtk] = useState<Ldtk | undefined>(undefined);
@@ -53,6 +57,7 @@ export default function LdtkMap(
         level,
         ldtkPath,
         entityRendererMap,
+        tileRendererMap,
     }}>
         <group>
             {(level.layerInstances ?? []).map((layer, i) => {

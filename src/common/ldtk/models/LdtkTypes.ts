@@ -456,12 +456,19 @@ export interface LayerInstance {
     visible: boolean;
 }
 
+export type FlipBits = 0 | 1 | 2 | 3; // 0 = no flip, 1 = horizontal flip, 2 = vertical flip, 3 = both
+
 export interface TileInstance {
+    // a is alpha (0-1)
     a: number;
     d: number[];
-    f: number;
+    // flip bits (0 = no flip, 1 = horizontal flip, 2 = vertical flip, 3 = both)
+    f: FlipBits;
+    // px is [x, y] in pixels in level
     px: number[];
+    // src is [x, y] in pixels in tileset
     src: number[];
+    // The tileId in the tileset
     t: number;
 }
 
