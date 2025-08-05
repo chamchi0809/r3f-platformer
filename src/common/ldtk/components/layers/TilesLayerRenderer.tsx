@@ -56,5 +56,5 @@ export interface BaseTileRendererProps {
 
 export type TileRenderer = (props: BaseTileRendererProps) => JSX.Element | null;
 
-// Tileset Enum Id -> TileColliderRenderer
+// Tileset Enum Tag -> TileColliderRenderer
 export type TileRendererMap = Record<string, TileRenderer>;
