@@ -2,6 +2,11 @@
 
 A 2D platformer game built with React Three Fiber (R3F) and integrated with LDTK (Level Designer Toolkit) for level design and physics using Rapier.
 
+## 🛠 TODO
+- Add IntGrid Layer Renderer
+- Add AutoLayer Renderer
+- 기획
+
 ## 🎮 Features
 
 - **React Three Fiber**: 3D graphics rendering with React declarative approach

@@ -156,7 +156,7 @@
 			"pivotY": 0,
 			"fieldDefs": [
 				{
-					"identifier": "Float",
+					"identifier": "Amount",
 					"doc": null,
 					"__type": "Float",
 					"uid": 4,
@@ -327,7 +327,7 @@
 							"height": 16,
 							"defUid": 3,
 							"px": [272,144],
-							"fieldInstances": [{ "__identifier": "Float", "__type": "Float", "__value": 5, "__tile": null, "defUid": 4, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "Amount", "__type": "Float", "__value": 5, "__tile": null, "defUid": 4, "realEditorValues": [] }],
 							"__worldX": 208,
 							"__worldY": -96
 						},
@@ -343,7 +343,7 @@
 							"height": 16,
 							"defUid": 3,
 							"px": [368,144],
-							"fieldInstances": [{ "__identifier": "Float", "__type": "Float", "__value": 5, "__tile": null, "defUid": 4, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "Amount", "__type": "Float", "__value": 5, "__tile": null, "defUid": 4, "realEditorValues": [] }],
 							"__worldX": 304,
 							"__worldY": -96
 						}
@@ -417,6 +417,7 @@
 						{ "px": [64,112], "src": [96,112], "f": 0, "t": 111, "d": [228], "a": 1 },
 						{ "px": [80,112], "src": [96,96], "f": 0, "t": 96, "d": [229], "a": 1 },
 						{ "px": [96,112], "src": [112,96], "f": 0, "t": 97, "d": [230], "a": 1 },
+						{ "px": [96,112], "src": [0,0], "f": 0, "t": 0, "d": [230], "a": 1 },
 						{ "px": [112,112], "src": [96,96], "f": 0, "t": 96, "d": [231], "a": 1 },
 						{ "px": [128,112], "src": [112,96], "f": 0, "t": 97, "d": [232], "a": 1 },
 						{ "px": [144,112], "src": [128,32], "f": 0, "t": 38, "d": [233], "a": 1 },
@@ -486,6 +487,7 @@
 						{ "px": [240,144], "src": [144,16], "f": 0, "t": 24, "d": [303], "a": 1 },
 						{ "px": [256,144], "src": [96,112], "f": 0, "t": 111, "d": [304], "a": 1 },
 						{ "px": [272,144], "src": [96,112], "f": 0, "t": 111, "d": [305], "a": 1 },
+						{ "px": [272,144], "src": [0,0], "f": 0, "t": 0, "d": [305], "a": 1 },
 						{ "px": [288,144], "src": [96,112], "f": 0, "t": 111, "d": [306], "a": 1 },
 						{ "px": [304,144], "src": [96,112], "f": 0, "t": 111, "d": [307], "a": 1 },
 						{ "px": [320,144], "src": [96,112], "f": 0, "t": 111, "d": [308], "a": 1 },
