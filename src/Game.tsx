@@ -11,7 +11,7 @@ export default function Game() {
 
     return <>
         <ambientLight intensity={1}/>
-        <OrthographicCamera makeDefault position={[0, 0, 10]} zoom={10}>
+        <OrthographicCamera makeDefault position={[0, 0, 10]} zoom={40}>
             <CameraControls/>
         </OrthographicCamera>
         <LdtkMap
