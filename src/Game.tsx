@@ -1,19 +1,16 @@
-import {CameraControls, OrthographicCamera} from "@react-three/drei";
 import LdtkMap from "@/common/ldtk/components/LdtkMap.tsx";
 import {layerPxToWorldPx, pxToGridPosition} from "@/common/ldtk/utils/positionUtils.ts";
 import {centerTilePivot} from "@/common/ldtk/utils/tilesetUtils.ts";
 import {RigidBody} from "@react-three/rapier";
 import TileSprite from "@/common/ldtk/components/tiles/TileSprite.tsx";
 import TileRectCollider from "@/common/ldtk/components/tiles/TileRectCollider.tsx";
+import MainCamera2D from "@/MainCamera2D.tsx";
 
 export default function Game() {
 
-
     return <>
         <ambientLight intensity={1}/>
-        <OrthographicCamera makeDefault position={[0, 0, 10]} zoom={40}>
-            <CameraControls/>
-        </OrthographicCamera>
+        <MainCamera2D/>
         <LdtkMap
             ldtkPath={"/assets/ldtk/test.ldtk"}
             entityRendererMap={{
