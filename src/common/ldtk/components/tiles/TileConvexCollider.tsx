@@ -38,11 +38,11 @@ export default function TileConvexCollider(
         return cutTexture;
     }, [texture, tileUVX, tileUVY, tileUVW, tileUVH]);
 
-    const data = useTilePixelData(src as [number, number], tileset);
+    const pixelData = useTilePixelData(src as [number, number], tileset);
 
     const vertices = useMemo(() => {
-        if (!data) return [];
-        const chunked = chunk(data, tileSize);
+        if (!pixelData) return [];
+        const chunked = chunk(pixelData, tileSize);
         const vertices: [number, number, number][] = [];
         for (let y = 0; y < tileSize; y++) {
             for (let x = 0; x < tileSize; x++) {
@@ -64,7 +64,7 @@ export default function TileConvexCollider(
             }
         }
         return vertices;
-    }, [data, tileSize]);
+    }, [pixelData, tileSize]);
 
     if (vertices.length > 0) {
         return <ConvexHullCollider
