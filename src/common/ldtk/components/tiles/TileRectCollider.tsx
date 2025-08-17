@@ -3,6 +3,7 @@ import {layerPxToWorldPx, pxToGridPosition} from "@/common/ldtk/utils/positionUt
 import {centerTilePivot} from "@/common/ldtk/utils/tilesetUtils.ts";
 import {CuboidCollider} from "@react-three/rapier";
 import type {BaseTileRendererProps} from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx";
+import {INTERACTION_GROUPS} from "@/common/constants/colGroup.ts";
 
 export default function TileRectCollider(
     {
@@ -12,7 +13,10 @@ export default function TileRectCollider(
         tileSize,
         layerPxDimensions,
         layerPxOffsets,
-    }: BaseTileRendererProps) {
+        interactionGroups = INTERACTION_GROUPS["DEFAULT"],
+    }: {
+        interactionGroups?: number;
+    } & BaseTileRendererProps) {
 
     const {px, src, f, a} = tile;
     // TODO: replact /tileSize with global pixel per unit (PPU) setting
@@ -24,5 +28,5 @@ export default function TileRectCollider(
         tileSize);
     const [posX, posY] = posInGrid;
 
-    return <CuboidCollider position={[posX, posY, 0]} args={[.5, .5, .2]}/>
+    return <CuboidCollider position={[posX, posY, 0]} args={[.5, .5, .2]} collisionGroups={interactionGroups}/>
 };

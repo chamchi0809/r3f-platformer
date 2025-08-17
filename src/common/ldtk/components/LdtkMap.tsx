@@ -7,6 +7,7 @@ import type {TileRendererMap} from "@/common/ldtk/components/layers/TilesLayerRe
 export const LdtkLevelContext = createContext<{
     ldtk: Ldtk;
     ldtkPath: string;
+    ldtkDir: string;
     level: Level;
     entityRendererMap?: EntityRendererMap;
     tileRendererMap?: TileRendererMap;
@@ -56,6 +57,7 @@ export default function LdtkMap(
         ldtk,
         level,
         ldtkPath,
+        ldtkDir: ldtkPath.substring(0, ldtkPath.lastIndexOf("/")) + "/",
         entityRendererMap,
         tileRendererMap,
     }}>

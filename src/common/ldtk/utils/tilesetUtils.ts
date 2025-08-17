@@ -1,9 +1,12 @@
 import * as THREE from 'three';
+import {TextureLoader} from 'three';
 import type {TilesetDefinition} from "@/common/ldtk/models/LdtkTypes.ts";
-import {TextureLoader} from "three";
+import {useLdtkLevelContext} from "@/common/ldtk/components/LdtkMap.tsx";
+import {chunk} from "es-toolkit";
+import tilesetImageQuery from "@/common/ldtk/queries/tilesetImageQuery.ts";
 
 
-export const getTilesetByUid = (tilesets: TilesetDefinition[], uid: number): TilesetDefinition | undefined =>{
+export const getTilesetByUid = (tilesets: TilesetDefinition[], uid: number): TilesetDefinition | undefined => {
     return tilesets.find(ts => ts.uid === uid);
 }
 
@@ -23,4 +26,20 @@ export const centerTilePivot = (px: [number, number], tileSize: number): [number
         px[0] + tileSize / 2,
         px[1] - tileSize / 2,
     ];
+}
+
+export const useTilePixelData = (src: [number, number], tileset: TilesetDefinition) => {
+    const tileSize = tileset.tileGridSize;
+    const {ldtkDir} = useLdtkLevelContext();
+    const {data: image} = tilesetImageQuery.use({
+        ldtkDir,
+        relPath: tileset.relPath ?? "",
+    })
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (ctx && image) {
+        ctx.drawImage(image, 0, 0);
+        return chunk(Array.from(ctx.getImageData(src[0], src[1], tileSize, tileSize).data), 4)
+    }
+    return undefined;
 }

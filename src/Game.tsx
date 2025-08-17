@@ -5,6 +5,8 @@ import {RigidBody} from "@react-three/rapier";
 import TileSprite from "@/common/ldtk/components/tiles/TileSprite.tsx";
 import TileRectCollider from "@/common/ldtk/components/tiles/TileRectCollider.tsx";
 import MainCamera2D from "@/MainCamera2D.tsx";
+import TileConvexCollider from "@/common/ldtk/components/tiles/TileConvexCollider.tsx";
+import {COL_GROUP, INTERACTION_GROUPS} from "@/common/constants/colGroup.ts";
 
 export default function Game() {
 
@@ -31,6 +33,24 @@ export default function Game() {
                     return <>
                         <TileSprite {...props}/>
                         <TileRectCollider {...props}/>
+                    </>
+                },
+                "RECT_GREY": (props) => {
+                    return <>
+                        <TileSprite {...props}/>
+                        <TileRectCollider {...props} interactionGroups={INTERACTION_GROUPS.DEFAULT}/>
+                    </>
+                },
+                "SPIKE_GREY": (props) => {
+                    return <>
+                        <TileSprite {...props}/>
+                        <TileConvexCollider {...props} interactionGroups={INTERACTION_GROUPS.DEFAULT}/>
+                    </>
+                },
+                "SPIKE_WHITE": (props) => {
+                    return <>
+                        <TileSprite {...props}/>
+                        <TileConvexCollider {...props} interactionGroups={INTERACTION_GROUPS.WHITE} />
                     </>
                 }
             }}

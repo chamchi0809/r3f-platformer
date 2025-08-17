@@ -13,16 +13,15 @@ export default function LayerRenderer(
         layer: LayerInstance;
     }) {
 
-    const {ldtk, ldtkPath, level, entityRendererMap} = useLdtkLevelContext();
+    const {ldtk, ldtkDir, level, entityRendererMap} = useLdtkLevelContext();
 
     const {tileset, texture} = useMemo(() => {
 
         const tilesetUid = layer.__tilesetDefUid;
         const tileset = tilesetUid ? getTilesetByUid(ldtk.defs.tilesets, tilesetUid) : undefined;
-        const ldtkDir = ldtkPath.substring(0, ldtkPath.lastIndexOf("/")) + "/";
         const texture = tileset && tileset.relPath ? getTilesetTexture(ldtkDir + tileset.relPath) : undefined;
         return {tileset, texture};
-    }, [ldtk, ldtkPath, layer.__tilesetDefUid]);
+    }, [ldtk, ldtkDir, layer.__tilesetDefUid]);
 
     if (!layer.visible) return null;
 
