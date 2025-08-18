@@ -69,7 +69,6 @@ export default function TileConvexCollider(
     if (vertices.length > 0) {
         return <ConvexHullCollider
             position={[posX, posY, 0]}
-            //@ts-ignore
             args={[vertices.flat()]}
             collisionGroups={interactionGroups}
         />
