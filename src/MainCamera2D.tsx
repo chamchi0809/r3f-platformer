@@ -1,6 +1,6 @@
-import {CameraControls, OrthographicCamera, type OrthographicCameraProps} from "@react-three/drei";
+import {CameraControls, OrthographicCamera} from "@react-three/drei";
 import {useThree} from "@react-three/fiber";
-import {useEffect, useLayoutEffect, useMemo, useRef} from "react";
+import {useMemo} from "react";
 
 export default function MainCamera2D(
     {
@@ -11,7 +11,6 @@ export default function MainCamera2D(
 ) {
 
     const {aspect} = useThree(state => state.viewport);
-    const camera = useThree(state => state.camera);
     const frustum = useMemo(() => {
         const height = size * 2;
         const width = height * aspect;
@@ -24,18 +23,7 @@ export default function MainCamera2D(
         }
     }, [aspect, size]);
 
-    useLayoutEffect(() => {
-        if (camera) {
-            const orthographicCamera = camera as OrthographicCameraProps;
-            orthographicCamera.left = frustum.left;
-            orthographicCamera.right = frustum.right;
-            orthographicCamera.top = frustum.top;
-            orthographicCamera.bottom = frustum.bottom;
-            camera.updateProjectionMatrix();
-        }
-    }, [frustum, camera]);
-
-    return <OrthographicCamera makeDefault {...frustum} position={[0, 0, 10]}>
+    return <OrthographicCamera manual makeDefault {...frustum} position={[0, 0, 10]}>
         <CameraControls/>
     </OrthographicCamera>
 }
