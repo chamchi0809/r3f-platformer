@@ -6,7 +6,8 @@ import TileSprite from "@/common/ldtk/components/tiles/TileSprite.tsx";
 import TileRectCollider from "@/common/ldtk/components/tiles/TileRectCollider.tsx";
 import MainCamera2D from "@/MainCamera2D.tsx";
 import TileConvexCollider from "@/common/ldtk/components/tiles/TileConvexCollider.tsx";
-import {COL_GROUP, INTERACTION_GROUPS} from "@/common/constants/colGroup.ts";
+import {INTERACTION_GROUPS} from "@/common/constants/colGroup.ts";
+import TileVoxelCollider from "@/common/ldtk/components/tiles/TileVoxelCollider.tsx";
 
 export default function Game() {
 
@@ -44,7 +45,7 @@ export default function Game() {
                 "SPIKE_GREY": (props) => {
                     return <>
                         <TileSprite {...props}/>
-                        <TileConvexCollider {...props} interactionGroups={INTERACTION_GROUPS.DEFAULT}/>
+                        <TileVoxelCollider {...props} interactionGroups={INTERACTION_GROUPS.DEFAULT}/>
                     </>
                 },
                 "SPIKE_WHITE": (props) => {
