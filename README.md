@@ -1,6 +1,7 @@
 # R3F Platformer (WIP)
 
 It's in progress! 🚧
+
 A 2D platformer game built with React Three Fiber (R3F) and integrated with LDTK (Level Designer Toolkit) for level design and physics using Rapier.
 
 ## 🛠 TODO
