@@ -4,16 +4,18 @@ import {centerTilePivot} from "@/common/ldtk/utils/tilesetUtils.ts";
 import {RigidBody} from "@react-three/rapier";
 import TileSprite from "@/common/ldtk/components/tiles/TileSprite.tsx";
 import TileRectCollider from "@/common/ldtk/components/tiles/TileRectCollider.tsx";
-import MainCamera2D from "@/MainCamera2D.tsx";
+import CameraRenderer from "@/common/components/CameraRenderer.tsx";
 import TileConvexCollider from "@/common/ldtk/components/tiles/TileConvexCollider.tsx";
 import {INTERACTION_GROUPS} from "@/common/constants/colGroup.ts";
 import TileVoxelCollider from "@/common/ldtk/components/tiles/TileVoxelCollider.tsx";
+import Startup from "@/Startup.tsx";
 
 export default function Game() {
 
     return <>
+        <Startup/>
         <ambientLight intensity={1}/>
-        <MainCamera2D/>
+        <CameraRenderer/>
         <LdtkMap
             ldtkPath={"/assets/ldtk/test.ldtk"}
             entityRendererMap={{
