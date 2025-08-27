@@ -9,11 +9,13 @@ import TileConvexCollider from "@/common/ldtk/components/tiles/TileConvexCollide
 import {INTERACTION_GROUPS} from "@/common/constants/colGroup.ts";
 import TileVoxelCollider from "@/common/ldtk/components/tiles/TileVoxelCollider.tsx";
 import Startup from "@/Startup.tsx";
+import FrameLoop from "@/FrameLoop.tsx";
 
 export default function Game() {
 
     return <>
         <Startup/>
+        <FrameLoop/>
         <ambientLight intensity={1}/>
         <CameraRenderer/>
         <LdtkMap
