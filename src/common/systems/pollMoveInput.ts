@@ -1,4 +1,4 @@
-import {World} from 'koota';
+import type {World} from 'koota';
 import {IsPlayer} from "@/common/traits/IsPlayer.ts";
 import {MoveInput} from "@/common/traits/MoveInput.ts";
 

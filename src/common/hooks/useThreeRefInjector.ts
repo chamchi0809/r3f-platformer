@@ -1,10 +1,10 @@
 import {useWorld} from "koota/react";
 import {useCallback} from "react";
-import {Ref} from "@/common/traits/Ref.ts";
+import {ThreeRef} from "@/common/traits/ThreeRef.ts";
 import type {Entity} from "koota";
 import * as THREE from "three";
 
-export const useRefInjector = (entity: Entity) => {
+export const useThreeRefInjector = (entity: Entity) => {
     const world = useWorld();
     const injectRef = useCallback(
         <T extends THREE.Object3D>(component: T | null) => {
@@ -12,8 +12,8 @@ export const useRefInjector = (entity: Entity) => {
                 return;
             }
             if (!world.has(entity)) return;
-            entity.add(Ref(component));
-            return () => entity.remove(Ref);
+            entity.add(ThreeRef(component));
+            return () => entity.remove(ThreeRef);
         },
         [entity]
     );

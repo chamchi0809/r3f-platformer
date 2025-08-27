@@ -4,7 +4,7 @@ import {useMemo} from "react";
 import type {Entity} from "koota";
 import {useQueryFirst} from "koota/react";
 import {IsCamera} from "@/common/traits/IsCamera.ts";
-import {useRefInjector} from "@/common/hooks/useRefInjector.ts";
+import {useThreeRefInjector} from "@/common/hooks/useThreeRefInjector.ts";
 
 const CameraView = (
     {
@@ -28,7 +28,7 @@ const CameraView = (
         }
     }, [aspect, size]);
 
-    const injectRef = useRefInjector(entity);
+    const injectRef = useThreeRefInjector(entity);
 
     return <OrthographicCamera
         ref={injectRef}
