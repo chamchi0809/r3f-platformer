@@ -3,7 +3,7 @@ import {layerPxToWorldPx, pxToGridPosition} from "@/common/ldtk/utils/positionUt
 import {useTilePixelData} from "@/common/ldtk/utils/tilesetUtils.ts";
 import {ConvexHullCollider, CuboidCollider} from "@react-three/rapier";
 import type {BaseTileRendererProps} from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx";
-import {INTERACTION_GROUPS} from "@/common/constants/colGroup.ts";
+import {INTERACTION_GROUPS} from "@/common/defs/colGroup.ts";
 import {chunk} from "es-toolkit";
 
 export default function TileConvexCollider(

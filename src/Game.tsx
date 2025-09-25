@@ -3,7 +3,7 @@ import TileSprite from "@/common/ldtk/components/tiles/TileSprite.tsx";
 import TileRectCollider from "@/common/ldtk/components/tiles/TileRectCollider.tsx";
 import CameraRenderer from "@/common/components/CameraRenderer.tsx";
 import TileConvexCollider from "@/common/ldtk/components/tiles/TileConvexCollider.tsx";
-import {INTERACTION_GROUPS} from "@/common/constants/colGroup.ts";
+import {INTERACTION_GROUPS} from "@/common/defs/colGroup.ts";
 import TileVoxelCollider from "@/common/ldtk/components/tiles/TileVoxelCollider.tsx";
 import Startup from "@/Startup.tsx";
 import FrameLoop from "@/FrameLoop.tsx";

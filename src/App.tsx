@@ -3,6 +3,8 @@ import {Canvas} from "@react-three/fiber";
 import Game from "@/Game.tsx";
 import {Suspense} from "react";
 import {Physics} from "@react-three/rapier";
+import {KeyboardControls} from "@react-three/drei";
+import {keyboardControlMap} from "@/common/defs/keyboardControlMap.ts";
 
 function App() {
 
@@ -16,7 +18,9 @@ function App() {
     }}>
         <Suspense>
             <Physics debug>
-                <Game/>
+                <KeyboardControls map={keyboardControlMap}>
+                    <Game/>
+                </KeyboardControls>
             </Physics>
         </Suspense>
     </Canvas>
