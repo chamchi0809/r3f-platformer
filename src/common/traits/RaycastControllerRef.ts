@@ -13,8 +13,8 @@ export interface RaycastOrigins {
 export const RaycastControllerRef = trait(() => new RaycastController(colliderPlaceholder));
 
 export class RaycastController {
-    collider: Collider;
-    collisionGroups: InteractionGroups = 0;
+    public collider: Collider;
+    public collisionGroups: InteractionGroups = 0;
     raycastOrigins: RaycastOrigins = {
         topLeft: new THREE.Vector2(),
         topRight: new THREE.Vector2(),
@@ -28,7 +28,7 @@ export class RaycastController {
     horizontalRaySpacing = 0;
     verticalRaySpacing = 0;
 
-    updateRaycastOrigins() {
+    public updateRaycastOrigins() {
         var bounds = this.getBounds();
         if (!bounds) return;
 
@@ -59,6 +59,17 @@ export class RaycastController {
             new THREE.Vector3(-cuboid.halfExtents.x, -cuboid.halfExtents.y, -cuboid.halfExtents.z).add(this.collider.translation()),
             new THREE.Vector3(cuboid.halfExtents.x, cuboid.halfExtents.y, cuboid.halfExtents.z).add(this.collider.translation())
         );
+    }
+
+    translate(offset: THREE.Vector2) {
+        const current = this.collider.translation();
+        this.collider.setTranslation({...current, x: current.x + offset.x, y: current.y + offset.y});
+        this.updateRaycastOrigins();
+    }
+
+    setTranslation(position: THREE.Vector3) {
+        this.collider.setTranslation(position);
+        this.updateRaycastOrigins();
     }
 
     constructor(Collider: Collider) {
