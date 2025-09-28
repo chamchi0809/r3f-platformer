@@ -5,16 +5,18 @@ import CameraRenderer from "@/common/components/CameraRenderer.tsx";
 import TileConvexCollider from "@/common/ldtk/components/tiles/TileConvexCollider.tsx";
 import {INTERACTION_GROUPS} from "@/common/defs/colGroup.ts";
 import TileVoxelCollider from "@/common/ldtk/components/tiles/TileVoxelCollider.tsx";
-import Startup from "@/Startup.tsx";
-import FrameLoop from "@/FrameLoop.tsx";
+import Startup from "@/common/lifecycles/Startup.tsx";
+import FrameLoop from "@/common/lifecycles/FrameLoop.tsx";
 import PlayerSpawner from "@/common/components/PlayerSpawner.tsx";
 import PlayerRenderer from "@/common/components/PlayerRenderer.tsx";
+import PhysicsLoop from "@/common/lifecycles/PhysicsLoop.tsx";
 
 export default function Game() {
 
     return <>
         <Startup/>
         <FrameLoop/>
+        <PhysicsLoop/>
         <ambientLight intensity={1}/>
         <CameraRenderer/>
         <PlayerRenderer/>
@@ -45,7 +47,7 @@ export default function Game() {
                 "SPIKE_WHITE": (props) => {
                     return <>
                         <TileSprite {...props}/>
-                        <TileConvexCollider {...props} interactionGroups={INTERACTION_GROUPS.WHITE} />
+                        <TileConvexCollider {...props} interactionGroups={INTERACTION_GROUPS.WHITE}/>
                     </>
                 }
             }}

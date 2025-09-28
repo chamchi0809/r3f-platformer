@@ -5,6 +5,7 @@ import {Suspense} from "react";
 import {Physics} from "@react-three/rapier";
 import {KeyboardControls} from "@react-three/drei";
 import {keyboardControlMap} from "@/common/defs/keyboardControlMap.ts";
+import {physicsSettings} from "@/common/defs/physicsSettings.ts";
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
         left: 0
     }}>
         <Suspense>
-            <Physics debug>
+            <Physics debug timeStep={physicsSettings.timestep} gravity={[0, physicsSettings.gravity, 0]}>
                 <KeyboardControls map={keyboardControlMap}>
                     <Game/>
                 </KeyboardControls>
