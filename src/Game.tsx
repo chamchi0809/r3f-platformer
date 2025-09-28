@@ -38,6 +38,18 @@ export default function Game() {
                         <TileRectCollider {...props} interactionGroups={INTERACTION_GROUPS.DEFAULT}/>
                     </>
                 },
+                "RECT_WHITE": (props) => {
+                    return <>
+                        <TileSprite {...props}/>
+                        <TileRectCollider {...props} interactionGroups={INTERACTION_GROUPS.WHITE}/>
+                    </>
+                },
+                "RECT_BLACK": (props) => {
+                    return <>
+                        <TileSprite {...props}/>
+                        <TileRectCollider {...props} interactionGroups={INTERACTION_GROUPS.BLACK}/>
+                    </>
+                },
                 "SPIKE_GREY": (props) => {
                     return <>
                         <TileSprite {...props}/>
@@ -49,7 +61,13 @@ export default function Game() {
                         <TileSprite {...props}/>
                         <TileConvexCollider {...props} interactionGroups={INTERACTION_GROUPS.WHITE}/>
                     </>
-                }
+                },
+                "SPIKE_BLACK": (props) => {
+                    return <>
+                        <TileSprite {...props}/>
+                        <TileVoxelCollider {...props} interactionGroups={INTERACTION_GROUPS.BLACK}/>
+                    </>
+                },
             }}
         />
     </>

@@ -7,10 +7,11 @@ import {Vector2} from "three";
 import {CharacterVelocity} from "@/common/traits/CharacterValues.ts";
 import {CharacterStats} from "@/common/traits/CharacterStats.ts";
 import {JumpInput} from "@/common/traits/JumpInput.ts";
+import {PlayerStates} from "@/common/traits/PlayerStates.ts";
 
 export const actions = createActions(world => ({
     spawnCamera: () => world.spawn(IsCamera),
-    spawnPlayer: (startPosition: Vector2) => world.spawn(IsPlayer, StartPosition(startPosition),
+    spawnPlayer: (startPosition: Vector2) => world.spawn(IsPlayer, StartPosition(startPosition.clone()), PlayerStates,
         MoveInput(new Vector2(0, 0)), JumpInput,
         CharacterVelocity,
         CharacterStats.speed(5), CharacterStats.jumpStrength(8)

@@ -26,12 +26,12 @@ export class KinematicController {
 
     get isGrounded() {
         const checkDist = 0.01;
-        this.controller.computeColliderMovement(this.col, {x: 0, y: -checkDist * 2, z: 0});
+        this.controller.computeColliderMovement(this.col, {x: 0, y: -checkDist * 2, z: 0}, undefined, this.col.collisionGroups());
         return Math.abs(this.controller.computedMovement().y) < checkDist;
     }
 
     move(x: number, y: number) {
-        this.controller.computeColliderMovement(this.col, {x, y, z: 0});
+        this.controller.computeColliderMovement(this.col, {x, y, z: 0}, undefined, this.col.collisionGroups());
         this.col.setTranslation({
             x: this.col.translation().x + this.controller.computedMovement().x,
             y: this.col.translation().y + this.controller.computedMovement().y,

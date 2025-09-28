@@ -10,12 +10,23 @@ import {addJumpBuffer} from "@/common/systems/addJumpBuffer.ts";
 import {freeJumpBuffer} from "@/common/systems/freeJumpBuffer.ts";
 import {doJump} from "@/common/systems/doJump.ts";
 import {Elapsed} from "@/common/traits/Elapsed.ts";
+import {useEffect} from "react";
+import {pressedTransformInput} from "@/common/systems/pressed/pressedTransformInput.ts";
 
 export default function FrameLoop() {
 
     const world = useWorld();
-    const [, getInput] = useKeyboardControls<KeyboardControlType>();
+    const [subInput, getInput] = useKeyboardControls<KeyboardControlType>();
     const rapier = useRapier();
+
+    useEffect(() => {
+        return subInput(
+            (state) => state.transform,
+            (pressed) => {
+                pressed && pressedTransformInput(world);
+            }
+        )
+    }, [])
 
     useFrame((state, delta) => {
         // TODO: Devtools
