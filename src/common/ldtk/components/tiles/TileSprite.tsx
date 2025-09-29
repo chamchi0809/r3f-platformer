@@ -48,10 +48,14 @@ export default function TileSprite(
         return cutTexture;
     }, [texture])
 
-    return <mesh position={[posX, posY, 0]} scale={[scaleX * 1.01, scaleY * 1.01, 1]}>
+    return <mesh castShadow position={[posX, posY, 0]} scale={[scaleX * 1.01, scaleY * 1.01, 1]}>
         <planeGeometry args={[1, 1, 1]}/>
-        <meshLambertMaterial transparent opacity={a}>
+        <meshLambertMaterial transparent opacity={a} color={"white"}>
             <primitive attach={"map"} object={cutTexture}/>
         </meshLambertMaterial>
+        <mesh castShadow>
+            <boxGeometry args={[1, 1, 1]}/>
+            <meshBasicMaterial color={"white"} transparent opacity={0}/>
+        </mesh>
     </mesh>
 };

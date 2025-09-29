@@ -24,11 +24,14 @@ const PlayerView = ({entity}: { entity: Entity }) => {
                 movementRef(comp);
             }}
             collisionGroups={INTERACTION_GROUPS.WHITE}
-            args={[0.4, 0.4, 0.4]} position={[startPos.x, startPos.y, 0]} mass={1} restitution={0} friction={1}/>
-        <mesh ref={threeRef}>
-            <boxGeometry args={[0.8, 0.8, 0.8]}/>
-            <meshStandardMaterial color={"white"} ref={materialRef}/>
-        </mesh>
+            args={[0.4, 0.4, 0.1]} position={[startPos.x, startPos.y, 0]} mass={1} restitution={0} friction={1}/>
+        <group ref={threeRef}>
+            <mesh>
+                <boxGeometry args={[0.8, 0.8, 0.1]}/>
+                <meshLambertMaterial color={"white"} ref={materialRef}/>
+            </mesh>
+            <pointLight castShadow position-z={.1} intensity={5} distance={100}/>
+        </group>
     </>
 }
 

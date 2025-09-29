@@ -19,7 +19,11 @@ export default function Game() {
         <FrameLoop/>
         <KeyboardEvents/>
         <PhysicsLoop/>
-        <ambientLight intensity={1}/>
+        <mesh position-z={-0.1} receiveShadow>
+            <planeGeometry args={[100, 100]}/>
+            <meshStandardMaterial color={"#ddd"} side={2}/>
+        </mesh>
+        <ambientLight color={"white"} intensity={.5} />
         <CameraRenderer/>
         <PlayerRenderer/>
         <LdtkMap
