@@ -10,12 +10,14 @@ import FrameLoop from "@/common/lifecycles/FrameLoop.tsx";
 import PlayerSpawner from "@/common/components/PlayerSpawner.tsx";
 import PlayerRenderer from "@/common/components/PlayerRenderer.tsx";
 import PhysicsLoop from "@/common/lifecycles/PhysicsLoop.tsx";
+import KeyboardEvents from "@/common/lifecycles/KeyboardEvents.tsx";
 
 export default function Game() {
 
     return <>
         <Startup/>
         <FrameLoop/>
+        <KeyboardEvents/>
         <PhysicsLoop/>
         <ambientLight intensity={1}/>
         <CameraRenderer/>
