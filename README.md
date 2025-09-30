@@ -6,10 +6,18 @@ A 2D platformer game built with React Three Fiber (R3F) and integrated with LDTK
 
 ## 🛠 TODO
 
-- Player Controller
-- Combat System (Using Koota)
-- Add IntGrid Layer Renderer
-- Add AutoLayer Renderer
+- (LDTK) Add IntGrid Layer Renderer
+- (LDTK) Add AutoLayer Renderer
+- Multiple Levels & Transitions
+- Animation System
+- Audio System
+- Dialogue System
+- Lighting & Shadows
+- Particle Effects
+- Save/Load System
+- Cutscenes
+- Power-ups & Items
+- Enemy AI (Decision Trees, Navigation)
 
 ## 🎮 Features
 
