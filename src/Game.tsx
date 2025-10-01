@@ -11,10 +11,12 @@ import PlayerSpawner from "@/common/components/PlayerSpawner.tsx";
 import PlayerRenderer from "@/common/components/PlayerRenderer.tsx";
 import PhysicsLoop from "@/common/lifecycles/PhysicsLoop.tsx";
 import KeyboardEvents from "@/common/lifecycles/KeyboardEvents.tsx";
+import {Perf} from "r3f-perf";
 
 export default function Game() {
 
     return <>
+        <Perf />
         <Startup/>
         <FrameLoop/>
         <KeyboardEvents/>
@@ -34,43 +36,36 @@ export default function Game() {
             tileRendererMap={{
                 "RECT": (props) => {
                     return <>
-                        <TileSprite {...props}/>
                         <TileRectCollider {...props}/>
                     </>
                 },
                 "RECT_GREY": (props) => {
                     return <>
-                        <TileSprite {...props}/>
                         <TileRectCollider {...props} interactionGroups={INTERACTION_GROUPS.DEFAULT}/>
                     </>
                 },
                 "RECT_WHITE": (props) => {
                     return <>
-                        <TileSprite {...props}/>
                         <TileRectCollider {...props} interactionGroups={INTERACTION_GROUPS.WHITE}/>
                     </>
                 },
                 "RECT_BLACK": (props) => {
                     return <>
-                        <TileSprite {...props}/>
                         <TileRectCollider {...props} interactionGroups={INTERACTION_GROUPS.BLACK}/>
                     </>
                 },
                 "SPIKE_GREY": (props) => {
                     return <>
-                        <TileSprite {...props}/>
                         <TileVoxelCollider {...props} interactionGroups={INTERACTION_GROUPS.DEFAULT}/>
                     </>
                 },
                 "SPIKE_WHITE": (props) => {
                     return <>
-                        <TileSprite {...props}/>
                         <TileConvexCollider {...props} interactionGroups={INTERACTION_GROUPS.WHITE}/>
                     </>
                 },
                 "SPIKE_BLACK": (props) => {
                     return <>
-                        <TileSprite {...props}/>
                         <TileVoxelCollider {...props} interactionGroups={INTERACTION_GROUPS.BLACK}/>
                     </>
                 },
