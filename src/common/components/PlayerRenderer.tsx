@@ -30,7 +30,7 @@ const PlayerView = ({entity}: { entity: Entity }) => {
                 <boxGeometry args={[0.8, 0.8, 0.1]}/>
                 <meshLambertMaterial color={"white"} ref={materialRef}/>
             </mesh>
-            <pointLight castShadow position-z={.1} intensity={5} distance={100}/>
+            <pointLight castShadow position-z={2} intensity={2} decay={.5} distance={15}/>
         </group>
     </>
 }

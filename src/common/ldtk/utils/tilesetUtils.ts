@@ -43,3 +43,29 @@ export const useTilePixelData = (src: [number, number], tileset: TilesetDefiniti
     }
     return undefined;
 }
+
+export const useTilesetPixelData = (tileset: TilesetDefinition) => {
+    const {ldtkDir} = useLdtkLevelContext();
+    const {data: image} = tilesetImageQuery.use({
+        ldtkDir,
+        relPath: tileset.relPath ?? "",
+    })
+    const tileSize = tileset.tileGridSize;
+    const cols = Math.floor(tileset.pxWid / tileSize);
+    const rows = Math.floor(tileset.pxHei / tileSize);
+    const pixels: Record<number, number[][]> = {};
+    if (image) {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+            ctx.drawImage(image, 0, 0);
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    const tileId = y * cols + x;
+                    pixels[tileId] = chunk(Array.from(ctx.getImageData(x * tileSize, y * tileSize, tileSize, tileSize).data), 4);
+                }
+            }
+        }
+    }
+    return pixels;
+}

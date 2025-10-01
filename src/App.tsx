@@ -9,7 +9,7 @@ import {physicsSettings} from "@/common/defs/physicsSettings.ts";
 
 function App() {
 
-    return <Canvas shadows linear={true} style={{
+    return <Canvas shadows linear={true} flat={true} style={{
         width: "100%",
         height: "100%",
         backgroundColor: "#000000",
@@ -18,7 +18,7 @@ function App() {
         left: 0
     }}>
         <Suspense>
-            <Physics debug timeStep={physicsSettings.timestep} gravity={[0, physicsSettings.gravity, 0]}>
+            <Physics timeStep={physicsSettings.timestep} gravity={[0, physicsSettings.gravity, 0]}>
                 <KeyboardControls map={keyboardControlMap}>
                     <Game/>
                 </KeyboardControls>
