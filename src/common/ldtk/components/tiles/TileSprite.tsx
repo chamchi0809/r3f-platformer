@@ -1,6 +1,4 @@
 import React, {useMemo} from "react";
-import * as THREE from "three";
-import type {TileInstance, TilesetDefinition} from "@/common/ldtk/models/LdtkTypes.ts";
 import {layerPxToWorldPx, pxToGridPosition} from "@/common/ldtk/utils/positionUtils.ts";
 import {centerTilePivot} from "@/common/ldtk/utils/tilesetUtils.ts";
 import type {BaseTileRendererProps} from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx";
@@ -54,7 +52,7 @@ export default function TileSprite(
             <primitive attach={"map"} object={cutTexture}/>
         </meshLambertMaterial>
         <mesh castShadow>
-            <boxGeometry args={[1, 1, 1]}/>
+            <boxGeometry args={[1, 1, 10]}/>
             <meshBasicMaterial color={"white"} transparent opacity={0}/>
         </mesh>
     </mesh>

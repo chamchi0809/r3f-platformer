@@ -23,7 +23,7 @@ export default function Game() {
             <planeGeometry args={[100, 100]}/>
             <meshStandardMaterial color={"#ddd"} side={2}/>
         </mesh>
-        <ambientLight color={"white"} intensity={.5} />
+        <ambientLight color={"white"} intensity={Math.PI / 2}/>
         <CameraRenderer/>
         <PlayerRenderer/>
         <LdtkMap

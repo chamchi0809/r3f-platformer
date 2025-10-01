@@ -9,7 +9,7 @@ import {physicsSettings} from "@/common/defs/physicsSettings.ts";
 
 function App() {
 
-    return <Canvas shadows style={{
+    return <Canvas shadows linear={true} style={{
         width: "100%",
         height: "100%",
         backgroundColor: "#000000",
