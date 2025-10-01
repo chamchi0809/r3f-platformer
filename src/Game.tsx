@@ -1,5 +1,4 @@
 import LdtkMap from "@/common/ldtk/components/LdtkMap.tsx";
-import TileSprite from "@/common/ldtk/components/tiles/TileSprite.tsx";
 import TileRectCollider from "@/common/ldtk/components/tiles/TileRectCollider.tsx";
 import CameraRenderer from "@/common/components/CameraRenderer.tsx";
 import TileConvexCollider from "@/common/ldtk/components/tiles/TileConvexCollider.tsx";
@@ -16,7 +15,7 @@ import {Perf} from "r3f-perf";
 export default function Game() {
 
     return <>
-        <Perf />
+        <Perf/>
         <Startup/>
         <FrameLoop/>
         <KeyboardEvents/>
@@ -25,7 +24,7 @@ export default function Game() {
             <planeGeometry args={[100, 100]}/>
             <meshStandardMaterial color={"#ddd"} side={2}/>
         </mesh>
-        <ambientLight color={"white"} intensity={Math.PI / 2}/>
+        <ambientLight color={"white"} intensity={Math.PI / 3}/>
         <CameraRenderer/>
         <PlayerRenderer/>
         <LdtkMap
