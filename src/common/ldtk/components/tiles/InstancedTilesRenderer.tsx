@@ -245,7 +245,12 @@ function InstancedTileGroup(
                 });
             }
 
-            // Build geometry from rectangles
+            // Helper function to check if a pixel coordinate is solid
+            const isSolid = (x: number, y: number): boolean => {
+                return solidPixelMap.has(`${x.toFixed(6)},${y.toFixed(6)}`);
+            };
+
+            // Build geometry from rectangles with only outer edge side faces
             const vertices: number[] = [];
             const indices: number[] = [];
             let vertexOffset = 0;
@@ -253,6 +258,7 @@ function InstancedTileGroup(
             rectangles.forEach(rect => {
                 const {x, y, width, height} = rect;
 
+                // Always add front and back faces
                 const boxVertices = [
                     // Front face (z = 10)
                     x, y, 10,
@@ -269,20 +275,33 @@ function InstancedTileGroup(
                 vertices.push(...boxVertices);
 
                 const base = vertexOffset;
-                const boxIndices = [
-                    // Front face (z = 10, facing +z)
-                    base + 0, base + 2, base + 1, base + 0, base + 3, base + 2,
-                    // Back face (z = 0, facing -z)
-                    base + 4, base + 5, base + 6, base + 4, base + 6, base + 7,
-                    // Top face (facing +y)
-                    base + 0, base + 1, base + 5, base + 0, base + 5, base + 4,
-                    // Bottom face (facing -y)
-                    base + 3, base + 6, base + 2, base + 3, base + 7, base + 6,
-                    // Right face (facing +x)
-                    base + 1, base + 2, base + 6, base + 1, base + 6, base + 5,
-                    // Left face (facing -x)
-                    base + 0, base + 7, base + 3, base + 0, base + 4, base + 7
-                ];
+                const boxIndices = [];
+
+                // Front face (z = 10, facing +z)
+                boxIndices.push(base + 0, base + 2, base + 1, base + 0, base + 3, base + 2);
+                // Back face (z = 0, facing -z)
+                boxIndices.push(base + 4, base + 5, base + 6, base + 4, base + 6, base + 7);
+
+                // Check each edge to see if it's on the boundary
+                // Top face (facing +y) - check if there's a solid pixel above
+                if (!isSolid(x, y + pixelSize)) {
+                    boxIndices.push(base + 0, base + 1, base + 5, base + 0, base + 5, base + 4);
+                }
+
+                // Bottom face (facing -y) - check if there's a solid pixel below
+                if (!isSolid(x, y - height - pixelSize)) {
+                    boxIndices.push(base + 3, base + 6, base + 2, base + 3, base + 7, base + 6);
+                }
+
+                // Right face (facing +x) - check if there's a solid pixel to the right
+                if (!isSolid(x + width, y)) {
+                    boxIndices.push(base + 1, base + 2, base + 6, base + 1, base + 6, base + 5);
+                }
+
+                // Left face (facing -x) - check if there's a solid pixel to the left
+                if (!isSolid(x - pixelSize, y)) {
+                    boxIndices.push(base + 0, base + 7, base + 3, base + 0, base + 4, base + 7);
+                }
 
                 indices.push(...boxIndices);
                 vertexOffset += 8;
