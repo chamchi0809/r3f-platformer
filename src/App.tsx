@@ -7,9 +7,13 @@ import {KeyboardControls} from "@react-three/drei";
 import {keyboardControlMap} from "@/common/defs/keyboardControlMap.ts";
 import {physicsSettings} from "@/common/defs/physicsSettings.ts";
 
+const PPU = 16;
+
 function App() {
 
-    return <Canvas shadows={"basic"} linear={true} flat={true} style={{
+    return <Canvas gl={{antialias: false}}
+                   dpr={window.devicePixelRatio}
+                   shadows={"basic"} linear={true} flat={true} style={{
         width: "100%",
         height: "100%",
         backgroundColor: "#000000",

@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import * as THREE from "three";
-import {Instance, Instances} from "@react-three/drei";
+import {Instance, Instances, Wireframe} from "@react-three/drei";
 import {layerPxToWorldPx, pxToGridPosition} from "@/common/ldtk/utils/positionUtils.ts";
 import {centerTilePivot} from "@/common/ldtk/utils/tilesetUtils.ts";
 import type {TileInstance, TilesetDefinition} from "@/common/ldtk/models/LdtkTypes.ts";
@@ -17,6 +17,8 @@ interface InstancedTilesRendererProps {
     layerPxOffsets: [number, number];
 }
 
+const SHADOW_PILLAR_MAT = new THREE.MeshBasicMaterial({color: "white", transparent: true, opacity: 0});
+
 export default function InstancedTilesRenderer(
     {
         tiles,
@@ -26,6 +28,16 @@ export default function InstancedTilesRenderer(
         layerPxDimensions,
         layerPxOffsets,
     }: InstancedTilesRendererProps) {
+
+    // Configure texture to prevent seams
+    useMemo(() => {
+        texture.magFilter = THREE.NearestFilter;
+        texture.minFilter = THREE.NearestFilter;
+        texture.wrapS = THREE.ClampToEdgeWrapping;
+        texture.wrapT = THREE.ClampToEdgeWrapping;
+        texture.needsUpdate = true;
+    }, [texture]);
+
     // Group tiles by their texture coordinates (tileId)
     const tileGroups = useMemo(() => {
         const groups: Record<number, TileInstance[]> = {};
@@ -49,11 +61,12 @@ export default function InstancedTilesRenderer(
             const tile = tileGroups[id][0];
             const {src} = tile;
 
-            // UV mapping for tile
-            const tileUVW = tileset.tileGridSize / tileset.pxWid;
-            const tileUVH = tileset.tileGridSize / tileset.pxHei;
-            const tileUVX = src[0] / tileset.pxWid;
-            const tileUVY = (tileset.pxHei - src[1]) / tileset.pxHei - tileUVH;
+            // UV mapping for tile with inset to prevent bleeding
+            const insetPixels = 0.1;
+            const tileUVW = (tileset.tileGridSize - insetPixels * 2) / tileset.pxWid;
+            const tileUVH = (tileset.tileGridSize - insetPixels * 2) / tileset.pxHei;
+            const tileUVX = (src[0] + insetPixels) / tileset.pxWid;
+            const tileUVY = (tileset.pxHei - src[1] - insetPixels) / tileset.pxHei - tileUVH;
 
             const cutTexture = texture.clone();
             cutTexture.offset.set(tileUVX, tileUVY);
@@ -109,7 +122,7 @@ function InstancedTileGroup(
         if (tiles.length === 0) return null;
 
         return <Instances limit={tiles.length}>
-            <planeGeometry args={[1, 1, 1]}/>
+            <planeGeometry args={[1,1,1]}/>
             <meshLambertMaterial transparent={true} color="white">
                 <primitive attach="map" object={texture}/>
             </meshLambertMaterial>
@@ -136,7 +149,7 @@ function InstancedTileGroup(
                     <Instance
                         key={i}
                         position={[posInGrid[0], posInGrid[1], 0]}
-                        scale={[scaleX * 1.01, scaleY * 1.01, 1]}
+                        scale={[scaleX, scaleY, 1]}
                         color={color}
                     />
                 );
@@ -148,8 +161,9 @@ function InstancedTileGroup(
         const {ldtkDir} = useLdtkLevelContext();
 
         const groupByTileId = groupBy(tiles, tile => tile.t);
-        const groups = useMemo(() => Object.values(groupByTileId), [groupByTileId]);
-        const {data: pixelData} = tilePixelsQuery.useAll(groups.map(g => ({
+        const groups = Object.values(groupByTileId);
+
+        const {data: pixelData} = tilePixelsQuery.useSuspenseAll(groups.map(g => ({
             ldtkDir,
             tileSize: tileset.tileGridSize,
             relPath: tileset.relPath ?? "",
@@ -157,10 +171,29 @@ function InstancedTileGroup(
         })))
 
         const geometry = useMemo(() => {
-            if (!pixelData) return null;
+            // if (!pixelData) return null;
 
-            // Build a 2D grid of all solid pixels across all tiles
-            const solidPixelMap = new Map<string, boolean>();
+            // Use integer grid coordinates to avoid floating point issues
+            const PRECISION = 1000000; // 6 decimal places
+            const solidPixelSet = new Set<number>();
+
+            // Helper to encode 2D coordinates into a single integer
+            const encode = (x: number, y: number) => {
+                const ix = Math.round(x * PRECISION);
+                const iy = Math.round(y * PRECISION);
+                // Encode as single number (assuming reasonable world bounds)
+                return ix * 100000000 + (iy + 50000000); // offset y to handle negatives
+            };
+
+            const decode = (key: number): [number, number] => {
+                const iy = (key % 100000000) - 50000000;
+                const ix = Math.floor(key / 100000000);
+                return [ix / PRECISION, iy / PRECISION];
+            };
+
+            // Build solid pixel set with integer keys
+            let minX = Infinity, maxX = -Infinity;
+            let minY = Infinity, maxY = -Infinity;
 
             groups.forEach((groupTiles, groupIndex) => {
                 const pixelDataForTile = pixelData[groupIndex];
@@ -180,60 +213,63 @@ function InstancedTileGroup(
                             if (pixel && pixel[3] > 0) {
                                 const worldX = posX + (x / tileSize);
                                 const worldY = posY + (-y / tileSize);
-                                const key = `${worldX.toFixed(6)},${worldY.toFixed(6)}`;
-                                solidPixelMap.set(key, true);
+
+                                solidPixelSet.add(encode(worldX, worldY));
+
+                                minX = Math.min(minX, worldX);
+                                maxX = Math.max(maxX, worldX);
+                                minY = Math.min(minY, worldY);
+                                maxY = Math.max(maxY, worldY);
                             }
                         }
                     }
                 });
             });
 
-            if (solidPixelMap.size === 0) return null;
+            if (solidPixelSet.size === 0) return null;
 
-            // Convert map to grid for easier processing
-            const pixelSize = 1 / tileSize;
-            const pixelPositions: [number, number][] = Array.from(solidPixelMap.keys()).map(key => {
-                const [x, y] = key.split(',').map(Number);
-                return [x, y];
-            });
+            // Convert Set to sorted array for greedy meshing
+            const pixelArray = Array.from(solidPixelSet).map(decode);
+            pixelArray.sort((a, b) => a[1] !== b[1] ? b[1] - a[1] : a[0] - b[0]);
 
-            // Greedy meshing algorithm - merge adjacent pixels into larger rectangles
-            const visited = new Set<string>();
+            // Greedy meshing with integer grid
+            const visited = new Set<number>();
             const rectangles: { x: number, y: number, width: number, height: number }[] = [];
+            const pixelSize = 1 / tileSize;
 
-            // Sort by position for consistent processing
-            pixelPositions.sort((a, b) => a[1] !== b[1] ? b[1] - a[1] : a[0] - b[0]);
-
-            for (const [startX, startY] of pixelPositions) {
-                const key = `${startX.toFixed(6)},${startY.toFixed(6)}`;
+            for (const [startX, startY] of pixelArray) {
+                const key = encode(startX, startY);
                 if (visited.has(key)) continue;
 
-                // Try to extend horizontally
+                // Extend horizontally
                 let width = 0;
-                while (solidPixelMap.has(`${(startX + width * pixelSize).toFixed(6)},${startY.toFixed(6)}`) &&
-                !visited.has(`${(startX + width * pixelSize).toFixed(6)},${startY.toFixed(6)}`)) {
+                while (true) {
+                    const checkX = startX + width * pixelSize;
+                    const checkKey = encode(checkX, startY);
+                    if (!solidPixelSet.has(checkKey) || visited.has(checkKey)) break;
                     width++;
                 }
 
-                // Try to extend vertically
+                // Extend vertically
                 let height = 0;
-                let canExtend = true;
-                while (canExtend) {
+                outer: while (true) {
                     for (let w = 0; w < width; w++) {
-                        const checkKey = `${(startX + w * pixelSize).toFixed(6)},${(startY - (height + 1) * pixelSize).toFixed(6)}`;
-                        if (!solidPixelMap.has(checkKey) || visited.has(checkKey)) {
-                            canExtend = false;
-                            break;
+                        const checkX = startX + w * pixelSize;
+                        const checkY = startY - (height + 1) * pixelSize;
+                        const checkKey = encode(checkX, checkY);
+                        if (!solidPixelSet.has(checkKey) || visited.has(checkKey)) {
+                            break outer;
                         }
                     }
-                    if (canExtend) height++;
+                    height++;
                 }
 
-                // Mark all pixels in this rectangle as visited
+                // Mark visited
                 for (let h = 0; h <= height; h++) {
                     for (let w = 0; w < width; w++) {
-                        const visitKey = `${(startX + w * pixelSize).toFixed(6)},${(startY - h * pixelSize).toFixed(6)}`;
-                        visited.add(visitKey);
+                        const visitX = startX + w * pixelSize;
+                        const visitY = startY - h * pixelSize;
+                        visited.add(encode(visitX, visitY));
                     }
                 }
 
@@ -245,61 +281,112 @@ function InstancedTileGroup(
                 });
             }
 
-            // Build geometry from rectangles
-            const vertices: number[] = [];
-            const indices: number[] = [];
+            // Pre-allocate arrays with known size
+            const verticesPerRect = 24; // 8 vertices * 3 coords
+            const indicesPerRect = 36; // 6 faces * 2 triangles * 3 vertices
+            const vertices = new Float32Array(rectangles.length * verticesPerRect);
+            const indices = new Uint32Array(rectangles.length * indicesPerRect);
+
+            let vOffset = 0;
+            let iOffset = 0;
             let vertexOffset = 0;
 
             rectangles.forEach(rect => {
                 const {x, y, width, height} = rect;
 
-                const boxVertices = [
-                    // Front face (z = 10)
-                    x, y, 10,
-                    x + width, y, 10,
-                    x + width, y - height, 10,
-                    x, y - height, 10,
-                    // Back face (z = 0)
-                    x, y, 0,
-                    x + width, y, 0,
-                    x + width, y - height, 0,
-                    x, y - height, 0
-                ];
+                // Front face (z = 1)
+                vertices[vOffset++] = x;
+                vertices[vOffset++] = y;
+                vertices[vOffset++] = 1;
 
-                vertices.push(...boxVertices);
+                vertices[vOffset++] = x + width;
+                vertices[vOffset++] = y;
+                vertices[vOffset++] = 1;
+
+                vertices[vOffset++] = x + width;
+                vertices[vOffset++] = y - height;
+                vertices[vOffset++] = 1;
+
+                vertices[vOffset++] = x;
+                vertices[vOffset++] = y - height;
+                vertices[vOffset++] = 1;
+
+                // Back face (z = 0)
+                vertices[vOffset++] = x;
+                vertices[vOffset++] = y;
+                vertices[vOffset++] = 0;
+
+                vertices[vOffset++] = x + width;
+                vertices[vOffset++] = y;
+                vertices[vOffset++] = 0;
+
+                vertices[vOffset++] = x + width;
+                vertices[vOffset++] = y - height;
+                vertices[vOffset++] = 0;
+
+                vertices[vOffset++] = x;
+                vertices[vOffset++] = y - height;
+                vertices[vOffset++] = 0;
 
                 const base = vertexOffset;
-                const boxIndices = [
-                    // Front face (z = 10, facing +z)
-                    base + 0, base + 2, base + 1, base + 0, base + 3, base + 2,
-                    // Back face (z = 0, facing -z)
-                    base + 4, base + 5, base + 6, base + 4, base + 6, base + 7,
-                    // Top face (facing +y)
-                    base + 0, base + 1, base + 5, base + 0, base + 5, base + 4,
-                    // Bottom face (facing -y)
-                    base + 3, base + 6, base + 2, base + 3, base + 7, base + 6,
-                    // Right face (facing +x)
-                    base + 1, base + 2, base + 6, base + 1, base + 6, base + 5,
-                    // Left face (facing -x)
-                    base + 0, base + 7, base + 3, base + 0, base + 4, base + 7
-                ];
 
-                indices.push(...boxIndices);
+                // Front face
+                indices[iOffset++] = base + 0;
+                indices[iOffset++] = base + 2;
+                indices[iOffset++] = base + 1;
+                indices[iOffset++] = base + 0;
+                indices[iOffset++] = base + 3;
+                indices[iOffset++] = base + 2;
+                // Back face
+                indices[iOffset++] = base + 4;
+                indices[iOffset++] = base + 5;
+                indices[iOffset++] = base + 6;
+                indices[iOffset++] = base + 4;
+                indices[iOffset++] = base + 6;
+                indices[iOffset++] = base + 7;
+                // Top face
+                indices[iOffset++] = base + 0;
+                indices[iOffset++] = base + 1;
+                indices[iOffset++] = base + 5;
+                indices[iOffset++] = base + 0;
+                indices[iOffset++] = base + 5;
+                indices[iOffset++] = base + 4;
+                // Bottom face
+                indices[iOffset++] = base + 3;
+                indices[iOffset++] = base + 6;
+                indices[iOffset++] = base + 2;
+                indices[iOffset++] = base + 3;
+                indices[iOffset++] = base + 7;
+                indices[iOffset++] = base + 6;
+                // Right face
+                indices[iOffset++] = base + 1;
+                indices[iOffset++] = base + 2;
+                indices[iOffset++] = base + 6;
+                indices[iOffset++] = base + 1;
+                indices[iOffset++] = base + 6;
+                indices[iOffset++] = base + 5;
+                // Left face
+                indices[iOffset++] = base + 0;
+                indices[iOffset++] = base + 7;
+                indices[iOffset++] = base + 3;
+                indices[iOffset++] = base + 0;
+                indices[iOffset++] = base + 4;
+                indices[iOffset++] = base + 7;
+
                 vertexOffset += 8;
             });
 
             const geo = new THREE.BufferGeometry();
-            geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-            geo.setIndex(indices);
-            geo.computeVertexNormals();
+            geo.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+            geo.setIndex(new THREE.BufferAttribute(indices, 1));
+            geo.computeVertexNormals(); // Add normals for better shadow quality
 
             return geo;
         }, [pixelData, groups, tileSize, layerPxOffsets, layerPxDimensions]);
 
         if (!geometry) return null;
 
-        return <mesh geometry={geometry} castShadow>
-            <meshBasicMaterial transparent opacity={0}/>
+        return <mesh geometry={geometry} material={SHADOW_PILLAR_MAT} castShadow scale-z={10} position-z={-5}>
         </mesh>
     };
 

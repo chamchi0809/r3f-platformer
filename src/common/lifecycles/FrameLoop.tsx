@@ -11,6 +11,7 @@ import {freeJumpBuffer} from "@/common/systems/freeJumpBuffer.ts";
 import {doJump} from "@/common/systems/doJump.ts";
 import {Elapsed} from "@/common/traits/Elapsed.ts";
 import {applyPlayerColor} from "@/common/systems/applyPlayerColor.ts";
+import {updateCamPos} from "@/common/systems/physics/updateCamPos.ts";
 
 export default function FrameLoop() {
 
@@ -18,7 +19,7 @@ export default function FrameLoop() {
     const [, getInput] = useKeyboardControls<KeyboardControlType>();
     const rapier = useRapier();
 
-    useFrame((state, delta) => {
+    useFrame(({gl, scene, camera}, delta) => {
         // TODO: Devtools
         // console.log(world.query().map(entity => {
         //     var traits = Array.from(world.traits).map(tr => {
@@ -40,7 +41,9 @@ export default function FrameLoop() {
         addJumpBuffer(world);
         doJump(world);
         freeJumpBuffer(world);
-    })
+
+        gl.render(scene, camera)
+    }, 1)
 
     return <></>
 }

@@ -1,0 +1,1 @@
+export const CAM_SIZE = 7;

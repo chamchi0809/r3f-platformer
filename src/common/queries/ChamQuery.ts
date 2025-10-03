@@ -1,4 +1,4 @@
-import {QueryClient, type Updater, useQueries, useQuery, type UseQueryOptions, type UseQueryResult} from "@tanstack/react-query";
+import {QueryClient, type Updater, useQueries, useQuery, type UseQueryOptions, type UseQueryResult, useSuspenseQueries, type UseSuspenseQueryResult} from "@tanstack/react-query";
 
 export const chamQueryClient = new QueryClient({
     defaultOptions: {
@@ -19,6 +19,7 @@ export interface ChamQuery<Params extends {}, Res, Error extends unknown> {
     getPartialQueryKey: (params: Partial<Params>) => ChamPartialQueryKey<Params>;
     use: (params: Params, options?: ChamQueryOptions<Params, Res, Error>) => UseQueryResult<Res, Error>;
     useAll: (params: Params[], options?: ChamQueryOptions<Params, Res, Error>) => Pick<UseQueryResult<Res[], Error>, "data" | "isLoading" | "isFetching" | "isError" | "isPending">;
+    useSuspenseAll: (params: Params[], options?: ChamQueryOptions<Params, Res, Error>) => Pick<useSuspenseQueryResult<Res[], Error>, "data" | "isLoading" | "isFetching" | "isError" | "isPending">;
     invalidate: (p?: Partial<Params>) => void;
     refetch: (p?: Partial<Params>) => Promise<void>;
     fetch: (p: Params, options?: ChamQueryOptions<Params, Res, Error>) => Promise<Res>;
@@ -65,6 +66,20 @@ export const createChamQuery = <Params extends {}, Res, Error extends unknown>(
         },
         useAll: (params: Params[], options) => {
             return useQueries({
+                queries: params.map(p => getOptions(p, options)),
+                combine: results => {
+                    return {
+                        data: results.map(r => r.data),
+                        isLoading: results.some(r => r.isLoading),
+                        isFetching: results.some(r => r.isFetching),
+                        isError: results.some(r => r.isError),
+                        isPending: results.some(r => r.isPending),
+                    }
+                }
+            })
+        },
+        useSuspenseAll: (params: Params[], options) => {
+            return useSuspenseQueries({
                 queries: params.map(p => getOptions(p, options)),
                 combine: results => {
                     return {

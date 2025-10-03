@@ -5,19 +5,18 @@ import type {Entity} from "koota";
 import {useQueryFirst} from "koota/react";
 import {IsCamera} from "@/common/traits/IsCamera.ts";
 import {useThreeInjector} from "@/common/hooks/useThreeInjector.ts";
+import {CAM_SIZE} from "@/common/defs/camSize.ts";
 
 const CameraView = (
     {
         entity,
-        size = 10,
     }: {
         entity: Entity;
-        size?: number;
     }) => {
 
     const {aspect} = useThree(state => state.viewport);
     const frustum = useMemo(() => {
-        const height = size * 2;
+        const height = CAM_SIZE * 2;
         const width = height * aspect;
 
         return {
@@ -26,7 +25,7 @@ const CameraView = (
             left: -width / 2,
             right: width / 2,
         }
-    }, [aspect, size]);
+    }, [aspect]);
 
     const injectRef = useThreeInjector(entity);
 
@@ -35,19 +34,12 @@ const CameraView = (
         manual
         makeDefault
         {...frustum}
-        position={[0, 0, 10]}
     >
-        <CameraControls/>
+        {/*<CameraControls/>*/}
     </OrthographicCamera>
 }
 
-export default function CameraRenderer(
-    {
-        size = 10,
-    }: {
-        size?: number;
-    }
-) {
+export default function CameraRenderer() {
     const camera = useQueryFirst(IsCamera);
-    return camera && <CameraView entity={camera} size={size}/>
+    return camera && <CameraView entity={camera}/>
 }
