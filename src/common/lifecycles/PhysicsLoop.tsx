@@ -14,7 +14,6 @@ export default function PhysicsLoop() {
     useAfterPhysicsStep((rapierWorld) => {
         applyCharacterGravity(world);
         applyCharacterVelocity(world);
-        updateCamPos(world, physicsSettings.timestep)
     });
     return <></>
 }

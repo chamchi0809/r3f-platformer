@@ -42,8 +42,8 @@ export default function FrameLoop() {
         doJump(world);
         freeJumpBuffer(world);
 
-        gl.render(scene, camera)
-    }, 1)
+        updateCamPos(world)
+    })
 
     return <></>
 }

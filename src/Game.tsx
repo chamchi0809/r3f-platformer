@@ -12,15 +12,17 @@ import PhysicsLoop from "@/common/lifecycles/PhysicsLoop.tsx";
 import KeyboardEvents from "@/common/lifecycles/KeyboardEvents.tsx";
 import {Perf} from "r3f-perf";
 import {Suspense} from "react";
-import {AdaptiveDpr} from "@react-three/drei";
+import {ChromaticAberration, EffectComposer} from "@react-three/postprocessing";
 import FrameLimiter from "@/common/components/FrameLimiter.tsx";
 
 export default function Game() {
 
     return <>
-        <FrameLimiter/>
+        {/*<FrameLimiter/>*/}
+        <EffectComposer multisampling={0} enabled={true} >
+
+        </EffectComposer>
         <Perf/>
-        <AdaptiveDpr pixelated/>
         <Startup/>
         <FrameLoop/>
         <KeyboardEvents/>

@@ -4,14 +4,19 @@ import {ThreeRef} from "@/common/traits/ThreeRef.ts";
 import {IsPlayer} from "@/common/traits/IsPlayer.ts";
 import {KinematicControllerRef} from "@/common/traits/KinematicControllerRef.ts";
 import * as THREE from "three";
+import {PPU} from "@/common/defs/ppu.ts";
 
-const vec3 = new THREE.Vector3();
 
-export const updateCamPos = (world: World, delta: number) => {
+export const updateCamPos = (world: World) => {
     world.query(IsCamera, ThreeRef).updateEach(([, camera]) => {
         world.query(IsPlayer, KinematicControllerRef).updateEach(([, ctrl]) => {
-            // (camera as THREE.Camera).position.add(new Vector3(0,0,10))
-            (camera as THREE.Camera).position.lerp(vec3.set(ctrl.col.translation().x, ctrl.col.translation().y, 10), delta * 2);
+            const cam = camera as THREE.Camera;
+            const translation = ctrl.col.translation();
+
+            // Snap camera position to pixel grid on both axes
+            cam.position.x = Math.round(translation.x * PPU) / PPU;
+            cam.position.y = Math.round((translation.y - 0.01) * PPU) / PPU;
+            cam.position.z = 10;
         })
     })
 };

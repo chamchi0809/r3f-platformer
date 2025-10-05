@@ -8,6 +8,8 @@ import {useColliderInjector} from "@/common/hooks/useColliderInjector.ts";
 import {useKinematicControllerInjector} from "@/common/hooks/useKinematicControllerInjector.ts";
 import {INTERACTION_GROUPS} from "@/common/defs/colGroup.ts";
 import {useMaterialInjector} from "@/common/hooks/useMaterialInjector.ts";
+import {PPU} from "@/common/defs/ppu.ts";
+import {CAM_SIZE} from "@/common/defs/camSize.ts";
 
 const PlayerView = ({entity}: { entity: Entity }) => {
 
@@ -30,7 +32,7 @@ const PlayerView = ({entity}: { entity: Entity }) => {
                 <boxGeometry args={[0.8, 0.8, 0.1]}/>
                 <meshLambertMaterial color={"white"} ref={materialRef}/>
             </mesh>
-            <pointLight castShadow position-z={2} intensity={2} decay={.5} distance={15}/>
+            <pointLight castShadow position-z={2} intensity={2} decay={.5} distance={15} shadow-mapSize-width={256} shadow-mapSize-height={256} shadow-bias={0.005} shadow-normalBias={0.02}/>
         </group>
     </>
 }

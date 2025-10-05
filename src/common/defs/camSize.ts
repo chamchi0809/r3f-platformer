@@ -1,1 +1,1 @@
-export const CAM_SIZE = 7;
+export const CAM_SIZE = 8;
