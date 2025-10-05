@@ -1,1 +1,1 @@
-export const PPU = 16;
+export const PPU = 24;

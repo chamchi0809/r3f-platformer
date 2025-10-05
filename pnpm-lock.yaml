@@ -35,6 +35,9 @@ importers:
       koota:
         specifier: ^0.5.1
         version: 0.5.1(@types/react@19.1.13)(react@19.1.1)
+      postprocessing:
+        specifier: ^6.37.8
+        version: 6.37.8(three@0.178.0)
       react:
         specifier: ^19.1.1
         version: 19.1.1

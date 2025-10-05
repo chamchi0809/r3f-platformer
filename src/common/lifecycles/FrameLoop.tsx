@@ -41,8 +41,6 @@ export default function FrameLoop() {
         addJumpBuffer(world);
         doJump(world);
         freeJumpBuffer(world);
-
-        updateCamPos(world)
     })
 
     return <></>

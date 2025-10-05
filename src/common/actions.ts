@@ -14,6 +14,6 @@ export const actions = createActions(world => ({
     spawnPlayer: (startPosition: Vector2) => world.spawn(IsPlayer, StartPosition(startPosition.clone()), PlayerStates,
         MoveInput(new Vector2(0, 0)), JumpInput,
         CharacterVelocity,
-        CharacterStats.speed(5), CharacterStats.jumpStrength(8)
+        CharacterStats.speed(5), CharacterStats.jumpStrength(12)
     ),
 }));

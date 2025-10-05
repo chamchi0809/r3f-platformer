@@ -13,7 +13,7 @@ export const syncColliderAndMesh = (world: World) => {
         const pos = col.translation();
         const rot = col.rotation();
 
-        obj.position.set(Math.round(pos.x * PPU) / PPU, Math.round((pos.y - 0.01) * PPU) / PPU, pos.z);
+        obj.position.set(pos.x, pos.y - 0.01, pos.z);
         obj.quaternion.set(rot.x, rot.y, rot.z, rot.w);
     });
 }

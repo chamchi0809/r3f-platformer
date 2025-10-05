@@ -12,13 +12,19 @@ import PhysicsLoop from "@/common/lifecycles/PhysicsLoop.tsx";
 import KeyboardEvents from "@/common/lifecycles/KeyboardEvents.tsx";
 import {Perf} from "r3f-perf";
 import {Suspense} from "react";
+import {EffectComposer, Sepia} from "@react-three/postprocessing";
+import {BlendFunction} from "postprocessing";
+
 
 export default function Game() {
 
     return <>
-        {/*<EffectComposer multisampling={0} enabled={true}>*/}
-
-        {/*</EffectComposer>*/}
+        <EffectComposer multisampling={0} enabled={true}>
+            <Sepia
+                intensity={0.2}
+                blendFunction={BlendFunction.NORMAL}
+            />
+        </EffectComposer>
         <Perf/>
         <Startup/>
         <FrameLoop/>
