@@ -5,6 +5,7 @@ import {getTilesetByUid, getTilesetTexture} from "@/common/ldtk/utils/tilesetUti
 import {useLdtkLevelContext} from "@/common/ldtk/components/LdtkMap.tsx";
 import EntitiesLayerRenderer from "@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx";
 import * as THREE from "three";
+import IntGridLayerRenderer from "@/common/ldtk/components/layers/IntGridLayerRenderer.tsx";
 
 export default function LayerRenderer(
     {
@@ -32,6 +33,7 @@ export default function LayerRenderer(
         layerPxDimensions: [layer.__cWid * layer.__gridSize, layer.__cHei * layer.__gridSize],
         layerPxOffsets: [layer.__pxTotalOffsetX + level.worldX, layer.__pxTotalOffsetY + (level.worldY + level.pxHei)]
     }}>
+        {layer.__type === "IntGrid" && <IntGridLayerRenderer/>}
         {layer.__type === "Tiles" && <TilesLayerRenderer/>}
         {layer.__type === "Entities" && <EntitiesLayerRenderer/>}
     </LdtkLayerContext>
