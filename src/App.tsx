@@ -16,7 +16,7 @@ function App() {
 
     const [ref, {height}] = useMeasure();
 
-    return <Canvas gl={{antialias: false}}
+    return <Canvas gl={{antialias: false, powerPreference: "high-performance"}}
                    ref={ref as any}
                    dpr={RENDER_HEIGHT / (height ?? 1)}
                    shadows={"basic"} linear={true} flat={true}

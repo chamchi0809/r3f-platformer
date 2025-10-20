@@ -11,7 +11,6 @@ import {freeJumpBuffer} from "@/common/systems/freeJumpBuffer.ts";
 import {doJump} from "@/common/systems/doJump.ts";
 import {Elapsed} from "@/common/traits/Elapsed.ts";
 import {applyPlayerColor} from "@/common/systems/applyPlayerColor.ts";
-import {updateCamPos} from "@/common/systems/physics/updateCamPos.ts";
 
 export default function FrameLoop() {
 
@@ -29,6 +28,12 @@ export default function FrameLoop() {
         //     })
         //     return { id: entity.id, traits: traits.filter(Boolean) }
         // }))
+        const ctx = gl.getContext();
+        const debugInfo = ctx.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) {
+            const renderer = ctx.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+            console.log('Active GPU:', renderer);
+        }
 
         var input = getInput();
 
