@@ -6,10 +6,51 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev:electron": "electron-vite dev",
+    "build:electron": "electron-vite build",
+    "preview:electron": "electron-vite preview",
+    "package": "electron-builder"
+  },
+  "main": "out/main/index.js",
+  "build": {
+    "appId": "com.yourcompany.r3f-platformer",
+    "productName": "R3F Platformer",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "out/**/*"
+    ],
+    "npmRebuild": false,
+    "buildDependenciesFromSource": false,
+    "mac": {
+      "category": "public.app-category.games"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Game"
+    }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "electron-winstaller",
+      "esbuild"
+    ]
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "^0.15.0",
+    "@electron-toolkit/preload": "^3.0.2",
+    "@electron-toolkit/utils": "^4.0.0",
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.3.0",
     "@react-three/postprocessing": "^3.0.4",
@@ -30,6 +71,9 @@
     "@types/react-dom": "^19.1.9",
     "@types/three": "^0.178.1",
     "@vitejs/plugin-react": "^4.7.0",
+    "electron": "^38.3.0",
+    "electron-builder": "^26.0.12",
+    "electron-vite": "^4.0.1",
     "globals": "^16.4.0",
     "r3f-perf": "^7.2.3",
     "typescript": "~5.8.3",

@@ -3,6 +3,7 @@ import type {Ldtk, Level} from "@/common/ldtk/models/LdtkTypes.ts";
 import LayerRenderer from "@/common/ldtk/components/layers/LayerRenderer.tsx";
 import type {EntityRendererMap} from "@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx";
 import type {TileRendererMap} from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx";
+import {getSafePath} from "@/common/utils/electronUtils.ts";
 
 export const LdtkLevelContext = createContext<{
     ldtk: Ldtk;
@@ -29,7 +30,7 @@ export default function LdtkMap(
     const [ldtk, setLdtk] = useState<Ldtk | undefined>(undefined);
 
     useEffect(() => {
-        fetch(ldtkPath)
+        fetch(getSafePath(ldtkPath))
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
