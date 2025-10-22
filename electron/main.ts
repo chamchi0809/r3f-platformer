@@ -1,9 +1,18 @@
-import { app, shell, BrowserWindow, ipcMain } from "electron";
+import {app, BrowserWindow, ipcMain, shell} from "electron";
+import {electronApp, is, optimizer} from "@electron-toolkit/utils";
+import * as fs from "node:fs";
+import * as process from "node:process";
+
 const path = require("node:path");
-import { electronApp, optimizer, is } from "@electron-toolkit/utils";
+
+const isDev = !!(is.dev && process.env["ELECTRON_RENDERER_URL"]);
+// appData Per-user application data directory, which by default points to:
+// %APPDATA% on Windows
+// $XDG_CONFIG_HOME or ~/.config on Linux
+// ~/Library/Application Support on macOS
+const userDataPath = app.getPath("userData");
 
 function createWindow(): void {
-    // Create the browser window.
     const preloadPath = path.join(__dirname, "../preload/index.mjs");
     const mainWindow = new BrowserWindow({
         width: 1200,
@@ -17,27 +26,26 @@ function createWindow(): void {
             nodeIntegration: true,
         },
     });
+
     mainWindow.on("ready-to-show", () => {
         mainWindow.show();
     });
 
     mainWindow.webContents.setWindowOpenHandler((details) => {
         shell.openExternal(details.url);
-        return { action: "deny" };
+        return {action: "deny"};
     });
 
-    // HMR for renderer base on electron-vite cli.
-    // Load the remote URL for development or the local html file for production.
-    if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-        mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
+    if (isDev) {
+        console.log("is development");
+        mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]!);
     } else {
+        console.log("is production");
+        console.log(path.join(__dirname, "../renderer/index.html"))
         mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
     }
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
     // Set app user model id for windows
     electronApp.setAppUserModelId("com.electron");
@@ -50,6 +58,44 @@ app.whenReady().then(() => {
     });
 
     createWindow();
+
+    const getPublicPath = () => {
+        if (isDev) {
+            console.log("dev public path");
+            return path.join(__dirname, "../../public");
+        } else {
+            console.log("prod public path");
+            return path.join(__dirname, "../renderer");
+        }
+    }
+
+    const safeReadFile = async (filePath: string): Promise<string> => {
+        const exists = fs.existsSync(filePath);
+        if (!exists) {
+            fs.mkdirSync(filePath.substring(0, filePath.lastIndexOf("\\")), {recursive: true});
+            await fs.promises.writeFile(filePath, "", {encoding: "utf-8"});
+            return "";
+        }
+        return await fs.promises.readFile(filePath, {encoding: "utf-8"});
+    }
+
+    ipcMain.handle("read:json", async (_, filePath: string) => {
+        const fullPath = path.join(userDataPath, filePath);
+        const data = await safeReadFile(fullPath);
+        return {data};
+    })
+
+    ipcMain.handle("exists", async (_, filePath: string) => {
+        const fullPath = path.join(userDataPath, filePath);
+        return fs.existsSync(fullPath);
+    })
+
+    ipcMain.handle("write:json", async (_, filePath: string, data: string) => {
+        const fullPath = path.join(userDataPath, filePath);
+        await safeReadFile(fullPath);
+        await fs.promises.writeFile(fullPath, data, {encoding: "utf-8"});
+        return data;
+    })
 
     app.on("activate", function () {
         // On macOS it's common to re-create a window in the app when the

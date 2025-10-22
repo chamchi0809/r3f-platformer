@@ -9,6 +9,9 @@ export default function Startup() {
 
     useEffect(() => {
         spawnCamera();
+        window.api.readJson("/config.json").then(({data: config}) => {
+            console.log(config)
+        })
     }, []);
 
     return <></>

@@ -28,12 +28,13 @@ export default function FrameLoop() {
         //     })
         //     return { id: entity.id, traits: traits.filter(Boolean) }
         // }))
-        const ctx = gl.getContext();
-        const debugInfo = ctx.getExtension('WEBGL_debug_renderer_info');
-        if (debugInfo) {
-            const renderer = ctx.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-            console.log('Active GPU:', renderer);
-        }
+        // TODO: GPU Info
+        // const ctx = gl.getContext();
+        // const debugInfo = ctx.getExtension('WEBGL_debug_renderer_info');
+        // if (debugInfo) {
+        //     const renderer = ctx.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        //     console.log('Active GPU:', renderer);
+        // }
 
         var input = getInput();
 
