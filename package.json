@@ -10,7 +10,10 @@
     "dev:electron": "electron-vite dev",
     "build:electron": "electron-vite build",
     "preview:electron": "electron-vite preview",
-    "package": "electron-builder"
+    "package": "electron-builder",
+    "package:win": "electron-builder --win",
+    "package:mac": "electron-builder --mac",
+    "package:linux": "electron-builder --linux"
   },
   "main": "out/main/index.js",
   "build": {
