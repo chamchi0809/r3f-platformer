@@ -1,5 +1,6 @@
-import { contextBridge, ipcRenderer } from "electron";
-import { electronAPI } from "@electron-toolkit/preload";
+import {contextBridge, ipcRenderer} from "electron";
+import {electronAPI} from "@electron-toolkit/preload";
+import * as process from "node:process";
 
 type IpcApiResponse<T = void> = Promise<{
     success: boolean;
@@ -8,15 +9,39 @@ type IpcApiResponse<T = void> = Promise<{
 }>;
 // Custom APIs for renderer
 const IpcApi = {
-    readJson: (filePath: string): IpcApiResponse<string> => {
-        return ipcRenderer.invoke("read:json", filePath);
+    readUserData: (filePath: string): IpcApiResponse<string> => {
+        return ipcRenderer.invoke("read:userData", filePath);
     },
-    exists: (filePath: string): IpcApiResponse<boolean> => {
-        return ipcRenderer.invoke("exists", filePath);
+    existsUserData: (filePath: string): IpcApiResponse<boolean> => {
+        return ipcRenderer.invoke("exists:userData", filePath);
     },
-    writeJson: (filePath: string, data: string): IpcApiResponse<void> => {
-        return ipcRenderer.invoke("write:json", filePath, data);
+    writeUserData: (filePath: string, data: string): IpcApiResponse<void> => {
+        return ipcRenderer.invoke("write:userData", filePath, data);
     },
+    readPublic: (filePath: string): IpcApiResponse<string> => {
+        return ipcRenderer.invoke("read:public", filePath);
+    },
+    existsPublic: (filePath: string): IpcApiResponse<boolean> => {
+        return ipcRenderer.invoke("exists:public", filePath);
+    },
+    writePublic: (filePath: string, data: string): IpcApiResponse<void> => {
+        return ipcRenderer.invoke("write:public", filePath, data);
+    },
+    readAbs: (filePath: string): IpcApiResponse<string> => {
+        return ipcRenderer.invoke("read:abs", filePath);
+    },
+    existsAbs: (filePath: string): IpcApiResponse<boolean> => {
+        return ipcRenderer.invoke("exists:abs", filePath);
+    },
+    writeAbs: (filePath: string, data: string): IpcApiResponse<void> => {
+        return ipcRenderer.invoke("write:abs", filePath, data);
+    },
+    openPublic: (filePath: string): IpcApiResponse<void> => {
+        return ipcRenderer.invoke("open:public", filePath);
+    },
+    isDev: () => {
+        return process.env["NODE_ENV"] === "development"
+    }
 } as const;
 
 export type IpcApiType = typeof IpcApi;

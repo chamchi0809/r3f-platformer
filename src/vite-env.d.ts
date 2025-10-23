@@ -4,7 +4,7 @@ import type {IpcApiType} from "../electron/preload.ts";
 
 declare global {
     interface Window {
-        electron: ElectronAPI;
-        api: IpcApiType;
+        electron?: ElectronAPI;
+        api?: IpcApiType;
     }
 }

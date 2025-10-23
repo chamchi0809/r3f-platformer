@@ -1,4 +1,4 @@
-import {app, BrowserWindow, ipcMain, shell} from "electron";
+import {app, BrowserWindow, dialog, ipcMain, type OpenDialogOptions, shell} from "electron";
 import {electronApp, is, optimizer} from "@electron-toolkit/utils";
 import * as fs from "node:fs";
 import * as process from "node:process";
@@ -69,33 +69,78 @@ app.whenReady().then(() => {
         }
     }
 
+    const publicPath = getPublicPath();
+
     const safeReadFile = async (filePath: string): Promise<string> => {
         const exists = fs.existsSync(filePath);
         if (!exists) {
-            fs.mkdirSync(filePath.substring(0, filePath.lastIndexOf("\\")), {recursive: true});
+            const separator = process.platform === "win32" ? "\\" : "/";
+            fs.mkdirSync(filePath.substring(0, filePath.lastIndexOf(separator)), {recursive: true});
             await fs.promises.writeFile(filePath, "", {encoding: "utf-8"});
             return "";
         }
         return await fs.promises.readFile(filePath, {encoding: "utf-8"});
     }
 
-    ipcMain.handle("read:json", async (_, filePath: string) => {
+    ipcMain.handle("read:userData", async (_, filePath: string) => {
         const fullPath = path.join(userDataPath, filePath);
         const data = await safeReadFile(fullPath);
         return {data};
     })
 
-    ipcMain.handle("exists", async (_, filePath: string) => {
+    ipcMain.handle("exists:userData", async (_, filePath: string) => {
         const fullPath = path.join(userDataPath, filePath);
         return fs.existsSync(fullPath);
     })
 
-    ipcMain.handle("write:json", async (_, filePath: string, data: string) => {
+    ipcMain.handle("write:userData", async (_, filePath: string, data: string) => {
         const fullPath = path.join(userDataPath, filePath);
         await safeReadFile(fullPath);
         await fs.promises.writeFile(fullPath, data, {encoding: "utf-8"});
         return data;
     })
+
+    ipcMain.handle("read:public", async (_, filePath: string) => {
+        const fullPath = path.join(publicPath, filePath);
+        const data = await safeReadFile(fullPath);
+        return {data};
+    })
+
+    ipcMain.handle("exists:public", async (_, filePath: string) => {
+        const fullPath = path.join(publicPath, filePath);
+        return fs.existsSync(fullPath);
+    })
+
+    ipcMain.handle("write:public", async (_, filePath: string, data: string) => {
+        const fullPath = path.join(publicPath, filePath);
+        await safeReadFile(fullPath);
+        await fs.promises.writeFile(fullPath, data, {encoding: "utf-8"});
+        return data;
+    })
+
+    ipcMain.handle("open:public", async (_, options: OpenDialogOptions) => {
+        const res = await dialog.showOpenDialog({
+            defaultPath: publicPath,
+            properties: ["openFile"],
+            ...options,
+        })
+        return res;
+    })
+
+    ipcMain.handle("read:abs", async (_, filePath: string) => {
+        const data = await safeReadFile(filePath);
+        return {data};
+    });
+
+    ipcMain.handle("exists:abs", async (_, filePath: string) => {
+        return fs.existsSync(filePath);
+    });
+
+    ipcMain.handle("write:abs", async (_, filePath: string, data: string) => {
+        await safeReadFile(filePath);
+        await fs.promises.writeFile(filePath, data, {encoding: "utf-8"});
+        return data;
+    });
 
     app.on("activate", function () {
         // On macOS it's common to re-create a window in the app when the

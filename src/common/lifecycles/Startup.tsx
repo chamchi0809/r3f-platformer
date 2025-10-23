@@ -9,7 +9,7 @@ export default function Startup() {
 
     useEffect(() => {
         spawnCamera();
-        window.api.readJson("/config.json").then(({data: config}) => {
+        window.api?.readUserData("/config.json").then(({data: config}) => {
             console.log(config)
         })
     }, []);

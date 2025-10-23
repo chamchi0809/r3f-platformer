@@ -25,7 +25,7 @@ export default function Game() {
                 blendFunction={BlendFunction.NORMAL}
             />
         </EffectComposer>
-        <Perf/>
+        <Perf position={"top-left"}/>
         <Startup/>
         <FrameLoop/>
         <KeyboardEvents/>
