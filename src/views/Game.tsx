@@ -12,8 +12,8 @@ import PhysicsLoop from "@/common/lifecycles/PhysicsLoop.tsx";
 import KeyboardEvents from "@/common/lifecycles/KeyboardEvents.tsx";
 import {Perf} from "r3f-perf";
 import {Suspense} from "react";
-import {EffectComposer, Sepia} from "@react-three/postprocessing";
-import {BlendFunction} from "postprocessing";
+import {Bloom, EffectComposer, Noise, Sepia, Vignette} from "@react-three/postprocessing";
+import {BlendFunction, VignetteTechnique} from "postprocessing";
 
 
 export default function Game() {
@@ -24,6 +24,9 @@ export default function Game() {
                 intensity={0.2}
                 blendFunction={BlendFunction.NORMAL}
             />
+            <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300}/>
+            <Noise opacity={0.07}/>
+            <Vignette technique={VignetteTechnique.DEFAULT} offset={0.1} darkness={1.1}/>
         </EffectComposer>
         <Perf position={"top-left"}/>
         <Startup/>
