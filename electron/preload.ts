@@ -1,4 +1,4 @@
-import {contextBridge, ipcRenderer} from "electron";
+import {contextBridge, ipcRenderer, OpenDialogReturnValue} from "electron";
 import {electronAPI} from "@electron-toolkit/preload";
 import * as process from "node:process";
 
@@ -36,8 +36,9 @@ const IpcApi = {
     writeAbs: (filePath: string, data: string): IpcApiResponse<void> => {
         return ipcRenderer.invoke("write:abs", filePath, data);
     },
-    openPublic: (filePath: string): IpcApiResponse<void> => {
-        return ipcRenderer.invoke("open:public", filePath);
+    openPublic: async (filePath: string): IpcApiResponse<OpenDialogReturnValue> => {
+        const data: OpenDialogReturnValue =  await ipcRenderer.invoke("open:public", filePath);
+        return { success: true, data };
     },
     isDev: () => {
         return process.env["NODE_ENV"] === "development"

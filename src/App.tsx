@@ -1,6 +1,6 @@
 import "@/App.css"
 import {Canvas} from "@react-three/fiber";
-import Game from "@/views/Game.tsx";
+import Game from "@/views/game/Game.tsx";
 import {Suspense} from "react";
 import {Physics} from "@react-three/rapier";
 import {KeyboardControls} from "@react-three/drei";
@@ -10,9 +10,10 @@ import {CAM_SIZE} from "@/common/defs/camSize.ts";
 import {useMeasure} from "react-use";
 import {PPU} from "@/common/defs/ppu.ts";
 import {Leva, useControls} from "leva";
+import TilesetEditor from "@/views/tileset-editor/TilesetEditor.tsx";
 
 const RENDER_HEIGHT = PPU * CAM_SIZE * 2;
-const DEV_VIEWS = ["game", "meta_editor"];
+const DEV_VIEWS = ["game", "tileset-editor"];
 type DevView = typeof DEV_VIEWS[number];
 
 function App() {
@@ -20,10 +21,10 @@ function App() {
     const [ref, {height}] = useMeasure();
     const isDev = window.api?.isDev();
     const {view} = useControls({view: {value: "game" as DevView, options: DEV_VIEWS}});
+    const devView = view as DevView;
 
     return <>
         <Leva
-
             hidden={!window.electron || !isDev}
         />
         <Canvas gl={{antialias: false, powerPreference: "high-performance"}}
@@ -44,10 +45,10 @@ function App() {
                 <Physics timeStep={physicsSettings.timestep} gravity={[0, physicsSettings.gravity, 0]}>
                     <KeyboardControls map={keyboardControlMap}>
                         {
-                            view === "game"
+                            devView === "game"
                                 ? <Game/>
-                                : view === "meta_editor"
-                                    ? <></>
+                                : devView === "tileset-editor"
+                                    ? <TilesetEditor/>
                                     : null
                         }
                     </KeyboardControls>
