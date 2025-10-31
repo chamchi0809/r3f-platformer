@@ -12,8 +12,16 @@ export default function useAfterPhysicsStep(callback: (rapierWorld: World) => vo
         setTickers((tickers) => {
             return {
                 ...tickers,
-                                [id]: cb
+                [id]: cb
             };
         });
+
+        return () => {
+            setTickers((tickers) => {
+                const newTickers = {...tickers};
+                delete newTickers[id];
+                return newTickers;
+            });
+        }
     }, [cb, setTickers, id]);
 }
