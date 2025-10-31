@@ -3,14 +3,15 @@ import pollPlayerInput from "@/common/systems/pollPlayerInput.ts";
 import {useWorld} from "koota/react";
 import {useKeyboardControls} from "@react-three/drei";
 import type {KeyboardControlType} from "@/common/defs/keyboardControlMap.ts";
-import {useRapier} from "@react-three/rapier";
-import {syncColliderAndMesh} from "@/common/systems/syncColliderAndMesh.ts";
-import {updatePlayerVelocity} from "@/common/systems/updatePlayerVelocity.ts";
+import {syncVisualPositionAndMesh} from "@/common/systems/syncVisualPositionAndMesh.ts";
+import {updateCharacterVelocity} from "@/common/systems/updateCharacterVelocity.ts";
 import {addJumpBuffer} from "@/common/systems/addJumpBuffer.ts";
 import {freeJumpBuffer} from "@/common/systems/freeJumpBuffer.ts";
 import {doJump} from "@/common/systems/doJump.ts";
 import {Elapsed} from "@/common/traits/Elapsed.ts";
 import {applyPlayerColor} from "@/common/systems/applyPlayerColor.ts";
+import useRapier from "@/common/hooks/physics/useRapier.ts";
+import {syncControllerAndVisualPosition} from "@/common/systems/syncControllerAndVisualPosition.ts";
 
 export default function FrameLoop() {
 
@@ -40,8 +41,9 @@ export default function FrameLoop() {
 
         world.set(Elapsed, world.get(Elapsed)! + delta);
         pollPlayerInput(world, input);
-        syncColliderAndMesh(world);
-        updatePlayerVelocity(world);
+        syncControllerAndVisualPosition(world);
+        syncVisualPositionAndMesh(world);
+        updateCharacterVelocity(world);
         applyPlayerColor(world);
 
         addJumpBuffer(world);

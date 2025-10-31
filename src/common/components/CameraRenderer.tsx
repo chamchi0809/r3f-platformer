@@ -1,10 +1,10 @@
-import {CameraControls, OrthographicCamera} from "@react-three/drei";
+import {OrthographicCamera} from "@react-three/drei";
 import {useThree} from "@react-three/fiber";
 import {useMemo} from "react";
 import type {Entity} from "koota";
 import {useQueryFirst} from "koota/react";
 import {IsCamera} from "@/common/traits/IsCamera.ts";
-import {useThreeInjector} from "@/common/hooks/useThreeInjector.ts";
+import {useThreeInjector} from "@/common/hooks/injection/useThreeInjector.ts";
 import {CAM_SIZE} from "@/common/defs/camSize.ts";
 
 const CameraView = (

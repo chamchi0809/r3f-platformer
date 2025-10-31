@@ -1,4 +1,4 @@
-import {interactionGroups} from "@react-three/rapier";
+import {interactionGroups} from "@/common/utils/interactionGroups.ts";
 
 export type ColGroup = keyof typeof COL_GROUP;
 export const COL_GROUP = {

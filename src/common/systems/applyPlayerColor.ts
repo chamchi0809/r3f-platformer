@@ -1,13 +1,13 @@
 import type {World} from "koota";
-import {ColliderRef} from "@/common/traits/ColliderRef.ts";
 import {PlayerStates} from "@/common/traits/PlayerStates.ts";
 import {MaterialRef} from "@/common/traits/MaterialRef.ts";
 import {INTERACTION_GROUPS} from "@/common/defs/colGroup.ts";
+import {CharacterControllerRef} from "@/common/traits/CharacterControllerRef.ts";
 
 export const applyPlayerColor = (world: World) => {
-    world.query(PlayerStates, ColliderRef, MaterialRef).updateEach(([playerState, colliderRef, materialRef]) => {
+    world.query(PlayerStates, CharacterControllerRef, MaterialRef).updateEach(([playerState, ctrl, materialRef]) => {
         const color = playerState.color;
-        colliderRef.col.setCollisionGroups(color === "white" ? INTERACTION_GROUPS.WHITE : INTERACTION_GROUPS.BLACK);
+        ctrl.col.setCollisionGroups(color === "white" ? INTERACTION_GROUPS.WHITE : INTERACTION_GROUPS.BLACK);
         (materialRef as any)?.setValues({color: color === "white" ? "white" : "black"});
     });
 }
