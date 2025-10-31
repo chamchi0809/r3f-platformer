@@ -35,8 +35,8 @@ export default memo(function Physics(
         if (ref.current) clearInterval(ref.current);
 
         ref.current = setInterval(() => {
-            world.step();
             Object.values(tickers).forEach(ticker => ticker(world));
+            world.step();
         }, timeStep * 1000);
 
         return () => {

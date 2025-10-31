@@ -4,7 +4,7 @@ import {applyCharacterVelocity} from "@/common/systems/physics/applyCharacterVel
 import {physicsSettings} from "@/common/defs/physicsSettings.ts";
 import {updateCamPos} from "@/common/systems/physics/updateCamPos.ts";
 import useRapier from "@/common/hooks/physics/useRapier.ts";
-import useAfterPhysicsStep from "@/common/hooks/physics/useAfterPhysicsStep.tsx";
+import useBeforePhysicsStep from "@/common/hooks/physics/useAfterPhysicsStep.tsx";
 
 export default function PhysicsLoop() {
 
@@ -12,7 +12,7 @@ export default function PhysicsLoop() {
     const rapier = useRapier();
     const {} = rapier;
 
-    useAfterPhysicsStep((rapierWorld) => {
+    useBeforePhysicsStep((rapierWorld) => {
         applyCharacterGravity(world);
         applyCharacterVelocity(world);
         updateCamPos(world, physicsSettings.timestep);
