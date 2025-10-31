@@ -47,30 +47,25 @@ export const FSMTrait = trait(() => null! as FSM<string>);
 //example usage:
 FSMTrait(
     new FSM<"idle" | "running">()
-        .withState(
-            "idle",
-            idle => idle
-                .withEnter(async (owner) => {
-                    await Timing.delay(1000);
-                })
+        .withState("idle", idle => idle
+            .withEnter(async (owner) => {
+                await Timing.delay(1000);
+            })
         )
-        .withState(
-            "running",
-            running =>
-                running
-                    .withEnter(async owner => {
-                        console.log("Entered running state");
-                    })
-                    .withUpdate(owner => {
-                        console.log("Updating running state");
-                    })
-                    .withExit(async owner => {
-                        console.log("Exiting running state");
-                    })
+        .withState("running", running => running
+            .withEnter(async owner => {
+                console.log("Entered running state");
+            })
+            .withUpdate(owner => {
+                console.log("Updating running state");
+            })
+            .withExit(async owner => {
+                console.log("Exiting running state");
+            })
         )
         .withDefault("idle")
 );
 
-world.query((FSMTrait)).updateEach(([fsm]) => {
+world.query(FSMTrait).updateEach(([fsm]) => {
     fsm.tick();
 });
