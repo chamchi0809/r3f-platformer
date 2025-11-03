@@ -8,7 +8,7 @@ export const applyCharacterGravity = (world: World) => {
         vel.y += physicsSettings.gravity * physicsSettings.timestep;
 
         if (ctrl.isGrounded && vel.y < 0) {
-            vel.y = 0;
+            vel.y = physicsSettings.gravity;
         }
     })
 }
