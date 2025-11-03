@@ -41,7 +41,7 @@ export default function Game() {
         <PlayerRenderer/>
         <Suspense>
             <LdtkMap
-                ldtkPath={"/assets/ldtk/test.ldtk"}
+                ldtkPath={"/assets/ldtk/map.ldtk"}
                 entityRendererMap={{
                     "PlayerStart": PlayerSpawner
                 }}
