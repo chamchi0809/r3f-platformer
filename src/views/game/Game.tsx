@@ -1,7 +1,6 @@
 import LdtkMap from "@/common/ldtk/components/LdtkMap.tsx";
 import TileRectCollider from "@/common/ldtk/components/tiles/TileRectCollider.tsx";
 import CameraRenderer from "@/common/components/CameraRenderer.tsx";
-import {INTERACTION_GROUPS} from "@/common/defs/colGroup.ts";
 import TileVoxelCollider from "@/common/ldtk/components/tiles/TileVoxelCollider.tsx";
 import Startup from "@/common/lifecycles/Startup.tsx";
 import FrameLoop from "@/common/lifecycles/FrameLoop.tsx";
@@ -13,7 +12,6 @@ import {Perf} from "r3f-perf";
 import {Suspense} from "react";
 import {Bloom, EffectComposer, Noise, Sepia, Vignette} from "@react-three/postprocessing";
 import {BlendFunction, VignetteTechnique} from "postprocessing";
-
 
 export default function Game() {
 
@@ -47,40 +45,11 @@ export default function Game() {
                 }}
                 tileRendererMap={{
                     "RECT": (props) => {
-                        return <>
-                            <TileRectCollider {...props}/>
-                        </>
+                        return <TileRectCollider {...props}/>
                     },
-                    "RECT_GREY": (props) => {
-                        return <>
-                            <TileRectCollider {...props} interactionGroups={INTERACTION_GROUPS.DEFAULT}/>
-                        </>
-                    },
-                    "RECT_WHITE": (props) => {
-                        return <>
-                            <TileRectCollider {...props} interactionGroups={INTERACTION_GROUPS.WHITE}/>
-                        </>
-                    },
-                    "RECT_BLACK": (props) => {
-                        return <>
-                            <TileRectCollider {...props} interactionGroups={INTERACTION_GROUPS.BLACK}/>
-                        </>
-                    },
-                    "SPIKE_GREY": (props) => {
-                        return <>
-                            <TileVoxelCollider {...props} interactionGroups={INTERACTION_GROUPS.DEFAULT}/>
-                        </>
-                    },
-                    "SPIKE_WHITE": (props) => {
-                        return <>
-                            <TileVoxelCollider {...props} interactionGroups={INTERACTION_GROUPS.WHITE}/>
-                        </>
-                    },
-                    "SPIKE_BLACK": (props) => {
-                        return <>
-                            <TileVoxelCollider {...props} interactionGroups={INTERACTION_GROUPS.BLACK}/>
-                        </>
-                    },
+                    "VOXEL": (props) => {
+                        return <TileVoxelCollider {...props}/>
+                    }
                 }}
             />
         </Suspense>
