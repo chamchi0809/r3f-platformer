@@ -13,7 +13,7 @@ import TilesetEditor from "@/views/tileset-editor/TilesetEditor.tsx";
 import Physics from "@/common/components/Physics.tsx";
 
 const RENDER_HEIGHT = PPU * CAM_SIZE * 2;
-const DEV_VIEWS = ["game", "tileset-editor"];
+const DEV_VIEWS = ["game", "tileset-editor"] as const;
 type DevView = typeof DEV_VIEWS[number];
 
 function App() {
