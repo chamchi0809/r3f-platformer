@@ -1,9 +1,8 @@
-import React, {createContext, useContext, useEffect, useMemo, useState} from "react";
+import React, {createContext, use, useContext} from "react";
 import type {Ldtk, Level} from "@/common/ldtk/models/LdtkTypes.ts";
 import LayerRenderer from "@/common/ldtk/components/layers/LayerRenderer.tsx";
 import type {EntityRendererMap} from "@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx";
 import type {TileRendererMap} from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx";
-import {getSafePath} from "@/common/utils/electronUtils.ts";
 
 export const LdtkLevelContext = createContext<{
     ldtk: Ldtk;
@@ -14,64 +13,49 @@ export const LdtkLevelContext = createContext<{
     tileRendererMap?: TileRendererMap;
 } | null>(null);
 
+const ldtkPromise = fetch("/assets/ldtk/map.ldtk")
+    .then(response => response.json())
+    .then(data => data as Ldtk);
+
 export default function LdtkMap(
     {
         ldtkPath,
-        levelIdentifier,
+        levelIds,
         entityRendererMap,
         tileRendererMap,
     }: {
         ldtkPath: string;
-        levelIdentifier?: string; // Optional level identifier to render a specific level
+        levelIds?: string[]; // Optional level identifier to render a specific level
         entityRendererMap?: EntityRendererMap; // Optional entity renderer map
         tileRendererMap?: TileRendererMap; // Optional tile renderer map
     }) {
 
-    const [ldtk, setLdtk] = useState<Ldtk | undefined>(undefined);
+    const ldtk = use(ldtkPromise);
 
-    useEffect(() => {
-        fetch(getSafePath(ldtkPath))
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                setLdtk(data as Ldtk);
-            })
-    }, []);
+    const levels = levelIds
+        ? ldtk.levels.filter(lvl => levelIds.includes(lvl.identifier))
+        : ldtk.levels;
 
-    // Find the level to render
-    const level = useMemo(() => {
-        if (!ldtk) return undefined;
+    return levels.map(level => {
+        return <LdtkLevelContext value={{
+            ldtk,
+            level,
+            ldtkPath,
+            ldtkDir: ldtkPath.substring(0, ldtkPath.lastIndexOf("/")) + "/",
+            entityRendererMap,
+            tileRendererMap,
+        }}>
+            <group>
+                {(level.layerInstances ?? []).map((layer, i) => {
 
-        if (levelIdentifier) {
-            return ldtk.levels.find(lvl => lvl.identifier === levelIdentifier);
-        }
-        return ldtk.levels[0];
-    }, [ldtk, levelIdentifier]);
-
-    if (!level || !ldtk) return null;
-
-    return <LdtkLevelContext value={{
-        ldtk,
-        level,
-        ldtkPath,
-        ldtkDir: ldtkPath.substring(0, ldtkPath.lastIndexOf("/")) + "/",
-        entityRendererMap,
-        tileRendererMap,
-    }}>
-        <group>
-            {(level.layerInstances ?? []).map((layer, i) => {
-
-                return <LayerRenderer
-                    key={layer.iid}
-                    layer={layer}
-                />
-            })}
-        </group>
-    </LdtkLevelContext>
+                    return <LayerRenderer
+                        key={layer.iid}
+                        layer={layer}
+                    />
+                })}
+            </group>
+        </LdtkLevelContext>
+    })
 };
 
 export const useLdtkLevelContext = () => {
