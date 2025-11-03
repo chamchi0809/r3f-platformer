@@ -8,6 +8,9 @@ import {INTERACTION_GROUPS} from "@/common/defs/colGroup.ts";
 import {useMaterialInjector} from "@/common/hooks/injection/useMaterialInjector.ts";
 import useRapier from "@/common/hooks/physics/useRapier.ts";
 import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
+import {useEffect} from "react";
+import {world} from "@/common/world.ts";
+import {useUnmount} from "react-use";
 
 const PlayerView = ({entity}: { entity: Entity }) => {
 
@@ -39,6 +42,10 @@ const PlayerView = ({entity}: { entity: Entity }) => {
 export default function PlayerRenderer() {
 
     const player = useQueryFirst(IsPlayer);
+
+    useUnmount(() => {
+        player?.destroy();
+    })
 
     if (!player) {
         return <></>;
