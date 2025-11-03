@@ -9,12 +9,10 @@ import {WorldProvider} from "koota/react";
 import {world} from "@/common/world.ts";
 
 createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <QueryClientProvider client={chamQueryClient}>
-            <WorldProvider world={world}>
-                <App/>
-            </WorldProvider>
-            <ReactQueryDevtools initialIsOpen={false}/>
-        </QueryClientProvider>
-    </StrictMode>,
+    <QueryClientProvider client={chamQueryClient}>
+        <WorldProvider world={world}>
+            <App/>
+        </WorldProvider>
+        <ReactQueryDevtools initialIsOpen={false}/>
+    </QueryClientProvider>,
 )
