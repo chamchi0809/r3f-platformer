@@ -6,6 +6,7 @@ import {useQueryFirst} from "koota/react";
 import {IsCamera} from "@/common/traits/IsCamera.ts";
 import {useThreeInjector} from "@/common/hooks/injection/useThreeInjector.ts";
 import {CAM_SIZE} from "@/common/defs/camSize.ts";
+import {useUnmount} from "react-use";
 
 const CameraView = (
     {
@@ -41,5 +42,10 @@ const CameraView = (
 
 export default function CameraRenderer() {
     const camera = useQueryFirst(IsCamera);
+
+    useUnmount(() => {
+        camera?.destroy();
+    })
+
     return camera && <CameraView entity={camera}/>
 }
