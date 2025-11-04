@@ -1,8 +1,8 @@
-import { createContext, use, useContext } from 'react'
-import type { Ldtk, Level } from '@/common/ldtk/models/LdtkTypes.ts'
-import LayerRenderer from '@/common/ldtk/components/layers/LayerRenderer.tsx'
-import type { EntityRendererMap } from '@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx'
-import type { TileRendererMap } from '@/common/ldtk/components/layers/TilesLayerRenderer.tsx'
+import { createContext, use, useContext } from "react"
+import type { Ldtk, Level } from "@/common/ldtk/models/LdtkTypes.ts"
+import LayerRenderer from "@/common/ldtk/components/layers/LayerRenderer.tsx"
+import type { EntityRendererMap } from "@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx"
+import type { TileRendererMap } from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx"
 import { getSafePath } from "@/common/utils/electronUtils.ts";
 
 export const LdtkLevelContext = createContext<{
@@ -14,7 +14,7 @@ export const LdtkLevelContext = createContext<{
   tileRendererMap?: TileRendererMap
 } | null>(null);
 
-const ldtkPromise = fetch(getSafePath('/assets/ldtk/map.ldtk'))
+const ldtkPromise = fetch(getSafePath("/assets/ldtk/map.ldtk"))
   .then(response => response.json())
   .then(data => data as Ldtk);
 
