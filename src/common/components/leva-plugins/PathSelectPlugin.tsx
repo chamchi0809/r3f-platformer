@@ -1,6 +1,6 @@
 import {Components, createPlugin, type LevaInputProps, useInputContext} from "leva/plugin";
 
-const {Row, Label, String} = Components
+const {Row, Label} = Components
 
 type PathSelectSettings = { disabled?: boolean }
 type PathSelectType = { path: string; }
@@ -10,7 +10,7 @@ type PathSelectProps = LevaInputProps<PathSelectType, PathSelectSettings, string
 
 function PathSelect() {
     const props = useInputContext<PathSelectProps>()
-    const {label, displayValue, onUpdate, onChange, settings} = props
+    const {label, displayValue, onUpdate} = props
     return <Row input>
         <Label>{label}</Label>
         <button onClick={async () => {

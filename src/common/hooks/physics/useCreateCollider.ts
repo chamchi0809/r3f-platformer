@@ -17,7 +17,7 @@ export default function useCreateCollider(
     }: ColliderDefinition
 ) {
 
-    const {rapier, world} = useRapier();
+    const {world} = useRapier();
     const [collider, setCollider] = useState<Collider | undefined>(undefined);
 
     useEffect(() => {

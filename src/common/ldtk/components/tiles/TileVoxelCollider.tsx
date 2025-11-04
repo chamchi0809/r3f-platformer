@@ -12,7 +12,6 @@ export default function TileVoxelCollider(
     {
         tile,
         tileset,
-        texture,
         tileSize,
         layerPxDimensions,
         layerPxOffsets,
@@ -21,7 +20,7 @@ export default function TileVoxelCollider(
         interactionGroups?: number;
     } & BaseTileRendererProps) {
 
-    const {px, src, f, a} = tile;
+    const {px, src} = tile;
     const posInPx = layerPxToWorldPx(px as [number, number], layerPxOffsets, layerPxDimensions);
     const posInGrid = pxToGridPosition(
         posInPx,

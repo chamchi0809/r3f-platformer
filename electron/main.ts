@@ -3,6 +3,7 @@ import {electronApp, is, optimizer} from "@electron-toolkit/utils";
 import * as fs from "node:fs";
 import * as process from "node:process";
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const path = require("node:path");
 
 const isDev = !!(is.dev && process.env["ELECTRON_RENDERER_URL"]);

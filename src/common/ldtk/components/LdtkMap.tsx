@@ -46,7 +46,7 @@ export default function LdtkMap(
             tileRendererMap,
         }}>
             <group>
-                {(level.layerInstances ?? []).map((layer, i) => {
+                {(level.layerInstances ?? []).map((layer) => {
 
                     return <LayerRenderer
                         key={layer.iid}

@@ -10,16 +10,14 @@ import {freeJumpBuffer} from "@/common/systems/freeJumpBuffer.ts";
 import {doJump} from "@/common/systems/doJump.ts";
 import {Elapsed} from "@/common/traits/Elapsed.ts";
 import {applyPlayerColor} from "@/common/systems/applyPlayerColor.ts";
-import useRapier from "@/common/hooks/physics/useRapier.ts";
 import {syncControllerAndVisualPosition} from "@/common/systems/syncControllerAndVisualPosition.ts";
 
 export default function FrameLoop() {
 
     const world = useWorld();
     const [, getInput] = useKeyboardControls<KeyboardControlType>();
-    const rapier = useRapier();
 
-    useFrame(({gl, scene, camera}, delta) => {
+    useFrame((_, delta) => {
         // TODO: Devtools
         // console.log(world.query().map(entity => {
         //     var traits = Array.from(world.traits).map(tr => {
@@ -37,7 +35,7 @@ export default function FrameLoop() {
         //     console.log('Active GPU:', renderer);
         // }
 
-        var input = getInput();
+        const input = getInput();
 
         world.set(Elapsed, world.get(Elapsed)! + delta);
         pollPlayerInput(world, input);

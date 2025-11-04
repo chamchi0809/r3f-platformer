@@ -17,7 +17,7 @@ export default function TilesetEditor() {
         }
     }, [ldtkPath.path]);
 
-    const {tilesetId} = useControls({
+    useControls({
         tilesetId: {
             options: ldtk ? ldtk.defs.tilesets.map(t => t.identifier) : [],
             disabled: !ldtk,

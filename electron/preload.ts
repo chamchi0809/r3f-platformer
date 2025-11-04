@@ -1,5 +1,5 @@
 import {contextBridge, ipcRenderer, type OpenDialogReturnValue} from "electron";
-import {electronAPI} from "@electron-toolkit/preload";
+import {type ElectronAPI, electronAPI} from "@electron-toolkit/preload";
 import * as process from "node:process";
 
 type IpcApiResponse<T = void> = Promise<{
@@ -60,9 +60,13 @@ if (process.contextIsolated) {
         console.error(error);
     }
 } else {
-    // @ts-ignore (define in dts)
     window.electron = electronAPI;
-    // @ts-ignore (define in dts)
     window.api = IpcApi;
-    // @ts-ignore (define in dts)
+}
+
+declare global {
+    interface Window {
+        electron?: ElectronAPI;
+        api?: IpcApiType;
+    }
 }

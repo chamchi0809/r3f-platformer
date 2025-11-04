@@ -13,7 +13,7 @@ export default function KeyboardEvents() {
         return subInput(
             (state) => state.transform,
             (pressed) => {
-                pressed && pressedTransformInput(world);
+                if (pressed) pressedTransformInput(world);
             }
         )
     }, [])

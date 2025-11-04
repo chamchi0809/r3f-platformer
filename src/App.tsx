@@ -18,7 +18,7 @@ type DevView = typeof DEV_VIEWS[number];
 
 function App() {
 
-    const [ref, {height}] = useMeasure();
+    const [ref, {height}] = useMeasure<HTMLCanvasElement>();
     const isDev = window.api?.isDev();
     const {view} = useControls({view: {value: "game" as DevView, options: DEV_VIEWS}});
     const devView = view as DevView;
@@ -28,7 +28,7 @@ function App() {
             hidden={!window.electron || !isDev}
         />
         <Canvas gl={{antialias: false, powerPreference: "high-performance"}}
-                ref={ref as any}
+                ref={ref}
                 dpr={RENDER_HEIGHT / (height ?? 1)}
                 shadows={"basic"} linear={true} flat={true}
                 style={{

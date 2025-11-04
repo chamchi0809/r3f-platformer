@@ -10,8 +10,6 @@ import useRapier from "@/common/hooks/physics/useRapier.ts";
 export default function TileRectCollider(
     {
         tile,
-        tileset,
-        texture,
         tileSize,
         layerPxDimensions,
         layerPxOffsets,
@@ -20,7 +18,7 @@ export default function TileRectCollider(
         interactionGroups?: number;
     } & BaseTileRendererProps) {
 
-    const {px, src, f, a} = tile;
+    const {px} = tile;
     // TODO: replact /tileSize with global pixel per unit (PPU) setting
     const posInPx = centerTilePivot(
         layerPxToWorldPx(px as [number, number], layerPxOffsets, layerPxDimensions),

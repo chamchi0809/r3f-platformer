@@ -1,6 +1,4 @@
 import {createChamQuery} from "@/common/queries/ChamQuery.ts";
-import {TextureLoader} from "three";
-import * as THREE from "three";
 import {getSafePath} from "@/common/utils/electronUtils.ts";
 
 export default createChamQuery({

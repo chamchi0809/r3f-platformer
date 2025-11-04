@@ -27,7 +27,6 @@ export default function TileSprite(
         posInPx,
         tileSize);
     const [posX, posY] = posInGrid;
-    const tileCols = Math.floor(tileset.pxWid / tileset.tileGridSize);
 
     // Flipping
     const scaleX = (f & 1) ? -1 : 1;

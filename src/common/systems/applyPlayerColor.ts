@@ -8,6 +8,7 @@ export const applyPlayerColor = (world: World) => {
     world.query(PlayerStates, CharacterControllerRef, MaterialRef).updateEach(([playerState, ctrl, materialRef]) => {
         const color = playerState.color;
         ctrl.col.setCollisionGroups(color === "white" ? INTERACTION_GROUPS.WHITE : INTERACTION_GROUPS.BLACK);
-        (materialRef as any)?.setValues({color: color === "white" ? "white" : "black"});
+        // @ts-expect-error: 2353
+        materialRef.setValues({color: color === "white" ? "white" : "black"});
     });
 }

@@ -14,7 +14,7 @@ export default function LayerRenderer(
         layer: LayerInstance;
     }) {
 
-    const {ldtk, ldtkDir, level, entityRendererMap} = useLdtkLevelContext();
+    const {ldtk, ldtkDir, level} = useLdtkLevelContext();
 
     const {tileset, texture} = useMemo(() => {
 

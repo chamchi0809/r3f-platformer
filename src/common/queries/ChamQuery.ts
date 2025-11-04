@@ -11,9 +11,9 @@ export const chamQueryClient = new QueryClient({
 
 export type ChamPartialQueryKey<Params> = [...string[], Partial<Params>];
 export type ChamQueryKey<Params> = [...string[], Params];
-export type ChamQueryOptions<Params, Res, Error extends unknown> = Omit<UseQueryOptions<Res, Error, Res, ChamQueryKey<Params>>, "queryKey">;
+export type ChamQueryOptions<Params, Res, Error> = Omit<UseQueryOptions<Res, Error, Res, ChamQueryKey<Params>>, "queryKey">;
 
-export interface ChamQuery<Params extends {}, Res, Error extends unknown> {
+export interface ChamQuery<Params, Res, Error> {
     baseQueryKey: string[];
     getQueryKey: (params: Params) => ChamQueryKey<Params>;
     getPartialQueryKey: (params: Partial<Params>) => ChamPartialQueryKey<Params>;
@@ -27,9 +27,9 @@ export interface ChamQuery<Params extends {}, Res, Error extends unknown> {
     set: (p: Params, updater: Updater<Res | undefined, Res>) => void;
 }
 
-export type ChamQueryParams<T> = T extends ChamQuery<infer P, any, any> ? P : never;
+export type ChamQueryParams<T> = T extends ChamQuery<infer P, unknown, unknown> ? P : never;
 
-export const createChamQuery = <Params extends {}, Res, Error extends unknown>(
+export const createChamQuery = <Params, Res, Error>(
     {
         baseQueryKey,
         options,

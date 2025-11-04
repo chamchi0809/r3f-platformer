@@ -45,7 +45,7 @@ export interface Ldtk {
     worldLayout?: WorldLayout | null;
     worlds: World[];
 
-    [property: string]: any;
+    [property: string]: unknown;
 }
 
 export interface ForcedRefs {
@@ -78,7 +78,7 @@ export interface ForcedRefs {
     TocInstanceData?: LdtkTocInstanceData;
     World?: World;
 
-    [property: string]: any;
+    [property: string]: unknown;
 }
 
 export interface AutoLayerRuleGroup {
@@ -258,7 +258,7 @@ export interface FieldDefinition {
     arrayMinLength?: number | null;
     autoChainRef: boolean;
     canBeNull: boolean;
-    defaultOverride?: any;
+    defaultOverride?: unknown;
     doc?: null | string;
     editorAlwaysShow: boolean;
     editorCutLongValues: boolean;
@@ -357,7 +357,7 @@ export interface IntGridValueGroupDefinition {
 export interface TilesetDefinition {
     __cHei: number;
     __cWid: number;
-    cachedPixelData?: { [key: string]: any } | null;
+    cachedPixelData?: { [key: string]: unknown } | null;
     customData: TileCustomMetadata[];
     embedAtlas?: EmbedAtlas | null;
     enumTags: EnumTagValue[];
@@ -366,7 +366,7 @@ export interface TilesetDefinition {
     pxHei: number;
     pxWid: number;
     relPath?: null | string;
-    savedSelections: { [key: string]: any }[];
+    savedSelections: { [key: string]: unknown }[];
     spacing: number;
     tags: string[];
     tagsSourceEnumUid?: number | null;
@@ -405,9 +405,9 @@ export interface FieldInstance {
     __identifier: string;
     __tile?: TilesetRectangle | null;
     __type: string;
-    __value: any;
+    __value: unknown;
     defUid: number;
-    realEditorValues: any[];
+    realEditorValues: unknown[];
 }
 
 export interface ReferenceToAnEntityInstance {
@@ -515,7 +515,7 @@ export interface LdtkTableOfContentEntry {
 }
 
 export interface LdtkTocInstanceData {
-    fields: any;
+    fields: unknown;
     heiPx: number;
     iids: ReferenceToAnEntityInstance;
     widPx: number;

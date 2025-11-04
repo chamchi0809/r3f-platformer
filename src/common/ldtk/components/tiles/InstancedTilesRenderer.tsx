@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import * as THREE from "three";
-import {Instance, Instances, Wireframe} from "@react-three/drei";
+import {Instance, Instances} from "@react-three/drei";
 import {layerPxToWorldPx, pxToGridPosition} from "@/common/ldtk/utils/positionUtils.ts";
 import {centerTilePivot} from "@/common/ldtk/utils/tilesetUtils.ts";
 import type {TileInstance, TilesetDefinition} from "@/common/ldtk/models/LdtkTypes.ts";
@@ -128,7 +128,7 @@ function InstancedTileGroup(
             </meshLambertMaterial>
 
             {tiles.map((tile, i) => {
-                const {px, f, a} = tile;
+                const {px, f} = tile;
 
                 // Position calculation
                 const posInPx = centerTilePivot(

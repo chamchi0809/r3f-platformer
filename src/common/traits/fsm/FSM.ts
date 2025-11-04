@@ -48,18 +48,18 @@ export const FSMTrait = trait(() => null! as FSM<string>);
 FSMTrait(
     new FSM<"idle" | "running">()
         .withState("idle", idle => idle
-            .withEnter(async (owner) => {
+            .withEnter(async () => {
                 await Timing.delay(1000);
             })
         )
         .withState("running", running => running
-            .withEnter(async owner => {
+            .withEnter(async () => {
                 console.log("Entered running state");
             })
-            .withUpdate(owner => {
+            .withUpdate(() => {
                 console.log("Updating running state");
             })
-            .withExit(async owner => {
+            .withExit(async () => {
                 console.log("Exiting running state");
             })
         )
