@@ -1,54 +1,20 @@
 {
   "name": "r3f-platformer",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
-    "dev:electron": "electron-vite dev",
-    "build:electron": "electron-vite build",
-    "preview:electron": "electron-vite preview",
-    "package": "electron-builder",
-    "package:win": "electron-builder --win",
-    "package:mac": "electron-builder --mac",
-    "package:linux": "electron-builder --linux"
-  },
   "main": "out/main/index.js",
-  "build": {
-    "appId": "com.yourcompany.r3f-platformer",
-    "productName": "R3F Platformer",
-    "directories": {
-      "output": "release"
-    },
-    "files": [
-      "out/**/*"
-    ],
-    "npmRebuild": false,
-    "buildDependenciesFromSource": false,
-    "mac": {
-      "category": "public.app-category.games"
-    },
-    "win": {
-      "target": [
-        "nsis"
-      ]
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ],
-      "category": "Game"
-    }
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "electron",
-      "electron-winstaller",
-      "esbuild"
-    ]
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "build:electron": "electron-vite build",
+    "dev": "vite",
+    "dev:electron": "electron-vite dev",
+    "package": "electron-builder",
+    "package:linux": "electron-builder --linux",
+    "package:mac": "electron-builder --mac",
+    "package:win": "electron-builder --win",
+    "preview": "vite preview",
+    "preview:electron": "electron-vite preview"
   },
   "dependencies": {
     "@dimforge/rapier2d": "^0.19.1",
@@ -83,5 +49,40 @@
     "vite": "^6.3.6",
     "vite-plugin-top-level-await": "^1.6.0",
     "vite-plugin-wasm": "^3.5.0"
+  },
+  "packageManager": "pnpm@10.20.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "electron-winstaller",
+      "esbuild"
+    ]
+  },
+  "build": {
+    "appId": "com.yourcompany.r3f-platformer",
+    "productName": "R3F Platformer",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "out/**/*"
+    ],
+    "npmRebuild": false,
+    "buildDependenciesFromSource": false,
+    "mac": {
+      "category": "public.app-category.games"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Game"
+    }
   }
 }
