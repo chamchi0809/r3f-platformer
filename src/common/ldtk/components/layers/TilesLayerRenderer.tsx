@@ -1,5 +1,5 @@
 import InstancedTilesRenderer from "@/common/ldtk/components/tiles/InstancedTilesRenderer.tsx";
-import React, {Fragment, type JSX, useMemo} from "react";
+import {Fragment, type JSX, useMemo} from "react";
 import {useLdtkLayerContext} from "@/common/ldtk/components/layers/LayerRenderer.tsx";
 import type {TileInstance, TilesetDefinition} from "@/common/ldtk/models/LdtkTypes.ts";
 import * as THREE from "three";

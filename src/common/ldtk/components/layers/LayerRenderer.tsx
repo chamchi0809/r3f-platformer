@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useMemo} from "react";
+import {createContext, useContext, useMemo} from "react";
 import type {LayerInstance, TilesetDefinition} from "@/common/ldtk/models/LdtkTypes.ts";
 import TilesLayerRenderer from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx";
 import {getTilesetByUid, getTilesetTexture} from "@/common/ldtk/utils/tilesetUtils.ts";

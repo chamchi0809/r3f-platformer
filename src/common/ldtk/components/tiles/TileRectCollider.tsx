@@ -1,4 +1,3 @@
-import React from "react";
 import {layerPxToWorldPx, pxToGridPosition} from "@/common/ldtk/utils/positionUtils.ts";
 import {centerTilePivot} from "@/common/ldtk/utils/tilesetUtils.ts";
 import type {BaseTileRendererProps} from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx";
