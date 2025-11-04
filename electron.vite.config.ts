@@ -1,8 +1,8 @@
-import { defineConfig, externalizeDepsPlugin } from "electron-vite"
-import * as path from "path"
-import react from "@vitejs/plugin-react"
-import wasm from "vite-plugin-wasm"
-import topLevelAwait from "vite-plugin-top-level-await"
+import { defineConfig, externalizeDepsPlugin } from "electron-vite";
+import * as path from "path";
+import react from "@vitejs/plugin-react";
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
 
 export default defineConfig({
   main: {
@@ -51,4 +51,4 @@ export default defineConfig({
       port: 8080,
     },
   },
-})
+});

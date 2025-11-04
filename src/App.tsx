@@ -1,26 +1,26 @@
-import "@/App.css"
-import { Canvas } from "@react-three/fiber"
-import Game from "@/views/game/Game.tsx"
-import { Suspense } from "react"
-import { KeyboardControls } from "@react-three/drei"
-import { keyboardControlMap } from "@/common/defs/keyboardControlMap.ts"
-import { physicsSettings } from "@/common/defs/physicsSettings.ts"
-import { CAM_SIZE } from "@/common/defs/camSize.ts"
-import { useMeasure } from "react-use"
-import { PPU } from "@/common/defs/ppu.ts"
-import { Leva, useControls } from "leva"
-import TilesetEditor from "@/views/tileset-editor/TilesetEditor.tsx"
-import Physics from "@/common/components/Physics.tsx"
+import "@/App.css";
+import { Canvas } from "@react-three/fiber";
+import Game from "@/views/game/Game.tsx";
+import { Suspense } from "react";
+import { KeyboardControls } from "@react-three/drei";
+import { keyboardControlMap } from "@/common/defs/keyboardControlMap.ts";
+import { physicsSettings } from "@/common/defs/physicsSettings.ts";
+import { CAM_SIZE } from "@/common/defs/camSize.ts";
+import { useMeasure } from "react-use";
+import { PPU } from "@/common/defs/ppu.ts";
+import { Leva, useControls } from "leva";
+import TilesetEditor from "@/views/tileset-editor/TilesetEditor.tsx";
+import Physics from "@/common/components/Physics.tsx";
 
-const RENDER_HEIGHT = PPU * CAM_SIZE * 2
-const DEV_VIEWS = ["game", "tileset-editor"] as const
-type DevView = typeof DEV_VIEWS[number]
+const RENDER_HEIGHT = PPU * CAM_SIZE * 2;
+const DEV_VIEWS = ["game", "tileset-editor"] as const;
+type DevView = typeof DEV_VIEWS[number];
 
 function App() {
-  const [ref, { height }] = useMeasure<HTMLCanvasElement>()
-  const isDev = window.api?.isDev()
-  const { view } = useControls({ view: { value: "game" as DevView, options: DEV_VIEWS } })
-  const devView = view as DevView
+  const [ref, { height }] = useMeasure<HTMLCanvasElement>();
+  const isDev = window.api?.isDev();
+  const { view } = useControls({ view: { value: "game" as DevView, options: DEV_VIEWS } });
+  const devView = view as DevView;
 
   return (
     <>
@@ -60,7 +60,7 @@ function App() {
         </Suspense>
       </Canvas>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

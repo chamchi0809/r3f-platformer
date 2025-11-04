@@ -1,3 +1,3 @@
-import { trait } from "koota"
+import { trait } from "koota";
 
-export const IsCamera = trait(() => ({}))
+export const IsCamera = trait(() => ({}));
