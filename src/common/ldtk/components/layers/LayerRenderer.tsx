@@ -1,11 +1,11 @@
-import { createContext, useContext, useMemo } from 'react'
-import type { LayerInstance, TilesetDefinition } from '@/common/ldtk/models/LdtkTypes.ts'
-import TilesLayerRenderer from '@/common/ldtk/components/layers/TilesLayerRenderer.tsx'
-import { getTilesetByUid, getTilesetTexture } from '@/common/ldtk/utils/tilesetUtils.ts'
-import { useLdtkLevelContext } from '@/common/ldtk/components/LdtkMap.tsx'
-import EntitiesLayerRenderer from '@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx'
-import * as THREE from 'three'
-import IntGridLayerRenderer from '@/common/ldtk/components/layers/IntGridLayerRenderer.tsx'
+import { createContext, useContext, useMemo } from "react"
+import type { LayerInstance, TilesetDefinition } from "@/common/ldtk/models/LdtkTypes.ts"
+import TilesLayerRenderer from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx"
+import { getTilesetByUid, getTilesetTexture } from "@/common/ldtk/utils/tilesetUtils.ts"
+import { useLdtkLevelContext } from "@/common/ldtk/components/LdtkMap.tsx"
+import EntitiesLayerRenderer from "@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx"
+import * as THREE from "three"
+import IntGridLayerRenderer from "@/common/ldtk/components/layers/IntGridLayerRenderer.tsx"
 
 export default function LayerRenderer(
   {
@@ -33,9 +33,9 @@ export default function LayerRenderer(
       layerPxOffsets: [layer.__pxTotalOffsetX + level.worldX, layer.__pxTotalOffsetY + (level.worldY + level.pxHei)],
     }}
     >
-      {layer.__type === 'IntGrid' && <IntGridLayerRenderer />}
-      {layer.__type === 'Tiles' && <TilesLayerRenderer />}
-      {layer.__type === 'Entities' && <EntitiesLayerRenderer />}
+      {layer.__type === "IntGrid" && <IntGridLayerRenderer />}
+      {layer.__type === "Tiles" && <TilesLayerRenderer />}
+      {layer.__type === "Entities" && <EntitiesLayerRenderer />}
     </LdtkLayerContext>
   )
 };
@@ -51,7 +51,7 @@ export const LdtkLayerContext = createContext<{
 export const useLdtkLayerContext = () => {
   const context = useContext(LdtkLayerContext)
   if (!context) {
-    throw new Error('useLdtkLayerContext must be used within a LdtkLayerContext provider')
+    throw new Error("useLdtkLayerContext must be used within a LdtkLayerContext provider")
   }
   return context
 }

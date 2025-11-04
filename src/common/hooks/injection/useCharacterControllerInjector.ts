@@ -1,9 +1,9 @@
-import { useWorld } from 'koota/react'
-import { useEffect } from 'react'
-import type { Entity } from 'koota'
-import { CharacterController, CharacterControllerRef } from '@/common/traits/CharacterControllerRef.ts'
-import useRapier from '@/common/hooks/physics/useRapier.ts'
-import type { Collider } from '@dimforge/rapier2d'
+import { useWorld } from "koota/react"
+import { useEffect } from "react"
+import type { Entity } from "koota"
+import { CharacterController, CharacterControllerRef } from "@/common/traits/CharacterControllerRef.ts"
+import useRapier from "@/common/hooks/physics/useRapier.ts"
+import type { Collider } from "@dimforge/rapier2d"
 
 export const useCharacterControllerInjector = (
   entity: Entity,

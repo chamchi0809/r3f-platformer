@@ -1,5 +1,5 @@
-import type { EntityRendererProps } from '@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx'
-import { centerTilePivot } from '@/common/ldtk/utils/tilesetUtils.ts'
+import type { EntityRendererProps } from "@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx"
+import { centerTilePivot } from "@/common/ldtk/utils/tilesetUtils.ts"
 
 export const pxToGridPosition = (px: [number, number], gridSize: number): [number, number] => {
   const gridX = (px[0] / gridSize)

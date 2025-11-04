@@ -1,8 +1,8 @@
-import { createContext, use, useContext } from 'react'
-import type { Ldtk, Level } from '@/common/ldtk/models/LdtkTypes.ts'
-import LayerRenderer from '@/common/ldtk/components/layers/LayerRenderer.tsx'
-import type { EntityRendererMap } from '@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx'
-import type { TileRendererMap } from '@/common/ldtk/components/layers/TilesLayerRenderer.tsx'
+import { createContext, use, useContext } from "react"
+import type { Ldtk, Level } from "@/common/ldtk/models/LdtkTypes.ts"
+import LayerRenderer from "@/common/ldtk/components/layers/LayerRenderer.tsx"
+import type { EntityRendererMap } from "@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx"
+import type { TileRendererMap } from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx"
 
 export const LdtkLevelContext = createContext<{
   ldtk: Ldtk
@@ -13,7 +13,7 @@ export const LdtkLevelContext = createContext<{
   tileRendererMap?: TileRendererMap
 } | null>(null)
 
-const ldtkPromise = fetch('/assets/ldtk/map.ldtk')
+const ldtkPromise = fetch("/assets/ldtk/map.ldtk")
   .then(response => response.json())
   .then(data => data as Ldtk)
 
@@ -41,7 +41,7 @@ export default function LdtkMap(
         ldtk,
         level,
         ldtkPath,
-        ldtkDir: ldtkPath.substring(0, ldtkPath.lastIndexOf('/')) + '/',
+        ldtkDir: ldtkPath.substring(0, ldtkPath.lastIndexOf("/")) + "/",
         entityRendererMap,
         tileRendererMap,
       }}
@@ -64,7 +64,7 @@ export default function LdtkMap(
 export const useLdtkLevelContext = () => {
   const context = useContext(LdtkLevelContext)
   if (!context) {
-    throw new Error('useLdtkLevelContext must be used within a LdtkMap component')
+    throw new Error("useLdtkLevelContext must be used within a LdtkMap component")
   }
   return context
 }

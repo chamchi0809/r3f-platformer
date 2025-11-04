@@ -1,9 +1,9 @@
-import InstancedTilesRenderer from '@/common/ldtk/components/tiles/InstancedTilesRenderer.tsx'
-import { Fragment, type JSX, useMemo } from 'react'
-import { useLdtkLayerContext } from '@/common/ldtk/components/layers/LayerRenderer.tsx'
-import type { TileInstance, TilesetDefinition } from '@/common/ldtk/models/LdtkTypes.ts'
-import * as THREE from 'three'
-import { useLdtkLevelContext } from '@/common/ldtk/components/LdtkMap.tsx'
+import InstancedTilesRenderer from "@/common/ldtk/components/tiles/InstancedTilesRenderer.tsx"
+import { Fragment, type JSX, useMemo } from "react"
+import { useLdtkLayerContext } from "@/common/ldtk/components/layers/LayerRenderer.tsx"
+import type { TileInstance, TilesetDefinition } from "@/common/ldtk/models/LdtkTypes.ts"
+import * as THREE from "three"
+import { useLdtkLevelContext } from "@/common/ldtk/components/LdtkMap.tsx"
 
 export default function TilesLayerRenderer() {
   const { tileRendererMap } = useLdtkLevelContext()

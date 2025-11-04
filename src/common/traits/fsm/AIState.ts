@@ -1,4 +1,4 @@
-import type FSM from '@/common/traits/fsm/FSM.ts'
+import type FSM from "@/common/traits/fsm/FSM.ts"
 
 export type AwaitedStateTick = <TState extends string>(owner: FSM<TState>) => Promise<void>
 export type StateTick = <TState extends string>(owner: FSM<TState>) => void
@@ -10,7 +10,7 @@ export default class AIState<TState extends string> {
   private onUpdate: StateTick | undefined
   private onExit: AwaitedStateTick | undefined
 
-  private status: 'idle' | 'entering' | 'updating' | 'exiting' = 'idle'
+  private status: "idle" | "entering" | "updating" | "exiting" = "idle"
 
   constructor(owner: FSM<TState>) {
     this.owner = owner
@@ -32,21 +32,21 @@ export default class AIState<TState extends string> {
   }
 
   private async enter() {
-    this.status = 'entering'
+    this.status = "entering"
     await this.onEnter?.(this.owner)
-    this.status = 'updating'
+    this.status = "updating"
   }
 
   private update() {
-    if (this.status === 'updating') {
+    if (this.status === "updating") {
       this.onUpdate?.(this.owner)
     }
   }
 
   private async exit() {
-    this.status = 'exiting'
+    this.status = "exiting"
     await this.onExit?.(this.owner)
-    this.status = 'idle'
+    this.status = "idle"
   }
 
   async start() {

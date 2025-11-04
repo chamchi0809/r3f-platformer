@@ -1,4 +1,4 @@
-import { QueryClient, type Updater, useQueries, useQuery, type UseQueryOptions, type UseQueryResult, useSuspenseQueries, type UseSuspenseQueryResult, type UseSuspenseQueryOptions } from '@tanstack/react-query'
+import { QueryClient, type Updater, useQueries, useQuery, type UseQueryOptions, type UseQueryResult, useSuspenseQueries, type UseSuspenseQueryResult, type UseSuspenseQueryOptions } from "@tanstack/react-query"
 
 export const chamQueryClient = new QueryClient({
   defaultOptions: {
@@ -11,15 +11,15 @@ export const chamQueryClient = new QueryClient({
 
 export type ChamPartialQueryKey<Params> = [...string[], Partial<Params>]
 export type ChamQueryKey<Params> = [...string[], Params]
-export type ChamQueryOptions<Params, Res, Error> = Omit<UseQueryOptions<Res, Error, Res, ChamQueryKey<Params>>, 'queryKey'>
+export type ChamQueryOptions<Params, Res, Error> = Omit<UseQueryOptions<Res, Error, Res, ChamQueryKey<Params>>, "queryKey">
 
 export interface ChamQuery<Params, Res, Error> {
   baseQueryKey: string[]
   getQueryKey: (params: Params) => ChamQueryKey<Params>
   getPartialQueryKey: (params: Partial<Params>) => ChamPartialQueryKey<Params>
   use: (params: Params, options?: ChamQueryOptions<Params, Res, Error>) => UseQueryResult<Res, Error>
-  useAll: (params: Params[], options?: ChamQueryOptions<Params, Res, Error>) => Pick<UseQueryResult<Res[], Error>, 'data' | 'isLoading' | 'isFetching' | 'isError' | 'isPending'>
-  useSuspenseAll: (params: Params[], options?: ChamQueryOptions<Params, Res, Error>) => Pick<UseSuspenseQueryResult<Res[], Error>, 'data' | 'isError'>
+  useAll: (params: Params[], options?: ChamQueryOptions<Params, Res, Error>) => Pick<UseQueryResult<Res[], Error>, "data" | "isLoading" | "isFetching" | "isError" | "isPending">
+  useSuspenseAll: (params: Params[], options?: ChamQueryOptions<Params, Res, Error>) => Pick<UseSuspenseQueryResult<Res[], Error>, "data" | "isError">
   invalidate: (p?: Partial<Params>) => void
   refetch: (p?: Partial<Params>) => Promise<void>
   fetch: (p: Params, options?: ChamQueryOptions<Params, Res, Error>) => Promise<Res>
@@ -45,7 +45,7 @@ export const createChamQuery = <Params, Res, Error>(
   const getPartialQueryKey = (params?: Partial<Params>) => [...baseQueryKey, params]
     .filter(x =>
       x !== undefined
-      && ((typeof x === 'object' && x !== null)
+      && ((typeof x === "object" && x !== null)
         ? Object.keys(x).length > 0
         : true),
     ) as ChamPartialQueryKey<Params>

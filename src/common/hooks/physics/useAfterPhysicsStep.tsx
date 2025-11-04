@@ -1,6 +1,6 @@
-import useRapier from '@/common/hooks/physics/useRapier.ts'
-import type { World } from '@dimforge/rapier2d'
-import { type DependencyList, useCallback, useEffect, useMemo } from 'react'
+import useRapier from "@/common/hooks/physics/useRapier.ts"
+import type { World } from "@dimforge/rapier2d"
+import { type DependencyList, useCallback, useEffect, useMemo } from "react"
 
 let tickerId = 0
 

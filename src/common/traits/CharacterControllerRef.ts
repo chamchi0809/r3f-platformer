@@ -1,6 +1,6 @@
-import { trait } from 'koota'
-import type { Collider, KinematicCharacterController, World } from '@dimforge/rapier2d'
-import { deg2rad } from '@/common/utils/mathUtils.ts'
+import { trait } from "koota"
+import type { Collider, KinematicCharacterController, World } from "@dimforge/rapier2d"
+import { deg2rad } from "@/common/utils/mathUtils.ts"
 
 export const CharacterControllerRef = trait(() => ({}) as unknown as CharacterController)
 

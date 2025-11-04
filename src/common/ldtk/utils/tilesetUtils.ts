@@ -1,10 +1,10 @@
-import * as THREE from 'three'
-import { TextureLoader } from 'three'
-import type { TilesetDefinition } from '@/common/ldtk/models/LdtkTypes.ts'
-import { useLdtkLevelContext } from '@/common/ldtk/components/LdtkMap.tsx'
-import { chunk } from 'es-toolkit'
-import tilesetImageQuery from '@/common/ldtk/queries/tilesetImageQuery.ts'
-import { getSafePath } from '@/common/utils/electronUtils.ts'
+import * as THREE from "three"
+import { TextureLoader } from "three"
+import type { TilesetDefinition } from "@/common/ldtk/models/LdtkTypes.ts"
+import { useLdtkLevelContext } from "@/common/ldtk/components/LdtkMap.tsx"
+import { chunk } from "es-toolkit"
+import tilesetImageQuery from "@/common/ldtk/queries/tilesetImageQuery.ts"
+import { getSafePath } from "@/common/utils/electronUtils.ts"
 
 export const getTilesetByUid = (tilesets: TilesetDefinition[], uid: number): TilesetDefinition | undefined => {
   return tilesets.find(ts => ts.uid === uid)
@@ -34,10 +34,10 @@ export const useTilePixelData = (src: [number, number], tileset: TilesetDefiniti
   const { ldtkDir } = useLdtkLevelContext()
   const { data: image } = tilesetImageQuery.use({
     ldtkDir,
-    relPath: tileset.relPath ?? '',
+    relPath: tileset.relPath ?? "",
   })
-  const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')
+  const canvas = document.createElement("canvas")
+  const ctx = canvas.getContext("2d")
   if (ctx && image) {
     ctx.drawImage(image, 0, 0)
     return chunk(Array.from(ctx.getImageData(src[0], src[1], tileSize, tileSize).data), 4)
@@ -49,15 +49,15 @@ export const useTilesetPixelData = (tileset: TilesetDefinition) => {
   const { ldtkDir } = useLdtkLevelContext()
   const { data: image } = tilesetImageQuery.use({
     ldtkDir,
-    relPath: tileset.relPath ?? '',
+    relPath: tileset.relPath ?? "",
   })
   const tileSize = tileset.tileGridSize
   const cols = Math.floor(tileset.pxWid / tileSize)
   const rows = Math.floor(tileset.pxHei / tileSize)
   const pixels: Record<number, number[][]> = {}
   if (image) {
-    const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')
+    const canvas = document.createElement("canvas")
+    const ctx = canvas.getContext("2d")
     if (ctx) {
       ctx.drawImage(image, 0, 0)
       for (let y = 0; y < rows; y++) {

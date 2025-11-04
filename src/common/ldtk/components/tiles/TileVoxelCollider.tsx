@@ -1,12 +1,12 @@
-import { useMemo } from 'react'
-import { layerPxToWorldPx, pxToGridPosition } from '@/common/ldtk/utils/positionUtils.ts'
-import { useTilePixelData } from '@/common/ldtk/utils/tilesetUtils.ts'
-import type { BaseTileRendererProps } from '@/common/ldtk/components/layers/TilesLayerRenderer.tsx'
-import { INTERACTION_GROUPS } from '@/common/defs/colGroup.ts'
-import { chunk } from 'es-toolkit'
-import useCreateCollider from '@/common/hooks/physics/useCreateCollider.ts'
-import useRapier from '@/common/hooks/physics/useRapier.ts'
-import { Vector2 } from 'three'
+import { useMemo } from "react"
+import { layerPxToWorldPx, pxToGridPosition } from "@/common/ldtk/utils/positionUtils.ts"
+import { useTilePixelData } from "@/common/ldtk/utils/tilesetUtils.ts"
+import type { BaseTileRendererProps } from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx"
+import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts"
+import { chunk } from "es-toolkit"
+import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts"
+import useRapier from "@/common/hooks/physics/useRapier.ts"
+import { Vector2 } from "three"
 
 export default function TileVoxelCollider(
   {
@@ -15,7 +15,7 @@ export default function TileVoxelCollider(
     tileSize,
     layerPxDimensions,
     layerPxOffsets,
-    interactionGroups = INTERACTION_GROUPS['DEFAULT'],
+    interactionGroups = INTERACTION_GROUPS["DEFAULT"],
   }: {
     interactionGroups?: number
   } & BaseTileRendererProps) {

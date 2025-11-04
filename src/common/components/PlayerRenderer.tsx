@@ -1,14 +1,14 @@
-import { useQueryFirst } from 'koota/react'
-import { IsPlayer } from '@/common/traits/IsPlayer.ts'
-import type { Entity } from 'koota'
-import { CharacterStartPosition } from '@/common/traits/CharacterStartPosition.ts'
-import { useThreeInjector } from '@/common/hooks/injection/useThreeInjector.ts'
-import { useCharacterControllerInjector } from '@/common/hooks/injection/useCharacterControllerInjector.ts'
-import { INTERACTION_GROUPS } from '@/common/defs/colGroup.ts'
-import { useMaterialInjector } from '@/common/hooks/injection/useMaterialInjector.ts'
-import useRapier from '@/common/hooks/physics/useRapier.ts'
-import useCreateCollider from '@/common/hooks/physics/useCreateCollider.ts'
-import { useUnmount } from 'react-use'
+import { useQueryFirst } from "koota/react"
+import { IsPlayer } from "@/common/traits/IsPlayer.ts"
+import type { Entity } from "koota"
+import { CharacterStartPosition } from "@/common/traits/CharacterStartPosition.ts"
+import { useThreeInjector } from "@/common/hooks/injection/useThreeInjector.ts"
+import { useCharacterControllerInjector } from "@/common/hooks/injection/useCharacterControllerInjector.ts"
+import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts"
+import { useMaterialInjector } from "@/common/hooks/injection/useMaterialInjector.ts"
+import useRapier from "@/common/hooks/physics/useRapier.ts"
+import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts"
+import { useUnmount } from "react-use"
 
 const PlayerView = ({ entity}: { entity: Entity }) => {
   const startPos = entity.get(CharacterStartPosition)!

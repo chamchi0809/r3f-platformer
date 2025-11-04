@@ -1,6 +1,6 @@
-import { contextBridge, ipcRenderer, type OpenDialogReturnValue } from 'electron'
-import { type ElectronAPI, electronAPI } from '@electron-toolkit/preload'
-import * as process from 'node:process'
+import { contextBridge, ipcRenderer, type OpenDialogReturnValue } from "electron"
+import { type ElectronAPI, electronAPI } from "@electron-toolkit/preload"
+import * as process from "node:process"
 
 type IpcApiResponse<T = void> = Promise<{
   success: boolean
@@ -10,38 +10,38 @@ type IpcApiResponse<T = void> = Promise<{
 // Custom APIs for renderer
 const IpcApi = {
   readUserData: (filePath: string): IpcApiResponse<string> => {
-    return ipcRenderer.invoke('read:userData', filePath)
+    return ipcRenderer.invoke("read:userData", filePath)
   },
   existsUserData: (filePath: string): IpcApiResponse<boolean> => {
-    return ipcRenderer.invoke('exists:userData', filePath)
+    return ipcRenderer.invoke("exists:userData", filePath)
   },
   writeUserData: (filePath: string, data: string): IpcApiResponse<void> => {
-    return ipcRenderer.invoke('write:userData', filePath, data)
+    return ipcRenderer.invoke("write:userData", filePath, data)
   },
   readPublic: (filePath: string): IpcApiResponse<string> => {
-    return ipcRenderer.invoke('read:public', filePath)
+    return ipcRenderer.invoke("read:public", filePath)
   },
   existsPublic: (filePath: string): IpcApiResponse<boolean> => {
-    return ipcRenderer.invoke('exists:public', filePath)
+    return ipcRenderer.invoke("exists:public", filePath)
   },
   writePublic: (filePath: string, data: string): IpcApiResponse<void> => {
-    return ipcRenderer.invoke('write:public', filePath, data)
+    return ipcRenderer.invoke("write:public", filePath, data)
   },
   readAbs: (filePath: string): IpcApiResponse<string> => {
-    return ipcRenderer.invoke('read:abs', filePath)
+    return ipcRenderer.invoke("read:abs", filePath)
   },
   existsAbs: (filePath: string): IpcApiResponse<boolean> => {
-    return ipcRenderer.invoke('exists:abs', filePath)
+    return ipcRenderer.invoke("exists:abs", filePath)
   },
   writeAbs: (filePath: string, data: string): IpcApiResponse<void> => {
-    return ipcRenderer.invoke('write:abs', filePath, data)
+    return ipcRenderer.invoke("write:abs", filePath, data)
   },
   openPublic: async (filePath: string): IpcApiResponse<OpenDialogReturnValue> => {
-    const data: OpenDialogReturnValue = await ipcRenderer.invoke('open:public', filePath)
+    const data: OpenDialogReturnValue = await ipcRenderer.invoke("open:public", filePath)
     return { success: true, data }
   },
   isDev: () => {
-    return process.env['NODE_ENV'] === 'development'
+    return process.env["NODE_ENV"] === "development"
   },
 } as const
 
@@ -51,13 +51,13 @@ export type IpcApiType = typeof IpcApi
 // just add to the DOM global.
 if (process.contextIsolated) {
   try {
-    contextBridge.exposeInMainWorld('electron', {
+    contextBridge.exposeInMainWorld("electron", {
       ...electronAPI,
     })
-    contextBridge.exposeInMainWorld('api', IpcApi)
+    contextBridge.exposeInMainWorld("api", IpcApi)
   }
   catch (error) {
-    console.error('Failed to expose Electron API in the renderer:', error)
+    console.error("Failed to expose Electron API in the renderer:", error)
     console.error(error)
   }
 }

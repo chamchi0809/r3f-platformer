@@ -1,4 +1,4 @@
-import { Components, createPlugin, type LevaInputProps, useInputContext } from 'leva/plugin'
+import { Components, createPlugin, type LevaInputProps, useInputContext } from "leva/plugin"
 
 const { Row, Label } = Components
 
@@ -16,14 +16,14 @@ function PathSelect() {
       <Label>{label}</Label>
       <button onClick={async () => {
         if (window.api) {
-          const { data } = await window.api.openPublic('/assets')
+          const { data } = await window.api.openPublic("/assets")
           if (data.filePaths.length == 1) {
             onUpdate(data.filePaths[0])
           }
         }
       }}
       >
-        {displayValue || 'Select Path'}
+        {displayValue || "Select Path"}
       </button>
     </Row>
   )

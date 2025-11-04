@@ -1,10 +1,10 @@
-import { layerPxToWorldPx, pxToGridPosition } from '@/common/ldtk/utils/positionUtils.ts'
-import { centerTilePivot } from '@/common/ldtk/utils/tilesetUtils.ts'
-import type { BaseTileRendererProps } from '@/common/ldtk/components/layers/TilesLayerRenderer.tsx'
-import { INTERACTION_GROUPS } from '@/common/defs/colGroup.ts'
-import useCreateCollider from '@/common/hooks/physics/useCreateCollider.ts'
-import { Vector2 } from 'three'
-import useRapier from '@/common/hooks/physics/useRapier.ts'
+import { layerPxToWorldPx, pxToGridPosition } from "@/common/ldtk/utils/positionUtils.ts"
+import { centerTilePivot } from "@/common/ldtk/utils/tilesetUtils.ts"
+import type { BaseTileRendererProps } from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx"
+import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts"
+import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts"
+import { Vector2 } from "three"
+import useRapier from "@/common/hooks/physics/useRapier.ts"
 
 export default function TileRectCollider(
   {
@@ -12,7 +12,7 @@ export default function TileRectCollider(
     tileSize,
     layerPxDimensions,
     layerPxOffsets,
-    interactionGroups = INTERACTION_GROUPS['DEFAULT'],
+    interactionGroups = INTERACTION_GROUPS["DEFAULT"],
   }: {
     interactionGroups?: number
   } & BaseTileRendererProps) {

@@ -1,3 +1,3 @@
-import { trait } from 'koota'
+import { trait } from "koota"
 
 export const JumpInput = trait(() => ({ on: false }))

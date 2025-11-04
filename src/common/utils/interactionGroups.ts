@@ -1,4 +1,4 @@
-import { type InteractionGroups } from '@dimforge/rapier2d'
+import { type InteractionGroups } from "@dimforge/rapier2d"
 
 /**
  * Calculates an InteractionGroup bitmask for use in the `collisionGroups` or `solverGroups`

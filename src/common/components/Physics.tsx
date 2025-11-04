@@ -1,12 +1,12 @@
-const rapierPromise = import('@dimforge/rapier2d')
-import { type Vector2, type World } from '@dimforge/rapier2d'
-import { createContext, type Dispatch, memo, type ReactNode, type SetStateAction, use, useEffect, useMemo, useRef, useState } from 'react'
+const rapierPromise = import("@dimforge/rapier2d")
+import { type Vector2, type World } from "@dimforge/rapier2d"
+import { createContext, type Dispatch, memo, type ReactNode, type SetStateAction, use, useEffect, useMemo, useRef, useState } from "react"
 
 export type RapierTicker = (world: World) => void
 export type TickerMap = Record<number, RapierTicker>
 
 export type RapierContextType = {
-  rapier: typeof import('@dimforge/rapier2d')
+  rapier: typeof import("@dimforge/rapier2d")
   world: World
   setTickers: Dispatch<SetStateAction<TickerMap>>
 }

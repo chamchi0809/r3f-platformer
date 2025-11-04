@@ -1,7 +1,7 @@
-import type { Collider, ColliderDesc } from '@dimforge/rapier2d'
-import type { Vector2 } from 'three'
-import useRapier from '@/common/hooks/physics/useRapier.ts'
-import { useEffect, useState } from 'react'
+import type { Collider, ColliderDesc } from "@dimforge/rapier2d"
+import type { Vector2 } from "three"
+import useRapier from "@/common/hooks/physics/useRapier.ts"
+import { useEffect, useState } from "react"
 
 export interface ColliderDefinition {
   startPosition?: Vector2

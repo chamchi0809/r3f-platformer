@@ -1,17 +1,17 @@
-import LdtkMap from '@/common/ldtk/components/LdtkMap.tsx'
-import TileRectCollider from '@/common/ldtk/components/tiles/TileRectCollider.tsx'
-import CameraRenderer from '@/common/components/CameraRenderer.tsx'
-import TileVoxelCollider from '@/common/ldtk/components/tiles/TileVoxelCollider.tsx'
-import Startup from '@/common/lifecycles/Startup.tsx'
-import FrameLoop from '@/common/lifecycles/FrameLoop.tsx'
-import PlayerSpawner from '@/common/components/PlayerSpawner.tsx'
-import PlayerRenderer from '@/common/components/PlayerRenderer.tsx'
-import PhysicsLoop from '@/common/lifecycles/PhysicsLoop.tsx'
-import KeyboardEvents from '@/common/lifecycles/KeyboardEvents.tsx'
-import { Perf } from 'r3f-perf'
-import { Suspense } from 'react'
-import { Bloom, EffectComposer, Noise, Sepia, Vignette } from '@react-three/postprocessing'
-import { BlendFunction, VignetteTechnique } from 'postprocessing'
+import LdtkMap from "@/common/ldtk/components/LdtkMap.tsx"
+import TileRectCollider from "@/common/ldtk/components/tiles/TileRectCollider.tsx"
+import CameraRenderer from "@/common/components/CameraRenderer.tsx"
+import TileVoxelCollider from "@/common/ldtk/components/tiles/TileVoxelCollider.tsx"
+import Startup from "@/common/lifecycles/Startup.tsx"
+import FrameLoop from "@/common/lifecycles/FrameLoop.tsx"
+import PlayerSpawner from "@/common/components/PlayerSpawner.tsx"
+import PlayerRenderer from "@/common/components/PlayerRenderer.tsx"
+import PhysicsLoop from "@/common/lifecycles/PhysicsLoop.tsx"
+import KeyboardEvents from "@/common/lifecycles/KeyboardEvents.tsx"
+import { Perf } from "r3f-perf"
+import { Suspense } from "react"
+import { Bloom, EffectComposer, Noise, Sepia, Vignette } from "@react-three/postprocessing"
+import { BlendFunction, VignetteTechnique } from "postprocessing"
 
 export default function Game() {
   return (

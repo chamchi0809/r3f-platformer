@@ -1,12 +1,12 @@
-import { useMemo } from 'react'
-import * as THREE from 'three'
-import { Instance, Instances } from '@react-three/drei'
-import { layerPxToWorldPx, pxToGridPosition } from '@/common/ldtk/utils/positionUtils.ts'
-import { centerTilePivot } from '@/common/ldtk/utils/tilesetUtils.ts'
-import type { TileInstance, TilesetDefinition } from '@/common/ldtk/models/LdtkTypes.ts'
-import tilePixelsQuery from '@/common/ldtk/queries/tilePixelsQuery.ts'
-import { useLdtkLevelContext } from '@/common/ldtk/components/LdtkMap.tsx'
-import { chunk, groupBy } from 'es-toolkit'
+import { useMemo } from "react"
+import * as THREE from "three"
+import { Instance, Instances } from "@react-three/drei"
+import { layerPxToWorldPx, pxToGridPosition } from "@/common/ldtk/utils/positionUtils.ts"
+import { centerTilePivot } from "@/common/ldtk/utils/tilesetUtils.ts"
+import type { TileInstance, TilesetDefinition } from "@/common/ldtk/models/LdtkTypes.ts"
+import tilePixelsQuery from "@/common/ldtk/queries/tilePixelsQuery.ts"
+import { useLdtkLevelContext } from "@/common/ldtk/components/LdtkMap.tsx"
+import { chunk, groupBy } from "es-toolkit"
 
 interface InstancedTilesRendererProps {
   tiles: TileInstance[]
@@ -17,7 +17,7 @@ interface InstancedTilesRendererProps {
   layerPxOffsets: [number, number]
 }
 
-const SHADOW_PILLAR_MAT = new THREE.MeshBasicMaterial({ color: 'white', transparent: true, opacity: 0 })
+const SHADOW_PILLAR_MAT = new THREE.MeshBasicMaterial({ color: "white", transparent: true, opacity: 0 })
 
 export default function InstancedTilesRenderer(
   {
@@ -168,7 +168,7 @@ function InstancedTileGroup(
     const { data: pixelData } = tilePixelsQuery.useSuspenseAll(groups.map(g => ({
       ldtkDir,
       tileSize: tileset.tileGridSize,
-      relPath: tileset.relPath ?? '',
+      relPath: tileset.relPath ?? "",
       src: g[0].src as [number, number],
     })))
 
@@ -379,7 +379,7 @@ function InstancedTileGroup(
       })
 
       const geo = new THREE.BufferGeometry()
-      geo.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
+      geo.setAttribute("position", new THREE.BufferAttribute(vertices, 3))
       geo.setIndex(new THREE.BufferAttribute(indices, 1))
       geo.computeVertexNormals() // Add normals for better shadow quality
 

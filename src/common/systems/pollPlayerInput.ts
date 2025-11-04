@@ -1,8 +1,8 @@
-import type { World } from 'koota'
-import { IsPlayer } from '@/common/traits/IsPlayer.ts'
-import { MoveInput } from '@/common/traits/MoveInput.ts'
-import type { KeyboardControlType } from '@/common/defs/keyboardControlMap.ts'
-import { JumpInput } from '@/common/traits/JumpInput.ts'
+import type { World } from "koota"
+import { IsPlayer } from "@/common/traits/IsPlayer.ts"
+import { MoveInput } from "@/common/traits/MoveInput.ts"
+import type { KeyboardControlType } from "@/common/defs/keyboardControlMap.ts"
+import { JumpInput } from "@/common/traits/JumpInput.ts"
 
 export default function pollPlayerInput(world: World, keys: Record<KeyboardControlType, boolean>) {
   world.query(IsPlayer, MoveInput, JumpInput)
