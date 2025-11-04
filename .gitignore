@@ -26,5 +26,3 @@ dist-ssr
 # electron
 out
 release
-
-.editorconfig
