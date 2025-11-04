@@ -17,9 +17,12 @@
     "strict": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
   },
   "include": [
-    "vite.config.ts"
+    "vite.config.ts",
+    "eslint.config.ts",
   ]
 }
