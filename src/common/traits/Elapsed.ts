@@ -1,3 +1,3 @@
-import {trait} from "koota";
+import { trait } from 'koota'
 
-export const Elapsed = trait(() => 0);
+export const Elapsed = trait(() => 0)
