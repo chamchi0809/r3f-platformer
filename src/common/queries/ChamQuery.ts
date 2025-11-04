@@ -1,4 +1,4 @@
-import { QueryClient, type Updater, useQueries, useQuery, type UseQueryOptions, type UseQueryResult, useSuspenseQueries, type UseSuspenseQueryResult, type UseSuspenseQueryOptions } from '@tanstack/react-query'
+import { QueryClient, type Updater, useQueries, useQuery, type UseQueryOptions, type UseQueryResult, useSuspenseQueries, type UseSuspenseQueryResult, type UseSuspenseQueryOptions } from "@tanstack/react-query";
 
 export const chamQueryClient = new QueryClient({
   defaultOptions: {
@@ -7,19 +7,19 @@ export const chamQueryClient = new QueryClient({
       staleTime: Infinity,
     },
   },
-})
+});
 
-export type ChamPartialQueryKey<Params> = [...string[], Partial<Params>]
-export type ChamQueryKey<Params> = [...string[], Params]
-export type ChamQueryOptions<Params, Res, Error> = Omit<UseQueryOptions<Res, Error, Res, ChamQueryKey<Params>>, 'queryKey'>
+export type ChamPartialQueryKey<Params> = [...string[], Partial<Params>];
+export type ChamQueryKey<Params> = [...string[], Params];
+export type ChamQueryOptions<Params, Res, Error> = Omit<UseQueryOptions<Res, Error, Res, ChamQueryKey<Params>>, "queryKey">;
 
 export interface ChamQuery<Params, Res, Error> {
   baseQueryKey: string[]
   getQueryKey: (params: Params) => ChamQueryKey<Params>
   getPartialQueryKey: (params: Partial<Params>) => ChamPartialQueryKey<Params>
   use: (params: Params, options?: ChamQueryOptions<Params, Res, Error>) => UseQueryResult<Res, Error>
-  useAll: (params: Params[], options?: ChamQueryOptions<Params, Res, Error>) => Pick<UseQueryResult<Res[], Error>, 'data' | 'isLoading' | 'isFetching' | 'isError' | 'isPending'>
-  useSuspenseAll: (params: Params[], options?: ChamQueryOptions<Params, Res, Error>) => Pick<UseSuspenseQueryResult<Res[], Error>, 'data' | 'isError'>
+  useAll: (params: Params[], options?: ChamQueryOptions<Params, Res, Error>) => Pick<UseQueryResult<Res[], Error>, "data" | "isLoading" | "isFetching" | "isError" | "isPending">
+  useSuspenseAll: (params: Params[], options?: ChamQueryOptions<Params, Res, Error>) => Pick<UseSuspenseQueryResult<Res[], Error>, "data" | "isError">
   invalidate: (p?: Partial<Params>) => void
   refetch: (p?: Partial<Params>) => Promise<void>
   fetch: (p: Params, options?: ChamQueryOptions<Params, Res, Error>) => Promise<Res>
@@ -27,7 +27,7 @@ export interface ChamQuery<Params, Res, Error> {
   set: (p: Params, updater: Updater<Res | undefined, Res>) => void
 }
 
-export type ChamQueryParams<T> = T extends ChamQuery<infer P, unknown, unknown> ? P : never
+export type ChamQueryParams<T> = T extends ChamQuery<infer P, unknown, unknown> ? P : never;
 
 export const createChamQuery = <Params, Res, Error>(
   {
@@ -41,27 +41,27 @@ export const createChamQuery = <Params, Res, Error>(
     onInvalidate?: (p?: Partial<Params>) => void
     onSet?: (p: Params, data: Res) => void
   }) => {
-  const getQueryKey = (params: Params) => [...baseQueryKey, params] as ChamQueryKey<Params>
+  const getQueryKey = (params: Params) => [...baseQueryKey, params] as ChamQueryKey<Params>;
   const getPartialQueryKey = (params?: Partial<Params>) => [...baseQueryKey, params]
     .filter(x =>
       x !== undefined
-      && ((typeof x === 'object' && x !== null)
+      && ((typeof x === "object" && x !== null)
         ? Object.keys(x).length > 0
         : true),
-    ) as ChamPartialQueryKey<Params>
+    ) as ChamPartialQueryKey<Params>;
   const getOptions = (params: Params, overrideOptions?: ChamQueryOptions<Params, Res, Error>) => ({
     queryKey: getQueryKey(params),
     retryDelay: 3000,
     ...options(params),
     ...overrideOptions,
-  })
+  });
 
   return ({
     baseQueryKey,
     getQueryKey,
     getPartialQueryKey,
     use: (params, options) => {
-      return useQuery(getOptions(params, options))
+      return useQuery(getOptions(params, options));
     },
     useAll: (params: Params[], options) => {
       return useQueries({
@@ -73,9 +73,9 @@ export const createChamQuery = <Params, Res, Error>(
             isFetching: results.some(r => r.isFetching),
             isError: results.some(r => r.isError),
             isPending: results.some(r => r.isPending),
-          }
+          };
         },
-      })
+      });
     },
     useSuspenseAll: (params: Params[], options) => {
       return useSuspenseQueries({
@@ -84,32 +84,32 @@ export const createChamQuery = <Params, Res, Error>(
           return {
             data: results.map(r => r.data),
             isError: results.some(r => r.isError),
-          }
+          };
         },
-      })
+      });
     },
     invalidate: (p) => {
-      chamQueryClient.invalidateQueries({ queryKey: getPartialQueryKey(p) })
-      onInvalidate?.(p)
+      chamQueryClient.invalidateQueries({ queryKey: getPartialQueryKey(p) });
+      onInvalidate?.(p);
     },
     refetch: (p) => {
-      onInvalidate?.(p)
+      onInvalidate?.(p);
       return chamQueryClient.refetchQueries({
         queryKey: getPartialQueryKey(p),
-      })
+      });
     },
     fetch: async (p, options) => {
-      const data = await chamQueryClient.fetchQuery(getOptions(p, options))
-      onSet?.(p, data)
-      return data
+      const data = await chamQueryClient.fetchQuery(getOptions(p, options));
+      onSet?.(p, data);
+      return data;
     },
     get: (p) => {
-      return chamQueryClient.getQueryData(getQueryKey(p))
+      return chamQueryClient.getQueryData(getQueryKey(p));
     },
     set: (p, updater) => {
-      const data = chamQueryClient.setQueryData(getQueryKey(p), updater)
-      onSet?.(p, data as Res)
-      return data
+      const data = chamQueryClient.setQueryData(getQueryKey(p), updater);
+      onSet?.(p, data as Res);
+      return data;
     },
-  } as ChamQuery<Params, Res, Error>)
-}
+  } as ChamQuery<Params, Res, Error>);
+};

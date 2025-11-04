@@ -12,11 +12,11 @@ export const LdtkLevelContext = createContext<{
   level: Level
   entityRendererMap?: EntityRendererMap
   tileRendererMap?: TileRendererMap
-} | null>(null)
+} | null>(null);
 
 const ldtkPromise = fetch(getSafePath('/assets/ldtk/map.ldtk'))
   .then(response => response.json())
-  .then(data => data as Ldtk)
+  .then(data => data as Ldtk);
 
 export default function LdtkMap(
   {
@@ -30,11 +30,11 @@ export default function LdtkMap(
     entityRendererMap?: EntityRendererMap // Optional entity renderer map
     tileRendererMap?: TileRendererMap // Optional tile renderer map
   }) {
-  const ldtk = use(ldtkPromise)
+  const ldtk = use(ldtkPromise);
 
   const levels = levelIds
     ? ldtk.levels.filter(lvl => levelIds.includes(lvl.identifier))
-    : ldtk.levels
+    : ldtk.levels;
 
   return levels.map((level) => {
     return (
@@ -42,7 +42,7 @@ export default function LdtkMap(
         ldtk,
         level,
         ldtkPath,
-        ldtkDir: ldtkPath.substring(0, ldtkPath.lastIndexOf('/')) + '/',
+        ldtkDir: ldtkPath.substring(0, ldtkPath.lastIndexOf("/")) + "/",
         entityRendererMap,
         tileRendererMap,
       }}
@@ -54,18 +54,18 @@ export default function LdtkMap(
                 key={layer.iid}
                 layer={layer}
               />
-            )
+            );
           })}
         </group>
       </LdtkLevelContext>
-    )
-  })
+    );
+  });
 };
 
 export const useLdtkLevelContext = () => {
-  const context = useContext(LdtkLevelContext)
+  const context = useContext(LdtkLevelContext);
   if (!context) {
-    throw new Error('useLdtkLevelContext must be used within a LdtkMap component')
+    throw new Error("useLdtkLevelContext must be used within a LdtkMap component");
   }
-  return context
-}
+  return context;
+};

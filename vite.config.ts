@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import * as path from 'path'
-import wasm from 'vite-plugin-wasm'
-import topLevelAwait from 'vite-plugin-top-level-await'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import * as path from "path";
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -10,8 +10,8 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: '@',
-        replacement: path.resolve(__dirname, 'src'),
+        find: "@",
+        replacement: path.resolve(__dirname, "src"),
       },
     ],
   },
@@ -19,12 +19,12 @@ export default defineConfig({
     port: 8080,
   },
   build: {
-    outDir: 'dist',
+    outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html'),
+        main: path.resolve(__dirname, "index.html"),
       },
     },
   },
-})
+});

@@ -1,8 +1,8 @@
-import type { EntityInstance, LayerInstance, TilesetDefinition } from '@/common/ldtk/models/LdtkTypes.ts'
-import * as THREE from 'three'
-import { Fragment, type JSX } from 'react'
-import { useLdtkLayerContext } from '@/common/ldtk/components/layers/LayerRenderer.tsx'
-import { useLdtkLevelContext } from '@/common/ldtk/components/LdtkMap.tsx'
+import type { EntityInstance, LayerInstance, TilesetDefinition } from "@/common/ldtk/models/LdtkTypes.ts";
+import * as THREE from "three";
+import { Fragment, type JSX } from "react";
+import { useLdtkLayerContext } from "@/common/ldtk/components/layers/LayerRenderer.tsx";
+import { useLdtkLevelContext } from "@/common/ldtk/components/LdtkMap.tsx";
 
 export interface EntityRendererProps {
   entity: EntityInstance
@@ -13,13 +13,13 @@ export interface EntityRendererProps {
   layerPxDimensions: [number, number]
 }
 
-export type EntityRenderer = (props: EntityRendererProps) => JSX.Element | null
+export type EntityRenderer = (props: EntityRendererProps) => JSX.Element | null;
 
-export type EntityRendererMap = Record<string, EntityRenderer>
+export type EntityRendererMap = Record<string, EntityRenderer>;
 
 export default function EntitiesLayerRenderer() {
-  const { layer, tileset, texture, layerPxOffsets, layerPxDimensions } = useLdtkLayerContext()
-  const { entityRendererMap } = useLdtkLevelContext()
+  const { layer, tileset, texture, layerPxOffsets, layerPxDimensions } = useLdtkLayerContext();
+  const { entityRendererMap } = useLdtkLevelContext();
 
   return (
     <>
@@ -35,8 +35,8 @@ export default function EntitiesLayerRenderer() {
               layerPxDimensions,
             })}
           </Fragment>
-        )
+        );
       })}
     </>
-  )
+  );
 }

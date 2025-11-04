@@ -1,40 +1,40 @@
-import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
-import * as path from 'path'
-import react from '@vitejs/plugin-react'
-import wasm from 'vite-plugin-wasm'
-import topLevelAwait from 'vite-plugin-top-level-await'
+import { defineConfig, externalizeDepsPlugin } from "electron-vite";
+import * as path from "path";
+import react from "@vitejs/plugin-react";
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
 
 export default defineConfig({
   main: {
-    publicDir: path.resolve(__dirname, 'public'),
+    publicDir: path.resolve(__dirname, "public"),
     build: {
       rollupOptions: {
         input: {
-          index: path.resolve(__dirname, 'electron/main.ts'),
+          index: path.resolve(__dirname, "electron/main.ts"),
         },
       },
     },
     plugins: [externalizeDepsPlugin()],
   },
   preload: {
-    publicDir: path.resolve(__dirname, 'public'),
+    publicDir: path.resolve(__dirname, "public"),
     build: {
       rollupOptions: {
         input: {
-          index: path.resolve(__dirname, 'electron/preload.ts'),
+          index: path.resolve(__dirname, "electron/preload.ts"),
         },
-        external: ['@electron-toolkit/preload'],
+        external: ["@electron-toolkit/preload"],
       },
     },
     plugins: [externalizeDepsPlugin()],
   },
   renderer: {
-    root: '.',
-    publicDir: path.resolve(__dirname, 'public'),
+    root: ".",
+    publicDir: path.resolve(__dirname, "public"),
     build: {
       rollupOptions: {
         input: {
-          renderer: path.resolve(__dirname, 'index.html'),
+          renderer: path.resolve(__dirname, "index.html"),
         },
       },
     },
@@ -42,8 +42,8 @@ export default defineConfig({
     resolve: {
       alias: [
         {
-          find: '@',
-          replacement: path.resolve(__dirname, 'src'),
+          find: "@",
+          replacement: path.resolve(__dirname, "src"),
         },
       ],
     },
@@ -51,4 +51,4 @@ export default defineConfig({
       port: 8080,
     },
   },
-})
+});

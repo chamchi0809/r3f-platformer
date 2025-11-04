@@ -137,64 +137,64 @@ export interface AutoLayerRuleDefinition {
   yOffset: number
 }
 
-export type Checker = 'Horizontal' | 'None' | 'Vertical'
-export type TileMode = 'Single' | 'Stamp'
-export type When = 'AfterLoad' | 'AfterSave' | 'BeforeSave' | 'Manual'
-export type AllowedRefs = 'Any' | 'OnlySame' | 'OnlySpecificEntity' | 'OnlyTags'
+export type Checker = "Horizontal" | "None" | "Vertical";
+export type TileMode = "Single" | "Stamp";
+export type When = "AfterLoad" | "AfterSave" | "BeforeSave" | "Manual";
+export type AllowedRefs = "Any" | "OnlySame" | "OnlySpecificEntity" | "OnlyTags";
 export type EditorDisplayMode
-  = | 'ArrayCountNoLabel'
-    | 'ArrayCountWithLabel'
-    | 'EntityTile'
-    | 'Hidden'
-    | 'LevelTile'
-    | 'NameAndValue'
-    | 'PointPath'
-    | 'PointPathLoop'
-    | 'PointStar'
-    | 'Points'
-    | 'RadiusGrid'
-    | 'RadiusPx'
-    | 'RefLinkBetweenCenters'
-    | 'RefLinkBetweenPivots'
-    | 'ValueOnly'
-export type EditorDisplayPos = 'Above' | 'Beneath' | 'Center'
-export type EditorLinkStyle = 'ArrowsLine' | 'CurvedArrow' | 'DashedLine' | 'StraightArrow' | 'ZigZag'
+  = | "ArrayCountNoLabel"
+    | "ArrayCountWithLabel"
+    | "EntityTile"
+    | "Hidden"
+    | "LevelTile"
+    | "NameAndValue"
+    | "PointPath"
+    | "PointPathLoop"
+    | "PointStar"
+    | "Points"
+    | "RadiusGrid"
+    | "RadiusPx"
+    | "RefLinkBetweenCenters"
+    | "RefLinkBetweenPivots"
+    | "ValueOnly";
+export type EditorDisplayPos = "Above" | "Beneath" | "Center";
+export type EditorLinkStyle = "ArrowsLine" | "CurvedArrow" | "DashedLine" | "StraightArrow" | "ZigZag";
 export type TextLanguageMode
-  = | 'LangC'
-    | 'LangHaxe'
-    | 'LangJS'
-    | 'LangJson'
-    | 'LangLog'
-    | 'LangLua'
-    | 'LangMarkdown'
-    | 'LangPython'
-    | 'LangRuby'
-    | 'LangXml'
-export type LimitBehavior = 'DiscardOldOnes' | 'MoveLastOne' | 'PreventAdding'
-export type LimitScope = 'PerLayer' | 'PerLevel' | 'PerWorld'
-export type RenderMode = 'Cross' | 'Ellipse' | 'Rectangle' | 'Tile'
+  = | "LangC"
+    | "LangHaxe"
+    | "LangJS"
+    | "LangJson"
+    | "LangLog"
+    | "LangLua"
+    | "LangMarkdown"
+    | "LangPython"
+    | "LangRuby"
+    | "LangXml";
+export type LimitBehavior = "DiscardOldOnes" | "MoveLastOne" | "PreventAdding";
+export type LimitScope = "PerLayer" | "PerLevel" | "PerWorld";
+export type RenderMode = "Cross" | "Ellipse" | "Rectangle" | "Tile";
 export type TileRenderMode
-  = | 'Cover'
-    | 'FitInside'
-    | 'FullSizeCropped'
-    | 'FullSizeUncropped'
-    | 'NineSlice'
-    | 'Repeat'
-    | 'Stretch'
-export type Type = 'AutoLayer' | 'Entities' | 'IntGrid' | 'Tiles'
-export type EmbedAtlas = 'LdtkIcons'
-export type BgPos = 'Contain' | 'Cover' | 'CoverDirty' | 'Repeat' | 'Unscaled'
-export type WorldLayout = 'Free' | 'GridVania' | 'LinearHorizontal' | 'LinearVertical'
+  = | "Cover"
+    | "FitInside"
+    | "FullSizeCropped"
+    | "FullSizeUncropped"
+    | "NineSlice"
+    | "Repeat"
+    | "Stretch";
+export type Type = "AutoLayer" | "Entities" | "IntGrid" | "Tiles";
+export type EmbedAtlas = "LdtkIcons";
+export type BgPos = "Contain" | "Cover" | "CoverDirty" | "Repeat" | "Unscaled";
+export type WorldLayout = "Free" | "GridVania" | "LinearHorizontal" | "LinearVertical";
 export type Flag
-  = | 'DiscardPreCsvIntGrid'
-    | 'ExportOldTableOfContentData'
-    | 'ExportPreCsvIntGridFormat'
-    | 'IgnoreBackupSuggest'
-    | 'MultiWorlds'
-    | 'PrependIndexToLevelFileNames'
-    | 'UseMultilinesType'
-export type IdentifierStyle = 'Capitalize' | 'Free' | 'Lowercase' | 'Uppercase'
-export type ImageExportMode = 'LayersAndLevels' | 'None' | 'OneImagePerLayer' | 'OneImagePerLevel'
+  = | "DiscardPreCsvIntGrid"
+    | "ExportOldTableOfContentData"
+    | "ExportPreCsvIntGridFormat"
+    | "IgnoreBackupSuggest"
+    | "MultiWorlds"
+    | "PrependIndexToLevelFileNames"
+    | "UseMultilinesType";
+export type IdentifierStyle = "Capitalize" | "Free" | "Lowercase" | "Uppercase";
+export type ImageExportMode = "LayersAndLevels" | "None" | "OneImagePerLayer" | "OneImagePerLevel";
 
 export interface LdtkCustomCommand {
   command: string
@@ -427,7 +427,7 @@ export interface IntGridValueInstance {
   v: number
 }
 
-export type LayerInstanceType = 'AutoLayer' | 'Entities' | 'IntGrid' | 'Tiles'
+export type LayerInstanceType = "AutoLayer" | "Entities" | "IntGrid" | "Tiles";
 
 export interface LayerInstance {
   __cHei: number
@@ -456,7 +456,7 @@ export interface LayerInstance {
   visible: boolean
 }
 
-export type FlipBits = 0 | 1 | 2 | 3 // 0 = no flip, 1 = horizontal flip, 2 = vertical flip, 3 = both
+export type FlipBits = 0 | 1 | 2 | 3; // 0 = no flip, 1 = horizontal flip, 2 = vertical flip, 3 = both
 
 export interface TileInstance {
   // a is alpha (0-1)

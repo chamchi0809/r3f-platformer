@@ -1,4 +1,4 @@
-import { type InteractionGroups } from '@dimforge/rapier2d'
+import { type InteractionGroups } from "@dimforge/rapier2d";
 
 /**
  * Calculates an InteractionGroup bitmask for use in the `collisionGroups` or `solverGroups`
@@ -37,7 +37,7 @@ export const interactionGroups = (
   filters?: number | number[],
 ): InteractionGroups =>
   (bitmask(memberships) << 16)
-  + (filters !== undefined ? bitmask(filters) : 0b1111_1111_1111_1111)
+  + (filters !== undefined ? bitmask(filters) : 0b1111_1111_1111_1111);
 
 const bitmask = (groups: number | number[]): InteractionGroups =>
-  [groups].flat().reduce((acc, layer) => acc | (1 << layer), 0)
+  [groups].flat().reduce((acc, layer) => acc | (1 << layer), 0);
