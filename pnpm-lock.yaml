@@ -32,6 +32,9 @@ importers:
       '@tanstack/react-query-devtools':
         specifier: ^5.90.2
         version: 5.90.2(@tanstack/react-query@5.90.2(react@19.1.1))(react@19.1.1)
+      constate:
+        specifier: ^3.3.3
+        version: 3.3.3(react@19.1.1)
       es-toolkit:
         specifier: ^1.39.10
         version: 1.39.10
@@ -1515,6 +1518,11 @@ packages:
 
   config-file-ts@0.2.8-rc1:
     resolution: {integrity: sha512-GtNECbVI82bT4RiDIzBSVuTKoSHufnU7Ce7/42bkWZJZFLjmDF2WBpVsvRkhKCfKBnTBb3qZrBwPpFBU/Myvhg==}
+
+  constate@3.3.3:
+    resolution: {integrity: sha512-J1P1K/GSB2Bn7uLU9AC9ddJb4PooiMHvektj8PK31Tj6nDWYjnmqVkOajzFp2oT7dpCjE2dL1VXVt/XrNwNwQA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
@@ -5155,6 +5163,10 @@ snapshots:
     dependencies:
       glob: 10.4.5
       typescript: 5.8.3
+
+  constate@3.3.3(react@19.1.1):
+    dependencies:
+      react: 19.1.1
 
   convert-source-map@2.0.0: {}
 
