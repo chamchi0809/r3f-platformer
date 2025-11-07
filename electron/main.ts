@@ -12,10 +12,11 @@ const isDev = !!(is.dev && process.env["ELECTRON_RENDERER_URL"]);
 // $XDG_CONFIG_HOME or ~/.config on Linux
 // ~/Library/Application Support on macOS
 const userDataPath = app.getPath("userData");
+let mainWindow: BrowserWindow | null = null;
 
 function createWindow(): void {
   const preloadPath = path.join(__dirname, "../preload/index.mjs");
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1200,
     height: 640,
     show: false,
@@ -29,7 +30,7 @@ function createWindow(): void {
   });
 
   mainWindow.on("ready-to-show", () => {
-    mainWindow.show();
+    mainWindow!.show();
   });
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -143,6 +144,33 @@ app.whenReady().then(() => {
     await safeReadFile(filePath);
     await fs.promises.writeFile(filePath, data, { encoding: "utf-8" });
     return data;
+  });
+
+  ipcMain.handle("quit-app", () => {
+    app.quit();
+  });
+
+  ipcMain.handle("set-window-size", (_, width: number, height: number) => {
+    if (mainWindow) {
+      mainWindow.setFullScreen(false);
+      mainWindow.unmaximize();
+      mainWindow.setResizable(true);
+      mainWindow.setSize(width, height, true);
+      mainWindow.center();
+    }
+  });
+
+  ipcMain.handle("set-fullscreen", () => {
+    if (mainWindow) {
+      mainWindow.setFullScreen(true);
+    }
+  });
+
+  ipcMain.handle("maximize-window", () => {
+    if (mainWindow) {
+      mainWindow.setFullScreen(false);
+      mainWindow.maximize();
+    }
   });
 
   app.on("activate", function () {

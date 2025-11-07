@@ -43,6 +43,18 @@ const IpcApi = {
   isDev: () => {
     return process.env["NODE_ENV"] === "development";
   },
+  quitApp: (): IpcApiResponse<void> => {
+    return ipcRenderer.invoke("quit-app");
+  },
+  setWindowSize: (width: number, height: number): IpcApiResponse<void> => {
+    return ipcRenderer.invoke("set-window-size", width, height);
+  },
+  setFullScreen: (): IpcApiResponse<void> => {
+    return ipcRenderer.invoke("set-fullscreen");
+  },
+  maximizeWindow: (): IpcApiResponse<void> => {
+    return ipcRenderer.invoke("maximize-window");
+  },
 } as const;
 
 export type IpcApiType = typeof IpcApi;
