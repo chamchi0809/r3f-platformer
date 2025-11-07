@@ -4,7 +4,7 @@ import { Elapsed } from "@/common/traits/Elapsed.ts";
 
 export const freeJumpBuffer = (world: World) => {
   world.query(CharacterJumpBuffer).updateEach(([buffer], entity) => {
-    if (world.get(Elapsed)! - buffer.time > buffer.duration) {
+    if (world.get(Elapsed)!.value - buffer.time > buffer.duration) {
       entity.remove(CharacterJumpBuffer);
     }
   });

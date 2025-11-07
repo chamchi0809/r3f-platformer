@@ -8,9 +8,9 @@ import { updateCharacterVelocity } from "@/common/systems/updateCharacterVelocit
 import { addJumpBuffer } from "@/common/systems/addJumpBuffer.ts";
 import { freeJumpBuffer } from "@/common/systems/freeJumpBuffer.ts";
 import { doJump } from "@/common/systems/doJump.ts";
-import { Elapsed } from "@/common/traits/Elapsed.ts";
 import { applyPlayerColor } from "@/common/systems/applyPlayerColor.ts";
 import { syncControllerAndVisualPosition } from "@/common/systems/syncControllerAndVisualPosition.ts";
+import { updateElapsedTime } from "@/common/systems/updateElapsedTime.ts";
 
 export default function FrameLoop() {
   const world = useWorld();
@@ -36,7 +36,8 @@ export default function FrameLoop() {
 
     const input = getInput();
 
-    world.set(Elapsed, world.get(Elapsed)! + delta);
+    updateElapsedTime(world, delta);
+
     pollPlayerInput(world, input);
     syncControllerAndVisualPosition(world);
     syncVisualPositionAndMesh(world);
