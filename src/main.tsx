@@ -6,12 +6,15 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { chamQueryClient } from "@/common/queries/ChamQuery.ts";
 import { WorldProvider } from "koota/react";
 import { world } from "@/common/world.ts";
+import { AppProvider } from "@/store/useAppStore.ts";
 
 createRoot(document.getElementById("root")!).render(
-  <QueryClientProvider client={chamQueryClient}>
-    <WorldProvider world={world}>
-      <App />
-    </WorldProvider>
-    <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>,
+  <AppProvider>
+    <QueryClientProvider client={chamQueryClient}>
+      <WorldProvider world={world}>
+        <App />
+      </WorldProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  </AppProvider>,
 );

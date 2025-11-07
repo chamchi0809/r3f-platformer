@@ -1,9 +1,8 @@
 import "@/App.css";
 import { Canvas } from "@react-three/fiber";
 import Game from "@/views/game/Game.tsx";
-import { Suspense, useEffect, useState } from "react";
-import { KeyboardControls, type KeyboardControlsEntry } from "@react-three/drei";
-import { keyboardControlMap, type KeyboardControlType } from "@/common/defs/keyboardControlMap.ts";
+import { Suspense } from "react";
+import { KeyboardControls } from "@react-three/drei";
 import { physicsSettings } from "@/common/defs/physicsSettings.ts";
 import { CAM_SIZE } from "@/common/defs/camSize.ts";
 import { useMeasure } from "react-use";
@@ -13,51 +12,26 @@ import TilesetEditor from "@/views/tileset-editor/TilesetEditor.tsx";
 import Physics from "@/common/components/Physics.tsx";
 import MainMenu from "@/views/main-menu/MainMenu.tsx";
 import Setting from "@/views/setting/Setting.tsx";
+import { useApp } from "@/store/useAppStore.ts";
 
 const RENDER_HEIGHT = PPU * CAM_SIZE * 2;
 const DEV_VIEWS = ["game", "tileset-editor"] as const;
 type DevView = typeof DEV_VIEWS[number];
-type GameState = "main" | "play" | "setting";
-type KeymapEntry = KeyboardControlsEntry<KeyboardControlType>;
 
 function App() {
+  const {
+    gameState,
+    activeKeymap,
+    startGame,
+    showSettings,
+    showMenu,
+    handleKeymapChange,
+  } = useApp();
+
   const [ref, { height }] = useMeasure<HTMLCanvasElement>();
   const isDev = window.api?.isDev();
   const { view } = useControls({ view: { value: "game" as DevView, options: DEV_VIEWS } });
   const devView = view as DevView;
-  const [gameState, setGameState] = useState<GameState>("main");
-  const [activeKeymap, setActiveKeymap] = useState<KeymapEntry[]>(keyboardControlMap);
-
-  useEffect(() => {
-    async function loadKeymap() {
-      if (!window.api) {
-        return;
-      }
-      try {
-        const result = await window.api.readUserData("keymap.json");
-        if (result.data) {
-          const savedMap = JSON.parse(result.data) as KeymapEntry[];
-          if (Array.isArray(savedMap) && savedMap.length === keyboardControlMap.length) {
-            setActiveKeymap(savedMap);
-          }
-        }
-      }
-      catch {
-        console.log("No custom keymap found, using defaults.");
-      }
-    }
-    loadKeymap();
-  }, []);
-
-  const handleKeymapChange = (newMap: KeymapEntry[]) => {
-    setActiveKeymap(newMap);
-    window.api?.writeUserData("keymap.json", JSON.stringify(newMap))
-      .catch(err => console.error("Failed to save keymap:", err));
-  };
-
-  const startGame = () => setGameState("play");
-  const showSettings = () => setGameState("setting");
-  const showMenu = () => setGameState("main");
 
   if (gameState === "main") {
     return <MainMenu onStartGame={startGame} onShowSettings={showSettings} />;
@@ -115,6 +89,8 @@ function App() {
       </>
     );
   }
+
+  return null;
 }
 
 export default App;
