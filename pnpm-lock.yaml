@@ -65,6 +65,9 @@ importers:
       three:
         specifier: ^0.178.0
         version: 0.178.0
+      wawa-vfx:
+        specifier: ^1.2.10
+        version: 1.2.10(@react-three/fiber@9.3.0(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(three@0.178.0))(leva@0.10.0(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(three@0.178.0)(zustand@5.0.8(@types/react@19.1.13)(react@19.1.1)(use-sync-external-store@1.5.0(react@19.1.1)))
     devDependencies:
       '@eslint/js':
         specifier: ^9.39.1
@@ -3484,6 +3487,21 @@ packages:
         optional: true
       yaml:
         optional: true
+
+  wawa-vfx-vanilla@1.2.10:
+    resolution: {integrity: sha512-mySRp91f18bCrHHB0Tfpe3NeqCvw421Ul0Jbtk2IuwYEE+KDTNgXCbgTey78Eqd5e0XTstJti1rklT+DCNFJiw==}
+    peerDependencies:
+      three: '>=0.159'
+
+  wawa-vfx@1.2.10:
+    resolution: {integrity: sha512-dEY/X5Hg0uqIV3ZOquCMQeW/Ng1QNL14my45bqmffrAAmzAxt3Vi+MyFEoOoTfYMwdH7FHwYQpUdp/F013zGhA==}
+    peerDependencies:
+      '@react-three/fiber': ^9.0.0
+      leva: ^0.10.0
+      react: ^19
+      react-dom: ^19
+      three: '>=0.159'
+      zustand: ^5.0.0
 
   wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
@@ -7436,6 +7454,20 @@ snapshots:
       '@types/node': 24.5.2
       fsevents: 2.3.3
       jiti: 2.6.1
+
+  wawa-vfx-vanilla@1.2.10(three@0.178.0):
+    dependencies:
+      three: 0.178.0
+
+  wawa-vfx@1.2.10(@react-three/fiber@9.3.0(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(three@0.178.0))(leva@0.10.0(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(three@0.178.0)(zustand@5.0.8(@types/react@19.1.13)(react@19.1.1)(use-sync-external-store@1.5.0(react@19.1.1))):
+    dependencies:
+      '@react-three/fiber': 9.3.0(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(three@0.178.0)
+      leva: 0.10.0(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
+      three: 0.178.0
+      wawa-vfx-vanilla: 1.2.10(three@0.178.0)
+      zustand: 5.0.8(@types/react@19.1.13)(react@19.1.1)(use-sync-external-store@1.5.0(react@19.1.1))
 
   wcwidth@1.0.1:
     dependencies:
