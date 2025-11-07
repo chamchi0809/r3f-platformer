@@ -1,4 +1,4 @@
 import { trait } from "koota";
-import { Material } from "three";
+import { MeshLambertMaterial } from "three";
 
-export const MaterialRef = trait(() => (new Material()));
+export const MaterialRef = trait(() => new MeshLambertMaterial());
