@@ -55,7 +55,7 @@ const SettingLabel = styled.label`
 `;
 
 const SettingSelect = styled.select`
-  padding: 8px 12px;
+  padding: 8px 20px;
   font-size: 1rem;
   background-color: #3a3a3a;
   color: white;
@@ -174,6 +174,7 @@ function Setting() {
     activeKeymap,
     handleKeymapChange,
     setDisplayMode,
+    displayMode,
   } = useApp();
 
   const [volume, setVolume] = useState(1);
@@ -227,9 +228,10 @@ function Setting() {
 
   const handleDisplayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
+    setDisplayMode(value);
 
     if (value === "fullscreen") {
-      setDisplayMode("borderless");
+      setDisplayMode("fullscreen");
       window.api?.setFullScreen();
     }
     else if (value === "maximize") {
@@ -242,7 +244,7 @@ function Setting() {
       const height = parseInt(parts[1], 10);
 
       if (!isNaN(width) && !isNaN(height)) {
-        setDisplayMode("window");
+        setDisplayMode(value);
         window.api?.setWindowSize(width, height);
       }
     }
@@ -256,9 +258,9 @@ function Setting() {
         <SettingsList>
           <SettingRow>
             <SettingLabel>Display Mode</SettingLabel>
-            <SettingSelect onChange={handleDisplayChange} defaultValue="1200x640">
+            <SettingSelect onChange={handleDisplayChange} value={displayMode}>
               <option value="fullscreen">Fullscreen</option>
-              <option value="maximize">Borderless Window</option>
+              {/* <option value="maximize">Borderless Window</option> */}
               <option value="1920x1080">1920x1080</option>
               <option value="1600x900">1600x900</option>
               <option value="1200x640">1200x640</option>

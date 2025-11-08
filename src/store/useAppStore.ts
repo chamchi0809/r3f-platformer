@@ -5,12 +5,12 @@ import constate from "constate";
 
 type GameState = "main" | "play" | "setting";
 type KeymapEntry = KeyboardControlsEntry<KeyboardControlType>;
-export type DisplayMode = "window" | "borderless";
+export type DisplayMode = string;
 
 function useAppStore() {
   const [gameState, setGameState] = useState<GameState>("main");
   const [activeKeymap, setActiveKeymap] = useState<KeymapEntry[]>(keyboardControlMap);
-  const [displayMode, setDisplayMode] = useState<DisplayMode>("window");
+  const [displayMode, setDisplayMode] = useState<DisplayMode>("1200x640");
   const [previousGameState, setPreviousGameState] = useState<GameState>("main");
   const [isPaused, setIsPaused] = useState(false);
 
@@ -73,6 +73,7 @@ function useAppStore() {
     isPaused,
     pauseGame,
     resumeGame,
+    previousGameState,
   };
 }
 

@@ -31,6 +31,28 @@ const ContentContainer = styled.div`
   background-color: #1a1a1a;
 `;
 
+const UiContainer = styled.div<{ visible: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;=
+  visibility: ${props => (props.visible ? "visible" : "hidden")};
+  pointer-events: ${props => (props.visible ? "auto" : "none")};
+  z-index: 10;=
+`;
+
+const GameContainer = styled.div<{ visible: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;=
+  visibility: ${props => (props.visible ? "visible" : "hidden")};
+  pointer-events: ${props => (props.visible ? "auto" : "none")};
+  z-index: 1;=
+`;
+
 const RENDER_HEIGHT = PPU * CAM_SIZE * 2;
 const DEV_VIEWS = ["game", "tileset-editor"] as const;
 type DevView = typeof DEV_VIEWS[number];
@@ -43,6 +65,7 @@ function App() {
     isPaused,
     pauseGame,
     resumeGame,
+    previousGameState,
   } = useApp();
 
   const [ref, { height }] = useMeasure<HTMLCanvasElement>();
@@ -52,7 +75,7 @@ function App() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (gameState === "play" && event.key === "Escape") {
         if (isPaused) {
           resumeGame();
         }
@@ -62,10 +85,7 @@ function App() {
       }
     };
 
-    if (gameState === "play") {
-      document.addEventListener("keydown", handleKeyDown);
-    }
-
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
@@ -73,18 +93,17 @@ function App() {
 
   return (
     <AppContainer>
-      {displayMode === "window" && <TitleBar />}
+      {(displayMode !== "fullscreen" && displayMode !== "borderless") && <TitleBar />}
       <ContentContainer>
-        {gameState === "main" && (
-          <MainMenu />
+        {(gameState === "main" || gameState === "setting") && (
+          <UiContainer visible={true}>
+            {gameState === "main" && <MainMenu />}
+            {gameState === "setting" && <Setting />}
+          </UiContainer>
         )}
 
-        {gameState === "setting" && (
-          <Setting />
-        )}
-
-        {gameState === "play" && (
-          <>
+        {(gameState === "play" || (gameState === "setting" && previousGameState === "play")) && (
+          <GameContainer visible={gameState === "play"}>
             <Leva hidden={!window.electron || !isDev} />
             <Canvas
               gl={{ antialias: false, powerPreference: "high-performance" }}
@@ -119,7 +138,7 @@ function App() {
               </Suspense>
             </Canvas>
             <PauseModal />
-          </>
+          </GameContainer>
         )}
       </ContentContainer>
     </AppContainer>

@@ -11,7 +11,6 @@ const Container = styled.div`
   color: white;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   image-rendering: pixelated;
-  font-smooth: never;
   -webkit-font-smoothing: none;
 `;
 
