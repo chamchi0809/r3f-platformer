@@ -48,11 +48,12 @@ export default function LdtkMap(
       }}
       >
         <group>
-          {(level.layerInstances ?? []).map((layer) => {
+          {(level.layerInstances ?? []).map((layer, index) => {
             return (
               <LayerRenderer
                 key={layer.iid}
                 layer={layer}
+                index={index}
               />
             );
           })}

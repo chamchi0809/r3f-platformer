@@ -10,8 +10,10 @@ import IntGridLayerRenderer from "@/common/ldtk/components/layers/IntGridLayerRe
 export default function LayerRenderer(
   {
     layer,
+    index,
   }: {
     layer: LayerInstance
+    index: number
   }) {
   const { ldtk, ldtkDir, level } = useLdtkLevelContext();
 
@@ -27,6 +29,7 @@ export default function LayerRenderer(
   return (
     <LdtkLayerContext value={{
       layer,
+      index,
       tileset,
       texture,
       layerPxDimensions: [layer.__cWid * layer.__gridSize, layer.__cHei * layer.__gridSize],
@@ -46,6 +49,7 @@ export const LdtkLayerContext = createContext<{
   texture?: THREE.Texture
   layerPxDimensions: [number, number]
   layerPxOffsets: [number, number]
+  index: number
 } | null>(null);
 
 export const useLdtkLayerContext = () => {

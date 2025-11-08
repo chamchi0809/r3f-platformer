@@ -14,6 +14,7 @@ export default function TilesLayerRenderer() {
     texture,
     layerPxDimensions,
     layerPxOffsets,
+    index,
   } = useLdtkLayerContext();
 
   // Group tiles by their enum tags
@@ -42,7 +43,7 @@ export default function TilesLayerRenderer() {
   if (!tileset || !texture) return null;
 
   return (
-    <>
+    <group position-z={-index * 0.1}>
       {/* Render untagged tiles using instanced rendering */}
       {untaggedTiles.length > 0 && (
         <InstancedTilesRenderer
@@ -85,7 +86,7 @@ export default function TilesLayerRenderer() {
           })}
         </Fragment>
       ))}
-    </>
+    </group>
   );
 }
 
