@@ -5,10 +5,17 @@ import constate from "constate";
 
 type GameState = "main" | "play" | "setting";
 type KeymapEntry = KeyboardControlsEntry<KeyboardControlType>;
+export type DisplayMode = "window" | "borderless";
 
 function useAppStore() {
   const [gameState, setGameState] = useState<GameState>("main");
   const [activeKeymap, setActiveKeymap] = useState<KeymapEntry[]>(keyboardControlMap);
+  const [displayMode, setDisplayMode] = useState<DisplayMode>("window");
+  const [previousGameState, setPreviousGameState] = useState<GameState>("main");
+  const [isPaused, setIsPaused] = useState(false);
+
+  const pauseGame = () => setIsPaused(true);
+  const resumeGame = () => setIsPaused(false);
 
   useEffect(() => {
     async function loadKeymap() {
@@ -38,7 +45,19 @@ function useAppStore() {
   };
 
   const startGame = () => setGameState("play");
-  const showSettings = () => setGameState("setting");
+  const showSettings = () => {
+    if (gameState === "main" || gameState === "play") {
+      setPreviousGameState(gameState);
+    }
+    setGameState("setting");
+  };
+  const goBackFromSettings = () => {
+    setGameState(previousGameState);
+
+    if (previousGameState === "play") {
+      setIsPaused(true);
+    }
+  };
   const showMenu = () => setGameState("main");
 
   return {
@@ -46,8 +65,14 @@ function useAppStore() {
     activeKeymap,
     startGame,
     showSettings,
+    goBackFromSettings,
     showMenu,
     handleKeymapChange,
+    displayMode,
+    setDisplayMode,
+    isPaused,
+    pauseGame,
+    resumeGame,
   };
 }
 

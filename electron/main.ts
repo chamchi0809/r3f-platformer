@@ -22,6 +22,7 @@ function createWindow(): void {
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === "linux" ? {} : {}), // app-icon
+    frame: false,
     webPreferences: {
       preload: preloadPath,
       contextIsolation: true,
@@ -152,6 +153,7 @@ app.whenReady().then(() => {
 
   ipcMain.handle("set-window-size", (_, width: number, height: number) => {
     if (mainWindow) {
+      mainWindow.setKiosk(false);
       mainWindow.setFullScreen(false);
       mainWindow.unmaximize();
       mainWindow.setResizable(true);
@@ -162,14 +164,39 @@ app.whenReady().then(() => {
 
   ipcMain.handle("set-fullscreen", () => {
     if (mainWindow) {
-      mainWindow.setFullScreen(true);
+      mainWindow.setFullScreen(false);
+      mainWindow.setKiosk(true);
     }
   });
 
-  ipcMain.handle("maximize-window", () => {
+  ipcMain.handle("set-borderless-screen", () => {
     if (mainWindow) {
+      mainWindow.setKiosk(false);
       mainWindow.setFullScreen(false);
       mainWindow.maximize();
+    }
+  });
+
+  ipcMain.handle("minimize-window", () => {
+    if (mainWindow) {
+      mainWindow.minimize();
+    }
+  });
+
+  ipcMain.handle("toggle-maximize-window", () => {
+    if (mainWindow) {
+      if (mainWindow.isMaximized()) {
+        mainWindow.unmaximize();
+      }
+      else {
+        mainWindow.maximize();
+      }
+    }
+  });
+
+  ipcMain.handle("close-window", () => {
+    if (mainWindow) {
+      mainWindow.close();
     }
   });
 

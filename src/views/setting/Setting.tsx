@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import type { KeyboardControlType } from "@/common/defs/keyboardControlMap.ts";
 import type { KeyboardControlsEntry } from "@react-three/drei";
+import type { DisplayMode } from "@/store/useAppStore.ts";
 
 const Container = styled.div`
   width: 100vw;
@@ -11,9 +12,6 @@ const Container = styled.div`
   align-items: center;
   background-color: #1a1a1a;
   color: white;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  image-rendering: pixelated;
-  -webkit-font-smoothing: none;
 `;
 
 const MenuBox = styled.div`
@@ -23,6 +21,12 @@ const MenuBox = styled.div`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
   min-width: 400px;
+  max-height: 70vh;
+  overflow: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Title = styled.h1`
@@ -108,13 +112,13 @@ const VolumeSlider = styled.input.attrs({ type: "range" })`
   }
 `;
 
-const RebindButton = styled.button`
+const RebindButton = styled.button<{ isError?: boolean }>`
   padding: 8px 12px;
   font-size: 1rem;
   font-weight: bold;
   color: white;
   background-color: #4a4a4a;
-  border: 2px solid #4a4a4a;
+  border: 2px solid ${props => (props.isError ? "#e81123" : "#4a4a4a")};
   border-radius: 5px;
   cursor: pointer;
   outline: none;
@@ -129,7 +133,7 @@ const RebindButton = styled.button`
   &:focus,
   &:active {
     background-color: #3a3a3a;
-    border-color: #ececec;
+    border-color: ${props => (props.isError ? "#e81123" : "#ececec")};
   }
 `;
 
@@ -164,11 +168,18 @@ interface SettingsMenuProps {
   onShowMenu: () => void
   currentKeymap: KeyboardControlsEntry<KeyboardControlType>[]
   onKeymapChange: (newMap: KeyboardControlsEntry<KeyboardControlType>[]) => void
+  setDisplayMode: (mode: DisplayMode) => void
 }
 
-function Setting({ onShowMenu, currentKeymap, onKeymapChange }: SettingsMenuProps) {
+type KeyBindError = {
+  action: KeyboardControlType
+  message: string
+};
+
+function Setting({ onShowMenu, currentKeymap, onKeymapChange, setDisplayMode }: SettingsMenuProps) {
   const [volume, setVolume] = useState(1);
   const [rebindingAction, setRebindingAction] = useState<KeyboardControlType | null>(null);
+  const [keyError, setKeyError] = useState<KeyBindError | null>(null);
 
   useEffect(() => {
     if (!rebindingAction) return;
@@ -180,8 +191,24 @@ function Setting({ onShowMenu, currentKeymap, onKeymapChange }: SettingsMenuProp
 
       if (newKey === "Escape") {
         setRebindingAction(null);
+        setKeyError(null);
         return;
       }
+
+      const duplicateAction = currentKeymap.find(entry =>
+        entry.keys.includes(newKey) && entry.name !== rebindingAction,
+      );
+
+      if (duplicateAction) {
+        setKeyError({
+          action: rebindingAction,
+          message: `Used by: ${duplicateAction.name}`,
+        });
+        setRebindingAction(null);
+        return;
+      }
+
+      setKeyError(null);
 
       const newMap = currentKeymap.map(entry =>
         entry.name === rebindingAction
@@ -203,10 +230,12 @@ function Setting({ onShowMenu, currentKeymap, onKeymapChange }: SettingsMenuProp
     const value = e.target.value;
 
     if (value === "fullscreen") {
+      setDisplayMode("borderless");
       window.api?.setFullScreen();
     }
     else if (value === "maximize") {
-      window.api?.maximizeWindow();
+      setDisplayMode("borderless");
+      window.api?.setBorderlessScreen();
     }
     else {
       const parts = value.split("x");
@@ -214,6 +243,7 @@ function Setting({ onShowMenu, currentKeymap, onKeymapChange }: SettingsMenuProp
       const height = parseInt(parts[1], 10);
 
       if (!isNaN(width) && !isNaN(height)) {
+        setDisplayMode("window");
         window.api?.setWindowSize(width, height);
       }
     }
@@ -252,21 +282,38 @@ function Setting({ onShowMenu, currentKeymap, onKeymapChange }: SettingsMenuProp
             />
           </SettingRow>
 
-          {currentKeymap.map(entry => (
-            <SettingRow key={entry.name}>
-              <SettingLabel style={{ textTransform: "capitalize" }}>
-                {entry.name}
-              </SettingLabel>
+          {currentKeymap.map((entry) => {
+            const isError = keyError?.action === entry.name;
 
-              <RebindButton
-                onClick={() => setRebindingAction(entry.name)}
-              >
-                {rebindingAction === entry.name
-                  ? "Press any key..."
-                  : entry.keys[0]}
-              </RebindButton>
-            </SettingRow>
-          ))}
+            let buttonText: string;
+            if (rebindingAction === entry.name) {
+              buttonText = "Press any key...";
+            }
+            else if (isError) {
+              buttonText = keyError.message;
+            }
+            else {
+              buttonText = entry.keys[0];
+            }
+
+            return (
+              <SettingRow key={entry.name}>
+                <SettingLabel style={{ textTransform: "capitalize" }}>
+                  {entry.name}
+                </SettingLabel>
+
+                <RebindButton
+                  isError={isError}
+                  onClick={() => {
+                    setRebindingAction(entry.name);
+                    setKeyError(null);
+                  }}
+                >
+                  {buttonText}
+                </RebindButton>
+              </SettingRow>
+            );
+          })}
         </SettingsList>
 
         <MenuButtons>

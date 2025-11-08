@@ -52,8 +52,17 @@ const IpcApi = {
   setFullScreen: (): IpcApiResponse<void> => {
     return ipcRenderer.invoke("set-fullscreen");
   },
-  maximizeWindow: (): IpcApiResponse<void> => {
-    return ipcRenderer.invoke("maximize-window");
+  setBorderlessScreen: (): IpcApiResponse<void> => {
+    return ipcRenderer.invoke("set-borderless-screen");
+  },
+  minimizeWindow: (): IpcApiResponse<void> => {
+    return ipcRenderer.invoke("minimize-window");
+  },
+  toggleMaximizeWindow: (): IpcApiResponse<void> => {
+    return ipcRenderer.invoke("toggle-maximize-window");
+  },
+  closeWindow: (): IpcApiResponse<void> => {
+    return ipcRenderer.invoke("close-window");
   },
 } as const;
 
