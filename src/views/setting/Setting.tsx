@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import type { KeyboardControlType } from "@/common/defs/keyboardControlMap.ts";
-import type { KeyboardControlsEntry } from "@react-three/drei";
-import type { DisplayMode } from "@/store/useAppStore.ts";
+import { useApp } from "@/store/useAppStore.ts";
 
 const Container = styled.div`
   width: 100vw;
@@ -164,19 +163,19 @@ const BackButton = styled.button`
   }
 `;
 
-interface SettingsMenuProps {
-  onShowMenu: () => void
-  currentKeymap: KeyboardControlsEntry<KeyboardControlType>[]
-  onKeymapChange: (newMap: KeyboardControlsEntry<KeyboardControlType>[]) => void
-  setDisplayMode: (mode: DisplayMode) => void
-}
-
 type KeyBindError = {
   action: KeyboardControlType
   message: string
 };
 
-function Setting({ onShowMenu, currentKeymap, onKeymapChange, setDisplayMode }: SettingsMenuProps) {
+function Setting() {
+  const {
+    goBackFromSettings,
+    activeKeymap,
+    handleKeymapChange,
+    setDisplayMode,
+  } = useApp();
+
   const [volume, setVolume] = useState(1);
   const [rebindingAction, setRebindingAction] = useState<KeyboardControlType | null>(null);
   const [keyError, setKeyError] = useState<KeyBindError | null>(null);
@@ -195,7 +194,7 @@ function Setting({ onShowMenu, currentKeymap, onKeymapChange, setDisplayMode }: 
         return;
       }
 
-      const duplicateAction = currentKeymap.find(entry =>
+      const duplicateAction = activeKeymap.find(entry =>
         entry.keys.includes(newKey) && entry.name !== rebindingAction,
       );
 
@@ -210,13 +209,13 @@ function Setting({ onShowMenu, currentKeymap, onKeymapChange, setDisplayMode }: 
 
       setKeyError(null);
 
-      const newMap = currentKeymap.map(entry =>
+      const newMap = activeKeymap.map(entry =>
         entry.name === rebindingAction
           ? { ...entry, keys: [newKey] }
           : entry,
       );
 
-      onKeymapChange(newMap);
+      handleKeymapChange(newMap);
       setRebindingAction(null);
     };
 
@@ -224,7 +223,7 @@ function Setting({ onShowMenu, currentKeymap, onKeymapChange, setDisplayMode }: 
     return () => {
       window.removeEventListener("keydown", handleKeydown, { capture: true });
     };
-  }, [rebindingAction, currentKeymap, onKeymapChange]);
+  }, [rebindingAction, activeKeymap, handleKeymapChange]);
 
   const handleDisplayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -282,7 +281,7 @@ function Setting({ onShowMenu, currentKeymap, onKeymapChange, setDisplayMode }: 
             />
           </SettingRow>
 
-          {currentKeymap.map((entry) => {
+          {activeKeymap.map((entry) => {
             const isError = keyError?.action === entry.name;
 
             let buttonText: string;
@@ -317,7 +316,7 @@ function Setting({ onShowMenu, currentKeymap, onKeymapChange, setDisplayMode }: 
         </SettingsList>
 
         <MenuButtons>
-          <BackButton onClick={onShowMenu}>Back</BackButton>
+          <BackButton onClick={goBackFromSettings}>Back</BackButton>
         </MenuButtons>
       </MenuBox>
     </Container>

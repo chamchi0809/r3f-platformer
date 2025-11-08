@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useApp } from "@/store/useAppStore.ts";
 
 const Container = styled.div`
   width: 100vw;
@@ -55,12 +56,9 @@ const MenuButton = styled.button`
   }
 `;
 
-interface MainMenuProps {
-  onStartGame: () => void
-  onShowSettings: () => void
-}
+function MainMenu() {
+  const { startGame, showSettings } = useApp();
 
-function MainMenu({ onStartGame, onShowSettings }: MainMenuProps) {
   const handleExit = () => {
     window.api?.quitApp();
   };
@@ -70,8 +68,8 @@ function MainMenu({ onStartGame, onShowSettings }: MainMenuProps) {
       <MenuBox>
         <Title>Game Title</Title>
         <MenuButtons>
-          <MenuButton onClick={onStartGame}>Game Start</MenuButton>
-          <MenuButton onClick={onShowSettings}>Setting</MenuButton>
+          <MenuButton onClick={startGame}>Game Start</MenuButton>
+          <MenuButton onClick={showSettings}>Setting</MenuButton>
           {window.api && (
             <MenuButton onClick={handleExit}>Exit</MenuButton>
           )}

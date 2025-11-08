@@ -39,13 +39,7 @@ function App() {
   const {
     gameState,
     activeKeymap,
-    startGame,
-    showSettings,
-    showMenu,
-    goBackFromSettings,
-    handleKeymapChange,
     displayMode,
-    setDisplayMode,
     isPaused,
     pauseGame,
     resumeGame,
@@ -82,16 +76,11 @@ function App() {
       {displayMode === "window" && <TitleBar />}
       <ContentContainer>
         {gameState === "main" && (
-          <MainMenu onStartGame={startGame} onShowSettings={showSettings} />
+          <MainMenu />
         )}
 
         {gameState === "setting" && (
-          <Setting
-            onShowMenu={goBackFromSettings}
-            currentKeymap={activeKeymap}
-            onKeymapChange={handleKeymapChange}
-            setDisplayMode={setDisplayMode}
-          />
+          <Setting />
         )}
 
         {gameState === "play" && (
