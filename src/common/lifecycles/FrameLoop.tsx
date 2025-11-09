@@ -8,9 +8,10 @@ import { updateCharacterVelocity } from "@/common/systems/updateCharacterVelocit
 import { addJumpBuffer } from "@/common/systems/addJumpBuffer.ts";
 import { freeJumpBuffer } from "@/common/systems/freeJumpBuffer.ts";
 import { doJump } from "@/common/systems/doJump.ts";
-import { applyPlayerColor } from "@/common/systems/applyPlayerColor.ts";
 import { syncControllerAndVisualPosition } from "@/common/systems/syncControllerAndVisualPosition.ts";
 import { updateElapsedTime } from "@/common/systems/updateElapsedTime.ts";
+import { tickSpriteAnim } from "@/common/systems/tickSpriteAnim.ts";
+import { applySpriteAnim } from "@/common/systems/applySpriteAnim.ts";
 
 export default function FrameLoop() {
   const world = useWorld();
@@ -42,11 +43,13 @@ export default function FrameLoop() {
     syncControllerAndVisualPosition(world);
     syncVisualPositionAndMesh(world);
     updateCharacterVelocity(world);
-    applyPlayerColor(world);
 
     addJumpBuffer(world);
     doJump(world);
     freeJumpBuffer(world);
+
+    tickSpriteAnim(world);
+    applySpriteAnim(world);
   });
 
   return <></>;
