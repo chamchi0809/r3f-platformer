@@ -12,6 +12,9 @@ import { Perf } from "r3f-perf";
 import { Suspense } from "react";
 import { Bloom, EffectComposer, Noise, Sepia, Vignette } from "@react-three/postprocessing";
 import { BlendFunction, VignetteTechnique } from "postprocessing";
+import { KeyboardControls } from "@react-three/drei";
+import { rhythmControlMap } from "@/common/defs/keyboardControlMap.ts";
+import RhythmKeyboardEvents from "@/common/lifecycles/RhythmKeyboardEvents.tsx";
 
 export default function Game() {
   return (
@@ -29,6 +32,9 @@ export default function Game() {
       <Startup />
       <FrameLoop />
       <KeyboardEvents />
+      <KeyboardControls map={rhythmControlMap}>
+        <RhythmKeyboardEvents />
+      </KeyboardControls>
       <PhysicsLoop />
       <ambientLight color="white" intensity={Math.PI / 3} />
       <CameraRenderer />

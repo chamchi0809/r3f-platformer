@@ -22,7 +22,7 @@ const PlayerView = ({ entity}: { entity: Entity }) => {
   const { rapier } = useRapier();
   const collider = useCreateCollider({
     startPosition: startPos.clone(),
-    colliderDesc: rapier.ColliderDesc.cuboid(0.4, 0.4)
+    colliderDesc: rapier.ColliderDesc.cuboid(0.8, 1)
       .setCollisionGroups(INTERACTION_GROUPS.WHITE)
       .setMass(1)
       .setRestitution(0)
@@ -40,7 +40,7 @@ const PlayerView = ({ entity}: { entity: Entity }) => {
     <group ref={threeRef}>
       <group position-z={1}>
         <mesh>
-          <planeGeometry args={[0.8, 0.8, 1]} />
+          <planeGeometry args={[1.6, 2, 1]} />
           <meshLambertMaterial color="white" ref={materialRef} transparent />
         </mesh>
         <pointLight

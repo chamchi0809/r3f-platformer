@@ -14,7 +14,7 @@ export default function PlayerSpawner(props: EntityRendererProps) {
   useEffect(() => {
     const player = world.queryFirst(IsPlayer);
     if (!player) {
-      spawnPlayer(new Vector2(worldPos[0], worldPos[1]));
+      spawnPlayer(new Vector2(worldPos[0], worldPos[1]).add(new Vector2(0, 1)));
     }
   }, []);
 
