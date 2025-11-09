@@ -1,11 +1,12 @@
 import { createContext, useContext, useMemo } from "react";
 import type { LayerInstance, TilesetDefinition } from "@/common/ldtk/models/LdtkTypes.ts";
 import TilesLayerRenderer from "@/common/ldtk/components/layers/TilesLayerRenderer.tsx";
-import { getTilesetByUid, getTilesetTexture } from "@/common/ldtk/utils/tilesetUtils.ts";
+import { getTilesetByUid } from "@/common/ldtk/utils/tilesetUtils.ts";
 import { useLdtkLevelContext } from "@/common/ldtk/components/LdtkMap.tsx";
 import EntitiesLayerRenderer from "@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx";
 import * as THREE from "three";
 import IntGridLayerRenderer from "@/common/ldtk/components/layers/IntGridLayerRenderer.tsx";
+import { getTexture } from "@/common/utils/textureUtils.ts";
 
 export default function LayerRenderer(
   {
@@ -20,7 +21,7 @@ export default function LayerRenderer(
   const { tileset, texture } = useMemo(() => {
     const tilesetUid = layer.__tilesetDefUid;
     const tileset = tilesetUid ? getTilesetByUid(ldtk.defs.tilesets, tilesetUid) : undefined;
-    const texture = tileset && tileset.relPath ? getTilesetTexture(ldtkDir + tileset.relPath) : undefined;
+    const texture = tileset && tileset.relPath ? getTexture(ldtkDir + tileset.relPath) : undefined;
     return { tileset, texture };
   }, [ldtk, ldtkDir, layer.__tilesetDefUid]);
 

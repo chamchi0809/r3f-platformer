@@ -1,25 +1,10 @@
-import * as THREE from "three";
-import { TextureLoader } from "three";
 import type { TilesetDefinition } from "@/common/ldtk/models/LdtkTypes.ts";
 import { useLdtkLevelContext } from "@/common/ldtk/components/LdtkMap.tsx";
 import { chunk } from "es-toolkit";
 import tilesetImageQuery from "@/common/ldtk/queries/tilesetImageQuery.ts";
-import { getSafePath } from "@/common/utils/electronUtils.ts";
 
 export const getTilesetByUid = (tilesets: TilesetDefinition[], uid: number): TilesetDefinition | undefined => {
   return tilesets.find(ts => ts.uid === uid);
-};
-
-const textureCache: Record<string, THREE.Texture> = {};
-
-export const getTilesetTexture = (publicPath: string): THREE.Texture => {
-  const safePath = getSafePath(publicPath);
-  if (!textureCache[safePath]) {
-    textureCache[safePath] = new TextureLoader().load(safePath);
-    textureCache[safePath].magFilter = THREE.NearestFilter;
-    textureCache[safePath].minFilter = THREE.NearestFilter;
-  }
-  return textureCache[safePath];
 };
 
 export const centerTilePivot = (px: [number, number], tileSize: number): [number, number] => {
