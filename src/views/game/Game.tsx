@@ -1,13 +1,12 @@
 import LdtkMap from "@/common/ldtk/components/LdtkMap.tsx";
 import TileRectCollider from "@/common/ldtk/components/tiles/TileRectCollider.tsx";
-import CameraRenderer from "@/common/components/CameraRenderer.tsx";
 import TileVoxelCollider from "@/common/ldtk/components/tiles/TileVoxelCollider.tsx";
 import PlayerSpawner from "@/common/components/PlayerSpawner.tsx";
-import PlayerRenderer from "@/common/components/PlayerRenderer.tsx";
 import { Perf } from "r3f-perf";
 import { Suspense } from "react";
-import Lifecycles from "@/common/lifecycles/Lifecycles.tsx";
-import Postprocesses from "@/common/postprocesses/Postprocesses.tsx";
+import Lifecycles from "@/common/components/lifecycles/Lifecycles.tsx";
+import Postprocesses from "@/common/components/postprocesses/Postprocesses.tsx";
+import EntityRenderers from "@/common/components/entity-renderers/EntityRenderers.tsx";
 
 export default function Game() {
   return (
@@ -16,8 +15,7 @@ export default function Game() {
       <Perf position="top-left" />
       <Lifecycles />
       <Postprocesses />
-      <CameraRenderer />
-      <PlayerRenderer />
+      <EntityRenderers />
       <Suspense>
         <LdtkMap
           ldtkPath="/assets/ldtk/map.ldtk"
