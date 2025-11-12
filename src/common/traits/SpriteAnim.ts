@@ -42,6 +42,25 @@ export class SpriteAnimImpl implements SpriteAnimDef {
     this.loop = loop;
   }
 
+  changeDef(def: Partial<SpriteAnimDef>) {
+    if (def.range) {
+      this.range = def.range;
+    }
+    if (def.getPath) {
+      this.getPath = def.getPath;
+    }
+    if (def.getUVs) {
+      this.getUVs = def.getUVs;
+    }
+    if (def.frameDuration !== undefined) {
+      this.frameDuration = def.frameDuration;
+    }
+    if (def.loop !== undefined) {
+      this.loop = def.loop;
+    }
+    this.restart();
+  }
+
   tick(world: World) {
     const elapsed = world.get(Elapsed)!.value;
     const delta = elapsed - this.timestamp;
@@ -87,6 +106,11 @@ export class SpriteAnimImpl implements SpriteAnimDef {
 
   changePathGetter(getPath: (index: number) => string) {
     this.getPath = getPath;
+    this.restart();
+  }
+
+  changeUVsGetter(getUVs: typeof this.getUVs) {
+    this.getUVs = getUVs;
     this.restart();
   }
 }
