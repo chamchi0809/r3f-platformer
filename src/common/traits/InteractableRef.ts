@@ -17,7 +17,7 @@ export class Interactable {
   }
 
   isIntersecting(otherCollider: Collider) {
-    const intersection = this.world.intersectionPair(this.col, otherCollider);
-    return intersection !== null;
+    const intersection = this.world.intersectionPair(this.col, this.world.getCollider(otherCollider.handle));
+    return intersection;
   }
 }
