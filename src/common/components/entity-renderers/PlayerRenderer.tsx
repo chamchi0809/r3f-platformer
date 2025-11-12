@@ -23,7 +23,7 @@ const PlayerView = ({ entity}: { entity: Entity }) => {
   const collider = useCreateCollider({
     startPosition: startPos.clone(),
     colliderDesc: rapier.ColliderDesc.cuboid(0.8, 1)
-      .setCollisionGroups(INTERACTION_GROUPS.WHITE)
+      .setCollisionGroups(INTERACTION_GROUPS.CHARACTER)
       .setMass(1)
       .setRestitution(0)
       .setFriction(1),
