@@ -4,59 +4,64 @@ import { getTexture } from "@/common/utils/textureUtils.ts";
 import type { Texture } from "three";
 
 export interface SpriteAnimDef {
-  // start and end frame index (in ascending order)
-  range: [number, number]
-  // function to get the texture path for a given frame index
-  getPath: (index: number) => string
-  // function to get the UV mapping for a given frame index and total length
-  getUVs?: (index: number, length: number) => [uvw: number, uvx: number]
+  // length
+  length: number
+  // sprite sheet path
+  path: string
   // duration of each frame in seconds
   frameDuration?: number
   // whether the animation should loop
   loop?: boolean
+  // play in reverse direction
+  reverse?: boolean
 }
 
 export const SpriteAnim = trait(() => null! as SpriteAnimImpl);
 
 export class SpriteAnimImpl implements SpriteAnimDef {
-  range: [number, number];
-  getPath: (index: number) => string;
-  getUVs: (index: number, length: number) => [uvw: number, uvx: number];
+  length: number;
+  path: string;
   current: number;
   timestamp: number;
   frameDuration = 0.1;
   loop = true;
+  reverse = false;
   private textureCache: Map<`${string}-${number}-${number}`, Texture> = new Map();
 
   constructor(
     world: World,
     def: SpriteAnimDef,
   ) {
-    const { range, getPath, getUVs = () => [1, 0], frameDuration = 0.1, loop = true } = def;
-    this.range = range;
-    this.getPath = getPath;
-    this.getUVs = getUVs;
-    this.current = range[0];
-    this.timestamp = world.get(Elapsed)!.value;
+    const { length, path, frameDuration = 0.1, loop = true, reverse = false } = def;
+    this.length = length;
+    this.path = path;
     this.frameDuration = frameDuration;
     this.loop = loop;
+    this.reverse = reverse;
+
+    this.current = this.getStartIndex();
+    this.timestamp = world.get(Elapsed)!.value;
+  }
+
+  getStartIndex() {
+    return this.reverse ? this.length - 1 : 0;
   }
 
   changeDef(def: Partial<SpriteAnimDef>) {
-    if (def.range) {
-      this.range = def.range;
+    if (def.length) {
+      this.length = def.length;
     }
-    if (def.getPath) {
-      this.getPath = def.getPath;
-    }
-    if (def.getUVs) {
-      this.getUVs = def.getUVs;
+    if (def.path) {
+      this.path = def.path;
     }
     if (def.frameDuration !== undefined) {
       this.frameDuration = def.frameDuration;
     }
     if (def.loop !== undefined) {
       this.loop = def.loop;
+    }
+    if (def.reverse !== undefined) {
+      this.reverse = def.reverse;
     }
     this.restart();
   }
@@ -66,12 +71,12 @@ export class SpriteAnimImpl implements SpriteAnimDef {
     const delta = elapsed - this.timestamp;
     if (delta >= this.frameDuration) {
       this.current += 1;
-      if (this.current > this.range[1]) {
+      if (this.current > this.length - 1) {
         if (this.loop) {
-          this.current = this.range[0];
+          this.current = 0;
         }
         else {
-          this.current = this.range[1];
+          this.current = this.length - 1;
         }
       }
       this.timestamp = elapsed;
@@ -79,8 +84,8 @@ export class SpriteAnimImpl implements SpriteAnimDef {
   }
 
   getCurrentFrameTexture() {
-    const path = this.getPath(Math.floor(this.current));
-    const uvs = this.getUVs(Math.floor(this.current), this.range[1] - this.range[0] + 1);
+    const path = this.path;
+    const uvs = [1 / this.length, this.current / this.length] as [uvw: number, uvx: number];
     const cacheKey = `${path}-${uvs[0]}-${uvs[1]}` as const;
 
     if (this.textureCache.has(cacheKey)) {
@@ -96,21 +101,16 @@ export class SpriteAnimImpl implements SpriteAnimDef {
   }
 
   restart() {
-    this.current = this.range[0];
+    this.current = this.getStartIndex();
   }
 
-  changeRange(range: [number, number]) {
-    this.range = range;
+  changeLength(length: number) {
+    this.length = length;
     this.restart();
   }
 
-  changePathGetter(getPath: (index: number) => string) {
-    this.getPath = getPath;
-    this.restart();
-  }
-
-  changeUVsGetter(getUVs: typeof this.getUVs) {
-    this.getUVs = getUVs;
+  changePath(path: string) {
+    this.path = path;
     this.restart();
   }
 }

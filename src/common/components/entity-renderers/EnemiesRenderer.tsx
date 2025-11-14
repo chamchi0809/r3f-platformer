@@ -28,8 +28,8 @@ const EnemyView = ({ entity}: { entity: Entity }) => {
   });
   useInteractableInjector(entity, sensor!);
   useSpriteAnimInjector(entity, {
-    range: [3, 5],
-    getPath: (index: number) => `./assets/img/dancing/hips${index}.png`,
+    length: 1,
+    path: "./assets/img/dancing/hips.png",
     frameDuration: 0.05,
     loop: false,
   });

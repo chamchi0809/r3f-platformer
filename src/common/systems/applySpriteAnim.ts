@@ -5,5 +5,6 @@ import { MaterialRef } from "@/common/traits/MaterialRef.ts";
 export const applySpriteAnim = (world: World) => {
   world.query(MaterialRef, SpriteAnim).updateEach(([mat, spriteAnim]) => {
     mat.map = spriteAnim.getCurrentFrameTexture();
+    console.log(mat.map);
   });
 };
