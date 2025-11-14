@@ -11,7 +11,6 @@ import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
 import { useUnmount } from "react-use";
 import { AppearanceMode, RenderMode, VFXEmitter, VFXParticles } from "wawa-vfx";
 import { MultiplyBlending } from "three";
-import { useSpriteAnimInjector } from "@/common/hooks/injection/useSpriteAnimInjector.ts";
 
 const PlayerView = ({ entity}: { entity: Entity }) => {
   const startPos = entity.get(CharacterStartPosition)!;
@@ -29,12 +28,6 @@ const PlayerView = ({ entity}: { entity: Entity }) => {
       .setFriction(1),
   });
   useCharacterControllerInjector(entity, collider!);
-  useSpriteAnimInjector(entity, {
-    length: 8,
-    path: "./assets/img/dancing/hips.png",
-    frameDuration: 0.05,
-    loop: false,
-  });
 
   return (
     <group ref={threeRef}>

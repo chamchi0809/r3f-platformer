@@ -22,17 +22,14 @@ export class SpriteAnimImpl implements SpriteAnimDef {
   length: number;
   path: string;
   current: number;
-  timestamp: number;
+  timestamp: number | undefined = undefined;
   frameDuration = 0.1;
-  loop = true;
+  loop = false;
   reverse = false;
   private textureCache: Map<`${string}-${number}-${number}`, Texture> = new Map();
 
-  constructor(
-    world: World,
-    def: SpriteAnimDef,
-  ) {
-    const { length, path, frameDuration = 0.1, loop = true, reverse = false } = def;
+  constructor(def: SpriteAnimDef) {
+    const { length, path, frameDuration = 0.1, loop = false, reverse = false } = def;
     this.length = length;
     this.path = path;
     this.frameDuration = frameDuration;
@@ -40,7 +37,6 @@ export class SpriteAnimImpl implements SpriteAnimDef {
     this.reverse = reverse;
 
     this.current = this.getStartIndex();
-    this.timestamp = world.get(Elapsed)!.value;
   }
 
   getStartIndex() {
@@ -68,6 +64,12 @@ export class SpriteAnimImpl implements SpriteAnimDef {
 
   tick(world: World) {
     const elapsed = world.get(Elapsed)!.value;
+
+    if (this.timestamp === undefined) {
+      this.timestamp = elapsed;
+      return;
+    }
+
     const delta = elapsed - this.timestamp;
     if (delta >= this.frameDuration) {
       if (this.reverse) {

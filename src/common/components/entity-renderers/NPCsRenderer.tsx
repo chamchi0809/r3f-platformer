@@ -7,7 +7,6 @@ import { useMaterialInjector } from "@/common/hooks/injection/useMaterialInjecto
 import useRapier from "@/common/hooks/physics/useRapier.ts";
 import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
 import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
-import { useSpriteAnimInjector } from "@/common/hooks/injection/useSpriteAnimInjector.ts";
 import { useInteractableInjector } from "@/common/hooks/injection/useInteractableInjector.ts";
 
 const NPCView = ({ entity}: { entity: Entity }) => {
@@ -27,12 +26,6 @@ const NPCView = ({ entity}: { entity: Entity }) => {
       .setSensor(true),
   });
   useInteractableInjector(entity, sensor!);
-  useSpriteAnimInjector(entity, {
-    length: 1,
-    path: "./assets/img/dancing/hips.png",
-    frameDuration: 0.05,
-    loop: false,
-  });
 
   return (
     <group ref={threeRef}>
