@@ -70,13 +70,26 @@ export class SpriteAnimImpl implements SpriteAnimDef {
     const elapsed = world.get(Elapsed)!.value;
     const delta = elapsed - this.timestamp;
     if (delta >= this.frameDuration) {
-      this.current += 1;
-      if (this.current > this.length - 1) {
-        if (this.loop) {
-          this.current = 0;
+      if (this.reverse) {
+        this.current -= 1;
+        if (this.current < 0) {
+          if (this.loop) {
+            this.current = this.length - 1;
+          }
+          else {
+            this.current = 0;
+          }
         }
-        else {
-          this.current = this.length - 1;
+      }
+      else {
+        this.current += 1;
+        if (this.current > this.length - 1) {
+          if (this.loop) {
+            this.current = 0;
+          }
+          else {
+            this.current = this.length - 1;
+          }
         }
       }
       this.timestamp = elapsed;
