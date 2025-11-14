@@ -1300,7 +1300,10 @@
 									"params": ["Ellie"]
 								}] },
 								{ "__identifier": "Lines", "__type": "Array<String>", "__value": [], "__tile": null, "defUid": 69, "realEditorValues": [] },
-								{ "__identifier": "Idle", "__type": "FilePath", "__value": null, "__tile": null, "defUid": 60, "realEditorValues": [] },
+								{ "__identifier": "Idle", "__type": "FilePath", "__value": "../img/dancing/hips.png", "__tile": null, "defUid": 60, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["../img/dancing/hips.png"]
+								}] },
 								{ "__identifier": "SensorWidth", "__type": "Float", "__value": 1.5, "__tile": null, "defUid": 56, "realEditorValues": [{ "id": "V_Float", "params": [1.5] }] },
 								{ "__identifier": "SensorHeight", "__type": "Float", "__value": 1.5, "__tile": null, "defUid": 57, "realEditorValues": [{ "id": "V_Float", "params": [1.5] }] }
 							],

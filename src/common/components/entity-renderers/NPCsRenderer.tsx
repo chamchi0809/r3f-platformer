@@ -1,5 +1,4 @@
 import { useQuery } from "koota/react";
-import { IsEnemy } from "@/common/traits/IsEnemy.ts";
 import type { Entity } from "koota";
 import { CharacterStartPosition } from "@/common/traits/CharacterStartPosition.ts";
 import { useThreeInjector } from "@/common/hooks/injection/useThreeInjector.ts";
@@ -8,6 +7,7 @@ import useRapier from "@/common/hooks/physics/useRapier.ts";
 import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
 import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 import { useInteractableInjector } from "@/common/hooks/injection/useInteractableInjector.ts";
+import { IsNPC } from "@/common/traits/IsNPC.ts";
 
 const NPCView = ({ entity}: { entity: Entity }) => {
   const startPos = entity.get(CharacterStartPosition)!;
@@ -40,9 +40,7 @@ const NPCView = ({ entity}: { entity: Entity }) => {
 };
 
 export default function NPCsRenderer() {
-  const nPCs = useQuery(IsEnemy);
+  const nPCs = useQuery(IsNPC);
 
-  return nPCs.map((enemy) => {
-    return <NPCView entity={enemy} />;
-  });
+  return nPCs.map(npc => <NPCView entity={npc} />);
 }

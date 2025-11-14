@@ -12,28 +12,46 @@ import { CharacterVisualPosition } from "@/common/traits/CharacterVisualPosition
 import { IsNPC } from "@/common/traits/IsNPC.ts";
 import { IsEnemy } from "@/common/traits/IsEnemy.ts";
 import { SpriteAnim, SpriteAnimImpl } from "@/common/traits/SpriteAnim.ts";
+import type { EntityInstance } from "@/common/ldtk/models/LdtkTypes.ts";
+import { stripEntityInstanceFields } from "@/common/ldtk/utils/entityUtils.ts";
 
 export const actions = createActions(world => ({
   spawnCamera: () => world.spawn(IsCamera),
   spawnPlayer: (startPosition: Vector2) => world.spawn(
     IsPlayer, PlayerStates,
     MoveInput(new Vector2(0, 0)), JumpInput,
-    CharacterStartPosition(startPosition.clone()), CharacterVisualPosition, CharacterVelocity,
+    CharacterStartPosition(startPosition.clone()), CharacterVisualPosition(startPosition.clone()), CharacterVelocity,
     CharacterStats.speed(5), CharacterStats.jumpStrength(12),
     SpriteAnim(new SpriteAnimImpl({
       path: "/assets/img/dancing/hips.png",
       length: 8,
     })),
   ),
-  spawnNPC: (startPosition: Vector2) => world.spawn(
-    IsNPC,
-    CharacterStartPosition(startPosition.clone()), CharacterVisualPosition, CharacterVelocity,
-    CharacterStats.speed(3), CharacterStats.jumpStrength(8),
-    SpriteAnim(new SpriteAnimImpl({
-      path: "/assets/img/dancing/hips.png",
-      length: 8,
-    })),
-  ),
+  spawnNPC: (
+    {
+      startPosition,
+      entityInstance,
+      ldtkDir,
+    }: {
+      startPosition: Vector2
+      entityInstance: EntityInstance
+      ldtkDir?: string
+    }) => {
+    const {
+      Idle,
+    } = stripEntityInstanceFields<{
+      Idle: string
+    }>(entityInstance);
+
+    world.spawn(
+      IsNPC,
+      CharacterStartPosition(startPosition.clone()), CharacterVisualPosition(startPosition.clone()),
+      SpriteAnim(new SpriteAnimImpl({
+        path: `${ldtkDir}${Idle.trim()}`,
+        length: 8,
+      })),
+    );
+  },
   spawnEnemy: (startPosition: Vector2) => world.spawn(
     IsEnemy,
     CharacterStartPosition(startPosition.clone()), CharacterVisualPosition, CharacterVelocity,

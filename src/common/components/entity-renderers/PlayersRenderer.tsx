@@ -1,4 +1,4 @@
-import { useQueryFirst } from "koota/react";
+import { useQuery } from "koota/react";
 import { IsPlayer } from "@/common/traits/IsPlayer.ts";
 import type { Entity } from "koota";
 import { CharacterStartPosition } from "@/common/traits/CharacterStartPosition.ts";
@@ -8,7 +8,6 @@ import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 import { useMaterialInjector } from "@/common/hooks/injection/useMaterialInjector.ts";
 import useRapier from "@/common/hooks/physics/useRapier.ts";
 import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
-import { useUnmount } from "react-use";
 import { AppearanceMode, RenderMode, VFXEmitter, VFXParticles } from "wawa-vfx";
 import { MultiplyBlending } from "three";
 
@@ -94,16 +93,8 @@ const PlayerView = ({ entity}: { entity: Entity }) => {
   );
 };
 
-export default function PlayerRenderer() {
-  const player = useQueryFirst(IsPlayer);
+export default function PlayersRenderer() {
+  const players = useQuery(IsPlayer);
 
-  useUnmount(() => {
-    player?.destroy();
-  });
-
-  if (!player) {
-    return <></>;
-  }
-
-  return <PlayerView entity={player} />;
+  return players.map(player => <PlayerView entity={player} />);
 }

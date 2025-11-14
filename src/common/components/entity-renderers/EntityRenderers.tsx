@@ -1,4 +1,4 @@
-import PlayerRenderer from "@/common/components/entity-renderers/PlayerRenderer.tsx";
+import PlayersRenderer from "@/common/components/entity-renderers/PlayersRenderer.tsx";
 import CameraRenderer from "@/common/components/entity-renderers/CameraRenderer.tsx";
 import EnemiesRenderer from "@/common/components/entity-renderers/EnemiesRenderer.tsx";
 import NPCsRenderer from "@/common/components/entity-renderers/NPCsRenderer.tsx";
@@ -8,7 +8,7 @@ export default function EntityRenderers() {
   return (
     <>
       <CameraRenderer />
-      <PlayerRenderer />
+      <PlayersRenderer />
       <EnemiesRenderer />
       <NPCsRenderer />
     </>
