@@ -1,6 +1,6 @@
 import type { KeyboardControlsEntry } from "@react-three/drei";
 
-export type KeyboardControlType = "left" | "right" | "up" | "down" | "jump" | "transform" | "rhythm 1" | "rhythm 2" | "rhythm 3" | "rhythm 4";
+export type KeyboardControlType = "left" | "right" | "up" | "down" | "jump" | "transform" | "interact" | "rhythm 1" | "rhythm 2" | "rhythm 3" | "rhythm 4";
 
 export const keyboardControlMap: KeyboardControlsEntry<KeyboardControlType>[] = [
   { name: "left", keys: ["KeyA"] },
@@ -9,6 +9,7 @@ export const keyboardControlMap: KeyboardControlsEntry<KeyboardControlType>[] = 
   { name: "down", keys: ["KeyS"] },
   { name: "jump", keys: ["Space"] },
   { name: "transform", keys: ["ShiftLeft", "ShiftRight"] },
+  { name: "interact", keys: ["KeyQ"] },
 ];
 
 export type RhythmControlType = "rhythm 1" | "rhythm 2" | "rhythm 3" | "rhythm 4";
