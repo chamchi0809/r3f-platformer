@@ -9,7 +9,7 @@ import { useMaterialInjector } from "@/common/hooks/injection/useMaterialInjecto
 import useRapier from "@/common/hooks/physics/useRapier.ts";
 import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
 import { AppearanceMode, RenderMode, VFXEmitter, VFXParticles } from "wawa-vfx";
-import { MultiplyBlending } from "three";
+import { AdditiveBlending, MultiplyBlending } from "three";
 
 const PlayerView = ({ entity}: { entity: Entity }) => {
   const startPos = entity.get(CharacterStartPosition)!;
@@ -48,46 +48,46 @@ const PlayerView = ({ entity}: { entity: Entity }) => {
         />
       </group>
       <group position-z={0.5}>
-        <VFXParticles
-          name="pulse"
-          settings={{
-            nbParticles: 100000,
-            gravity: [0, 0, 0],
-            // fade in end time, fade out start time
-            fadeAlpha: [0.49, 0.51],
-            fadeSize: [0.25, 1],
-            intensity: 1,
-            blendingMode: MultiplyBlending,
-            appearance: AppearanceMode.Square,
-            renderMode: RenderMode.Billboard,
-            easeFunction: "easeLinear",
-          }}
-        />
-        <VFXEmitter
-          debug
-          autoStart
-          emitter="pulse"
-          settings={{
-            duration: 0.5,
-            delay: 0,
-            nbParticles: 1,
-            spawnMode: "burst",
-            loop: false,
-            startPositionMin: [0, 0, 0],
-            startPositionMax: [0, 0, 0],
-            startRotationMin: [0, 0, 0],
-            startRotationMax: [0, 0, 0],
-            particlesLifetime: [1, 1],
-            speed: [0, 0],
-            directionMin: [-1, -1, -1],
-            directionMax: [1, 1, 1],
-            rotationSpeedMin: [0, 0, 0],
-            rotationSpeedMax: [0, 0, 0],
-            colorStart: ["#ffffff"],
-            colorEnd: ["#ffffff"],
-            size: [2.5, 2.5],
-          }}
-        />
+        {/* <VFXParticles */}
+        {/*  name="pulse" */}
+        {/*  settings={{ */}
+        {/*    nbParticles: 100000, */}
+        {/*    gravity: [0, 0, 0], */}
+        {/*    // fade in end time, fade out start time */}
+        {/*    fadeAlpha: [0.49, 0.51], */}
+        {/*    fadeSize: [0.25, 1], */}
+        {/*    intensity: 1, */}
+        {/*    blendingMode: AdditiveBlending, */}
+        {/*    appearance: AppearanceMode.Square, */}
+        {/*    renderMode: RenderMode.Billboard, */}
+        {/*    easeFunction: "easeLinear", */}
+        {/*  }} */}
+        {/* /> */}
+        {/* <VFXEmitter */}
+        {/*  debug */}
+        {/*  autoStart */}
+        {/*  emitter="pulse" */}
+        {/*  settings={{ */}
+        {/*    duration: 0.5, */}
+        {/*    delay: 0, */}
+        {/*    nbParticles: 1, */}
+        {/*    spawnMode: "burst", */}
+        {/*    loop: false, */}
+        {/*    startPositionMin: [0, 0, 0], */}
+        {/*    startPositionMax: [0, 0, 0], */}
+        {/*    startRotationMin: [0, 0, 0], */}
+        {/*    startRotationMax: [0, 0, 0], */}
+        {/*    particlesLifetime: [1, 1], */}
+        {/*    speed: [0, 0], */}
+        {/*    directionMin: [-1, -1, -1], */}
+        {/*    directionMax: [1, 1, 1], */}
+        {/*    rotationSpeedMin: [0, 0, 0], */}
+        {/*    rotationSpeedMax: [0, 0, 0], */}
+        {/*    colorStart: ["#ffffff"], */}
+        {/*    colorEnd: ["#ffffff"], */}
+        {/*    size: [2.5, 2.5], */}
+        {/*  }} */}
+        {/* /> */}
       </group>
     </group>
   );
