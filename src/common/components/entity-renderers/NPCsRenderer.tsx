@@ -8,6 +8,7 @@ import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
 import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 import { useInteractableInjector } from "@/common/hooks/injection/useInteractableInjector.ts";
 import { IsNPC } from "@/common/traits/IsNPC.ts";
+import { useUnmount } from "react-use";
 
 const NPCView = ({ entity}: { entity: Entity }) => {
   const startPos = entity.get(CharacterStartPosition)!;
@@ -41,6 +42,10 @@ const NPCView = ({ entity}: { entity: Entity }) => {
 
 export default function NPCsRenderer() {
   const nPCs = useQuery(IsNPC);
+
+  useUnmount(() => {
+    nPCs.forEach(npc => npc.destroy());
+  });
 
   return nPCs.map(npc => <NPCView entity={npc} />);
 }

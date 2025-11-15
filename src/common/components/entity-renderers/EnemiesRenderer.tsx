@@ -8,6 +8,7 @@ import useRapier from "@/common/hooks/physics/useRapier.ts";
 import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
 import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 import { useInteractableInjector } from "@/common/hooks/injection/useInteractableInjector.ts";
+import { useUnmount } from "react-use";
 
 const EnemyView = ({ entity}: { entity: Entity }) => {
   const startPos = entity.get(CharacterStartPosition)!;
@@ -41,6 +42,10 @@ const EnemyView = ({ entity}: { entity: Entity }) => {
 
 export default function EnemiesRenderer() {
   const enemies = useQuery(IsEnemy);
+
+  useUnmount(() => {
+    enemies.forEach(enemy => enemy.destroy());
+  });
 
   return enemies.map((enemy) => {
     return <EnemyView entity={enemy} />;
