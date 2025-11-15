@@ -1299,7 +1299,13 @@
 									"id": "V_String",
 									"params": ["Ellie"]
 								}] },
-								{ "__identifier": "Lines", "__type": "Array<String>", "__value": [], "__tile": null, "defUid": 69, "realEditorValues": [] },
+								{ "__identifier": "Lines", "__type": "Array<String>", "__value": [ "나는 우동관", "나는 바보" ], "__tile": null, "defUid": 69, "realEditorValues": [ {
+									"id": "V_String",
+									"params": ["나는 우동관"]
+								}, {
+									"id": "V_String",
+									"params": ["나는 바보"]
+								} ] },
 								{ "__identifier": "Idle", "__type": "FilePath", "__value": "../img/dancing/hips.png", "__tile": null, "defUid": 60, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["../img/dancing/hips.png"]
