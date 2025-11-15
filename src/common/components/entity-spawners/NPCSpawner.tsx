@@ -16,7 +16,7 @@ export default function NPCSpawner(props: EntityRendererProps) {
   const worldPos = getEntityWorldPosition(props);
 
   useEffect(() => {
-    const startPosition = new Vector2(worldPos[0], worldPos[1]).add(new Vector2(0, 1));
+    const startPosition = new Vector2(worldPos[0], worldPos[1]).add(new Vector2(0, 0.5));
 
     const {
       Idle,
