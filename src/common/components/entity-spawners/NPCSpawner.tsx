@@ -30,6 +30,7 @@ export default function NPCSpawner(props: EntityRendererProps) {
       SpriteAnim(new SpriteAnimImpl({
         path: `${ldtkDir}${Idle.trim()}`,
         length: 8,
+        loop: true,
       })),
     );
   }, []);
