@@ -26,10 +26,7 @@ export default function PlayerSpawner(props: EntityRendererProps) {
   const collider = useCreateCollider({
     startPosition: startPosition.clone(),
     colliderDesc: rapier.ColliderDesc.cuboid(0.8, 1)
-      .setCollisionGroups(INTERACTION_GROUPS.CHARACTER)
-      .setMass(1)
-      .setRestitution(0)
-      .setFriction(1),
+      .setCollisionGroups(INTERACTION_GROUPS.CHARACTER),
   });
 
   useEffect(() => {
