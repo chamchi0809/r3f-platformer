@@ -1,6 +1,29 @@
 import styled from "styled-components";
 import { useApp } from "@/store/useAppStore.ts";
 
+function MainMenu() {
+  const { startGame, showSettings } = useApp();
+
+  const handleExit = () => {
+    window.api?.quitApp();
+  };
+
+  return (
+    <Container>
+      <MenuBox>
+        <Title>Game Title</Title>
+        <MenuButtons>
+          <MenuButton onClick={startGame}>Game Start</MenuButton>
+          <MenuButton onClick={showSettings}>Setting</MenuButton>
+          {window.api && (
+            <MenuButton onClick={handleExit}>Exit</MenuButton>
+          )}
+        </MenuButtons>
+      </MenuBox>
+    </Container>
+  );
+}
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -54,28 +77,5 @@ const MenuButton = styled.button`
     transform: scale(0.98);
   }
 `;
-
-function MainMenu() {
-  const { startGame, showSettings } = useApp();
-
-  const handleExit = () => {
-    window.api?.quitApp();
-  };
-
-  return (
-    <Container>
-      <MenuBox>
-        <Title>Game Title</Title>
-        <MenuButtons>
-          <MenuButton onClick={startGame}>Game Start</MenuButton>
-          <MenuButton onClick={showSettings}>Setting</MenuButton>
-          {window.api && (
-            <MenuButton onClick={handleExit}>Exit</MenuButton>
-          )}
-        </MenuButtons>
-      </MenuBox>
-    </Container>
-  );
-}
 
 export default MainMenu;
