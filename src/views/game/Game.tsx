@@ -9,6 +9,7 @@ import Postprocesses from "@/common/components/postprocesses/Postprocesses.tsx";
 import EntityRenderers from "@/common/components/entity-renderers/EntityRenderers.tsx";
 import NPCSpawner from "@/common/components/entity-spawners/NPCSpawner.tsx";
 import EnemySpawner from "@/common/components/entity-spawners/EnemySpawner.tsx";
+import { Loader } from "@/common/components/Loader.tsx";
 
 export default function Game() {
   return (
@@ -18,7 +19,7 @@ export default function Game() {
       <Lifecycles />
       <Postprocesses />
       <EntityRenderers />
-      <Suspense>
+      <Suspense fallback={<Loader />}>
         <LdtkMap
           ldtkPath="/assets/ldtk/map.ldtk"
           entityRendererMap={{
