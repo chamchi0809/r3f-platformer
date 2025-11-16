@@ -3,6 +3,171 @@ import { useEffect, useState } from "react";
 import type { KeyboardControlType } from "@/common/defs/keyboardControlMap.ts";
 import { useApp } from "@/store/useAppStore.ts";
 
+type KeyBindError = {
+  action: KeyboardControlType
+  message: string
+};
+
+function Setting() {
+  const {
+    goBackFromSettings,
+    activeKeymap,
+    handleKeymapChange,
+    setDisplayMode,
+    displayMode,
+  } = useApp();
+
+  const [volume, setVolume] = useState(1);
+  const [rebindingAction, setRebindingAction] = useState<KeyboardControlType | null>(null);
+  const [keyError, setKeyError] = useState<KeyBindError | null>(null);
+
+  useEffect(() => {
+    if (!rebindingAction) return;
+
+    const handleKeydown = (e: KeyboardEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const newKey = e.code;
+
+      if (newKey === "Escape") {
+        setRebindingAction(null);
+        setKeyError(null);
+        return;
+      }
+
+      const duplicateAction = activeKeymap.find(entry =>
+        entry.keys.includes(newKey) && entry.name !== rebindingAction,
+      );
+
+      if (duplicateAction) {
+        setKeyError({
+          action: rebindingAction,
+          message: `Used by: ${duplicateAction.name}`,
+        });
+        setRebindingAction(null);
+        return;
+      }
+
+      setKeyError(null);
+
+      const newMap = activeKeymap.map(entry =>
+        entry.name === rebindingAction
+          ? { ...entry, keys: [newKey] }
+          : entry,
+      );
+
+      handleKeymapChange(newMap);
+      setRebindingAction(null);
+    };
+
+    window.addEventListener("keydown", handleKeydown, { capture: true });
+    return () => {
+      window.removeEventListener("keydown", handleKeydown, { capture: true });
+    };
+  }, [rebindingAction, activeKeymap, handleKeymapChange]);
+
+  const handleDisplayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setDisplayMode(value);
+
+    if (value === "fullscreen") {
+      setDisplayMode("fullscreen");
+      window.api?.setFullScreen();
+    }
+    else if (value === "maximize") {
+      setDisplayMode("borderless");
+      window.api?.setBorderlessScreen();
+    }
+    else {
+      const parts = value.split("x");
+      const width = parseInt(parts[0], 10);
+      const height = parseInt(parts[1], 10);
+
+      if (!isNaN(width) && !isNaN(height)) {
+        setDisplayMode(value);
+        window.api?.setWindowSize(width, height);
+      }
+    }
+  };
+
+  return (
+    <Container>
+      <MenuBox>
+        <Title>Setting</Title>
+
+        <SettingsList>
+          {/* display setting */}
+          <SettingRow>
+            <SettingLabel>Display Mode</SettingLabel>
+            <SettingSelect onChange={handleDisplayChange} value={displayMode}>
+              <option value="fullscreen">Fullscreen</option>
+              {/* <option value="maximize">Borderless Window</option> */}
+              <option value="1920x1080">1920x1080</option>
+              <option value="1600x900">1600x900</option>
+              <option value="1200x640">1200x640</option>
+            </SettingSelect>
+          </SettingRow>
+
+          {/* volume */ }
+          <SettingRow>
+            <SettingLabel>
+              Sound:
+              {" "}
+              {Math.round(volume * 100)}
+              %
+            </SettingLabel>
+            <VolumeSlider
+              min="0"
+              max="1"
+              step="0.01"
+              value={volume}
+              onChange={e => setVolume(Number(e.target.value))}
+            />
+          </SettingRow>
+
+          {/* key setting */}
+          {activeKeymap.map((entry) => {
+            const isError = keyError?.action === entry.name;
+
+            let buttonText: string;
+            if (rebindingAction === entry.name) {
+              buttonText = "Press any key...";
+            }
+            else if (isError) {
+              buttonText = keyError.message;
+            }
+            else {
+              buttonText = entry.keys[0];
+            }
+
+            return (
+              <SettingRow key={entry.name}>
+                <SettingLabel style={{ textTransform: "capitalize" }}>
+                  {entry.name}
+                </SettingLabel>
+
+                <RebindButton
+                  isError={isError}
+                  onClick={() => {
+                    setRebindingAction(entry.name);
+                    setKeyError(null);
+                  }}
+                >
+                  {buttonText}
+                </RebindButton>
+              </SettingRow>
+            );
+          })}
+        </SettingsList>
+
+        <MenuButtons>
+          <BackButton onClick={goBackFromSettings}>Back</BackButton>
+        </MenuButtons>
+      </MenuBox>
+    </Container>
+  );
+}
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -162,167 +327,5 @@ const BackButton = styled.button`
     transform: scale(0.98);
   }
 `;
-
-type KeyBindError = {
-  action: KeyboardControlType
-  message: string
-};
-
-function Setting() {
-  const {
-    goBackFromSettings,
-    activeKeymap,
-    handleKeymapChange,
-    setDisplayMode,
-    displayMode,
-  } = useApp();
-
-  const [volume, setVolume] = useState(1);
-  const [rebindingAction, setRebindingAction] = useState<KeyboardControlType | null>(null);
-  const [keyError, setKeyError] = useState<KeyBindError | null>(null);
-
-  useEffect(() => {
-    if (!rebindingAction) return;
-
-    const handleKeydown = (e: KeyboardEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const newKey = e.code;
-
-      if (newKey === "Escape") {
-        setRebindingAction(null);
-        setKeyError(null);
-        return;
-      }
-
-      const duplicateAction = activeKeymap.find(entry =>
-        entry.keys.includes(newKey) && entry.name !== rebindingAction,
-      );
-
-      if (duplicateAction) {
-        setKeyError({
-          action: rebindingAction,
-          message: `Used by: ${duplicateAction.name}`,
-        });
-        setRebindingAction(null);
-        return;
-      }
-
-      setKeyError(null);
-
-      const newMap = activeKeymap.map(entry =>
-        entry.name === rebindingAction
-          ? { ...entry, keys: [newKey] }
-          : entry,
-      );
-
-      handleKeymapChange(newMap);
-      setRebindingAction(null);
-    };
-
-    window.addEventListener("keydown", handleKeydown, { capture: true });
-    return () => {
-      window.removeEventListener("keydown", handleKeydown, { capture: true });
-    };
-  }, [rebindingAction, activeKeymap, handleKeymapChange]);
-
-  const handleDisplayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setDisplayMode(value);
-
-    if (value === "fullscreen") {
-      setDisplayMode("fullscreen");
-      window.api?.setFullScreen();
-    }
-    else if (value === "maximize") {
-      setDisplayMode("borderless");
-      window.api?.setBorderlessScreen();
-    }
-    else {
-      const parts = value.split("x");
-      const width = parseInt(parts[0], 10);
-      const height = parseInt(parts[1], 10);
-
-      if (!isNaN(width) && !isNaN(height)) {
-        setDisplayMode(value);
-        window.api?.setWindowSize(width, height);
-      }
-    }
-  };
-
-  return (
-    <Container>
-      <MenuBox>
-        <Title>Setting</Title>
-
-        <SettingsList>
-          <SettingRow>
-            <SettingLabel>Display Mode</SettingLabel>
-            <SettingSelect onChange={handleDisplayChange} value={displayMode}>
-              <option value="fullscreen">Fullscreen</option>
-              {/* <option value="maximize">Borderless Window</option> */}
-              <option value="1920x1080">1920x1080</option>
-              <option value="1600x900">1600x900</option>
-              <option value="1200x640">1200x640</option>
-            </SettingSelect>
-          </SettingRow>
-
-          <SettingRow>
-            <SettingLabel>
-              Sound:
-              {" "}
-              {Math.round(volume * 100)}
-              %
-            </SettingLabel>
-            <VolumeSlider
-              min="0"
-              max="1"
-              step="0.01"
-              value={volume}
-              onChange={e => setVolume(Number(e.target.value))}
-            />
-          </SettingRow>
-
-          {activeKeymap.map((entry) => {
-            const isError = keyError?.action === entry.name;
-
-            let buttonText: string;
-            if (rebindingAction === entry.name) {
-              buttonText = "Press any key...";
-            }
-            else if (isError) {
-              buttonText = keyError.message;
-            }
-            else {
-              buttonText = entry.keys[0];
-            }
-
-            return (
-              <SettingRow key={entry.name}>
-                <SettingLabel style={{ textTransform: "capitalize" }}>
-                  {entry.name}
-                </SettingLabel>
-
-                <RebindButton
-                  isError={isError}
-                  onClick={() => {
-                    setRebindingAction(entry.name);
-                    setKeyError(null);
-                  }}
-                >
-                  {buttonText}
-                </RebindButton>
-              </SettingRow>
-            );
-          })}
-        </SettingsList>
-
-        <MenuButtons>
-          <BackButton onClick={goBackFromSettings}>Back</BackButton>
-        </MenuButtons>
-      </MenuBox>
-    </Container>
-  );
-}
 
 export default Setting;

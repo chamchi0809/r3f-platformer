@@ -16,42 +16,7 @@ import { useApp } from "@/store/useAppStore.ts";
 import styled from "styled-components";
 import TitleBar from "@/common/components/TitleBar.tsx";
 import { PauseModal } from "@/common/components/PauseModal.tsx";
-
-const AppContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-`;
-
-const ContentContainer = styled.div`
-  flex: 1;
-  position: relative;
-  background-color: #1a1a1a;
-`;
-
-const UiContainer = styled.div<{ visible: boolean }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;=
-  visibility: ${props => (props.visible ? "visible" : "hidden")};
-  pointer-events: ${props => (props.visible ? "auto" : "none")};
-  z-index: 10;=
-`;
-
-const GameContainer = styled.div<{ visible: boolean }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;=
-  visibility: ${props => (props.visible ? "visible" : "hidden")};
-  pointer-events: ${props => (props.visible ? "auto" : "none")};
-  z-index: 1;=
-`;
+import { Loader } from "@/common/components/Loader.tsx";
 
 const RENDER_HEIGHT = PPU * CAM_SIZE * 2;
 const DEV_VIEWS = ["game", "tileset-editor"] as const;
@@ -123,7 +88,7 @@ function App() {
               }}
               resize={{ scroll: false }}
             >
-              <Suspense>
+              <Suspense fallback={<Loader />}>
                 <Physics timeStep={physicsSettings.timestep} gravity={{ x: 0, y: physicsSettings.gravity }}>
                   <KeyboardControls map={activeKeymap}>
                     {
@@ -144,5 +109,41 @@ function App() {
     </AppContainer>
   );
 }
+
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+`;
+
+const ContentContainer = styled.div`
+  flex: 1;
+  position: relative;
+  background-color: #1a1a1a;
+`;
+
+const UiContainer = styled.div<{ visible: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;=
+  visibility: ${props => (props.visible ? "visible" : "hidden")};
+  pointer-events: ${props => (props.visible ? "auto" : "none")};
+  z-index: 10;=
+`;
+
+const GameContainer = styled.div<{ visible: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;=
+  visibility: ${props => (props.visible ? "visible" : "hidden")};
+  pointer-events: ${props => (props.visible ? "auto" : "none")};
+  z-index: 1;=
+`;
 
 export default App;
