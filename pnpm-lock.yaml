@@ -68,6 +68,9 @@ importers:
       wawa-vfx:
         specifier: ^1.2.10
         version: 1.2.10(@react-three/fiber@9.3.0(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(three@0.178.0))(leva@0.10.0(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(three@0.178.0)(zustand@5.0.8(@types/react@19.1.13)(react@19.1.1)(use-sync-external-store@1.5.0(react@19.1.1)))
+      web-audio-daw:
+        specifier: ^4.13.4
+        version: 4.13.4
     devDependencies:
       '@eslint/js':
         specifier: ^9.39.1
@@ -3329,6 +3332,9 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
+  tunajs@1.0.15:
+    resolution: {integrity: sha512-es0bgyTHP8ftyWEot7YqLlLH30yZqHUTT6K5TKFhVqIB1Y6Cuu8WvBunfTVQSmzrpuhz15PQjyen7uuwi4gjdw==}
+
   tunnel-rat@0.1.2:
     resolution: {integrity: sha512-lR5VHmkPhzdhrM092lI2nACsLO4QubF0/yoOhzX7c+wIpbN1GjHNzCc91QlpxBi+cnx8vVJ+Ur6vL5cEoQPFpQ==}
 
@@ -3505,6 +3511,9 @@ packages:
 
   wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
+
+  web-audio-daw@4.13.4:
+    resolution: {integrity: sha512-8N7/2wahqQtZ2z92WigU7l3fbjv1Ub+TLLxNUNiQfFYrD/BxtAAwk0KgvTrsBbjNgRnNieQr4/wKXQrhWupPvg==}
 
   webgl-constants@1.1.1:
     resolution: {integrity: sha512-LkBXKjU5r9vAW7Gcu3T5u+5cvSvh5WwINdr0C+9jpzVB41cjQAP5ePArDtk/WHYdVj0GefCgM73BA7FlIiNtdg==}
@@ -7306,6 +7315,8 @@ snapshots:
 
   tslib@2.8.1: {}
 
+  tunajs@1.0.15: {}
+
   tunnel-rat@0.1.2(@types/react@19.1.13)(react@19.1.1):
     dependencies:
       zustand: 4.5.7(@types/react@19.1.13)(react@19.1.1)
@@ -7472,6 +7483,11 @@ snapshots:
   wcwidth@1.0.1:
     dependencies:
       defaults: 1.0.4
+
+  web-audio-daw@4.13.4:
+    dependencies:
+      lodash: 4.17.21
+      tunajs: 1.0.15
 
   webgl-constants@1.1.1: {}
 
