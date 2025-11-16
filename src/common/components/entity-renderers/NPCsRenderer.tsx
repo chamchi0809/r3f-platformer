@@ -10,7 +10,7 @@ import { useInteractableInjector } from "@/common/hooks/injection/useInteractabl
 import { IsNPC } from "@/common/traits/IsNPC.ts";
 import { useUnmount } from "react-use";
 
-const NPCView = ({ entity}: { entity: Entity }) => {
+const NPCView = ({ entity }: { entity: Entity }) => {
   const startPos = entity.get(CharacterStartPosition)!;
 
   const threeRef = useThreeInjector(entity);
@@ -26,7 +26,7 @@ const NPCView = ({ entity}: { entity: Entity }) => {
       .setFriction(1)
       .setSensor(true),
   });
-  useInteractableInjector(entity, sensor!);
+  useInteractableInjector(entity, sensor);
 
   return (
     <group ref={threeRef}>
