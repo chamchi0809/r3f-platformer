@@ -5,16 +5,16 @@ import { getEntityWorldPosition } from "@/common/ldtk/utils/positionUtils.ts";
 import { Vector2 } from "three";
 import { useLdtkLevelContext } from "@/common/ldtk/components/LdtkMap.tsx";
 import { stripEntityInstanceFields } from "@/common/ldtk/utils/entityUtils.ts";
-import { IsNPC } from "@/common/traits/IsNPC.ts";
 import { CharacterStartPosition } from "@/common/traits/CharacterStartPosition.ts";
 import { CharacterVisualPosition } from "@/common/traits/CharacterVisualPosition.ts";
 import { SpriteAnim, SpriteAnimImpl } from "@/common/traits/SpriteAnim.ts";
+import { IsEnemy } from "@/common/traits/IsEnemy.ts";
 import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
-import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 import useRapier from "@/common/hooks/physics/useRapier.ts";
+import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 import { Interactable, InteractableRef } from "@/common/traits/InteractableRef.ts";
 
-export default function NPCSpawner(props: EntityRendererProps) {
+export default function EnemySpawner(props: EntityRendererProps) {
   const { ldtkDir } = useLdtkLevelContext();
   const world = useWorld();
   const { rapier, world: rapierWorld } = useRapier();
@@ -41,7 +41,7 @@ export default function NPCSpawner(props: EntityRendererProps) {
   useEffect(() => {
     if (!sensor) return;
     world.spawn(
-      IsNPC,
+      IsEnemy,
       CharacterStartPosition(startPosition.clone()), CharacterVisualPosition(startPosition.clone()),
       SpriteAnim(new SpriteAnimImpl({
         path: `${ldtkDir}${Idle.trim()}`,

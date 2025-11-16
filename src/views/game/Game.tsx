@@ -8,6 +8,7 @@ import Lifecycles from "@/common/components/lifecycles/Lifecycles.tsx";
 import Postprocesses from "@/common/components/postprocesses/Postprocesses.tsx";
 import EntityRenderers from "@/common/components/entity-renderers/EntityRenderers.tsx";
 import NPCSpawner from "@/common/components/entity-spawners/NPCSpawner.tsx";
+import EnemySpawner from "@/common/components/entity-spawners/EnemySpawner.tsx";
 
 export default function Game() {
   return (
@@ -23,6 +24,7 @@ export default function Game() {
           entityRendererMap={{
             PlayerStart: PlayerSpawner,
             NPC: NPCSpawner,
+            Enemy: EnemySpawner,
           }}
           tileRendererMap={{
             RECT: (props) => {

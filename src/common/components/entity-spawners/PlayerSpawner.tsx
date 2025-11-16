@@ -12,13 +12,28 @@ import { CharacterVisualPosition } from "@/common/traits/CharacterVisualPosition
 import { CharacterVelocity } from "@/common/traits/CharacterValues.ts";
 import { CharacterStats } from "@/common/traits/CharacterStats.ts";
 import { SpriteAnim, SpriteAnimImpl } from "@/common/traits/SpriteAnim.ts";
+import useRapier from "@/common/hooks/physics/useRapier.ts";
+import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
+import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
+import { CharacterController, CharacterControllerRef } from "@/common/traits/CharacterControllerRef.ts";
 
 export default function PlayerSpawner(props: EntityRendererProps) {
   const worldPos = getEntityWorldPosition(props);
   const world = useWorld();
+  const startPosition = new Vector2(worldPos[0], worldPos[1]).add(new Vector2(0, 0.5));
+
+  const { rapier, world: rapierWorld } = useRapier();
+  const collider = useCreateCollider({
+    startPosition: startPosition.clone(),
+    colliderDesc: rapier.ColliderDesc.cuboid(0.8, 1)
+      .setCollisionGroups(INTERACTION_GROUPS.CHARACTER)
+      .setMass(1)
+      .setRestitution(0)
+      .setFriction(1),
+  });
 
   useEffect(() => {
-    const startPosition = new Vector2(worldPos[0], worldPos[1]).add(new Vector2(0, 0.5));
+    if (!collider) return;
 
     world.spawn(
       IsPlayer, PlayerStates,
@@ -29,8 +44,9 @@ export default function PlayerSpawner(props: EntityRendererProps) {
         path: "/assets/img/dancing/hips.png",
         length: 8,
       })),
+      CharacterControllerRef(new CharacterController(collider, rapierWorld)),
     );
-  }, []);
+  }, [collider]);
 
   return <></>;
 }
