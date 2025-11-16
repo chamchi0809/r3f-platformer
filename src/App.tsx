@@ -1,11 +1,11 @@
 import "@/App.css";
 import { Canvas } from "@react-three/fiber";
 import Game from "@/views/game/Game.tsx";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import { KeyboardControls } from "@react-three/drei";
 import { physicsSettings } from "@/common/defs/physicsSettings.ts";
 import { CAM_SIZE } from "@/common/defs/camSize.ts";
-import { useMeasure } from "react-use";
+import { useKeyPressEvent, useMeasure } from "react-use";
 import { PPU } from "@/common/defs/ppu.ts";
 import { Leva, useControls } from "leva";
 import TilesetEditor from "@/views/tileset-editor/TilesetEditor.tsx";
@@ -38,23 +38,16 @@ function App() {
   const { view } = useControls({ view: { value: "game" as DevView, options: DEV_VIEWS } });
   const devView = view as DevView;
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (gameState === "play" && event.key === "Escape") {
-        if (isPaused) {
-          resumeGame();
-        }
-        else {
-          pauseGame();
-        }
+  useKeyPressEvent("Escape", () => {
+    if (gameState === "play") {
+      if (isPaused) {
+        resumeGame();
       }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [gameState, isPaused, pauseGame, resumeGame]);
+      else {
+        pauseGame();
+      }
+    }
+  });
 
   return (
     <AppContainer>
@@ -129,10 +122,11 @@ const UiContainer = styled.div<{ visible: boolean }>`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;=
-  visibility: ${props => (props.visible ? "visible" : "hidden")};
+  height: 100%;
+= visibility: ${props => (props.visible ? "visible" : "hidden")};
   pointer-events: ${props => (props.visible ? "auto" : "none")};
-  z-index: 10;=
+  z-index: 10;
+=
 `;
 
 const GameContainer = styled.div<{ visible: boolean }>`
@@ -140,10 +134,11 @@ const GameContainer = styled.div<{ visible: boolean }>`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;=
-  visibility: ${props => (props.visible ? "visible" : "hidden")};
+  height: 100%;
+= visibility: ${props => (props.visible ? "visible" : "hidden")};
   pointer-events: ${props => (props.visible ? "auto" : "none")};
-  z-index: 1;=
+  z-index: 1;
+=
 `;
 
 export default App;
