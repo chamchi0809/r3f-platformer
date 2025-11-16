@@ -2020,7 +2020,39 @@
 					"seed": 4582632,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Enemy",
+							"__grid": [2,10],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#FF009F",
+							"iid": "f0a7c490-ac70-11f0-87d9-b5dd5b6df2d0",
+							"width": 16,
+							"height": 16,
+							"defUid": 50,
+							"px": [32,160],
+							"fieldInstances": [
+								{ "__identifier": "Name", "__type": "String", "__value": "Dino Girl", "__tile": null, "defUid": 51, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["Dino Girl"]
+								}] },
+								{ "__identifier": "Description", "__type": "String", "__value": null, "__tile": null, "defUid": 67, "realEditorValues": [] },
+								{ "__identifier": "TauntLines", "__type": "Array<String>", "__value": [], "__tile": null, "defUid": 68, "realEditorValues": [] },
+								{ "__identifier": "Idle", "__type": "FilePath", "__value": "../img/dancing/hips.png", "__tile": null, "defUid": 61, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["../img/dancing/hips.png"]
+								}] },
+								{ "__identifier": "BattleStart", "__type": "FilePath", "__value": null, "__tile": null, "defUid": 62, "realEditorValues": [] },
+								{ "__identifier": "Rhythm", "__type": "Array<FilePath>", "__value": [], "__tile": null, "defUid": 65, "realEditorValues": [] },
+								{ "__identifier": "SensorWidth", "__type": "Float", "__value": 1, "__tile": null, "defUid": 58, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
+								{ "__identifier": "SensorHeight", "__type": "Float", "__value": 1, "__tile": null, "defUid": 59, "realEditorValues": [{ "id": "V_Float", "params": [1] }] }
+							],
+							"__worldX": 560,
+							"__worldY": -80
+						}
+					]
 				},
 				{
 					"__identifier": "IntGrid",
