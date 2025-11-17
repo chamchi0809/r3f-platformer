@@ -3,12 +3,12 @@ import { applyCharacterGravity } from "@/common/systems/physics/applyCharacterGr
 import { applyCharacterVelocity } from "@/common/systems/physics/applyCharacterVelocity.ts";
 import { physicsSettings } from "@/common/defs/physicsSettings.ts";
 import { updateCamPos } from "@/common/systems/physics/updateCamPos.ts";
-import useAfterPhysicsStep from "@/common/hooks/physics/useAfterPhysicsStep.tsx";
+import useBeforePhysicsStep from "@/common/hooks/physics/useBeforePhysicsStep.tsx";
 
 export default function PhysicsLoop() {
   const world = useWorld();
 
-  useAfterPhysicsStep(() => {
+  useBeforePhysicsStep(() => {
     applyCharacterGravity(world);
     applyCharacterVelocity(world);
     updateCamPos(world, physicsSettings.timestep);

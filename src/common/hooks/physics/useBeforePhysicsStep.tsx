@@ -4,7 +4,7 @@ import { type DependencyList, useCallback, useEffect, useMemo } from "react";
 
 let tickerId = 0;
 
-export default function useAfterPhysicsStep(callback: (rapierWorld: World) => void, deps: DependencyList = []) {
+export default function useBeforePhysicsStep(callback: (rapierWorld: World) => void, deps: DependencyList = []) {
   const { setTickers } = useRapier();
   const id = useMemo(() => tickerId++, []);
   const cb = useCallback(callback, deps);
