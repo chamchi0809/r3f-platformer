@@ -99,8 +99,8 @@ function App() {
                   </KeyboardControls>
                 </Physics>
               </Suspense>
+              <InteractionHint />
             </Canvas>
-            <InteractionHint />
             <PauseModal />
           </GameContainer>
         )}
