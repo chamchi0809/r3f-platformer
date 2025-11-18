@@ -5,19 +5,14 @@ export const InteractableRef = trait(() => null! as Interactable);
 
 export class Interactable {
   world: World;
-  sensor: Collider;
+  collider: Collider;
 
   constructor(collider: Collider, world: World) {
     this.world = world;
-    this.sensor = collider;
-  }
-
-  get col() {
-    return this.world.getCollider(this.sensor.handle);
+    this.collider = collider;
   }
 
   isIntersecting(otherCollider: Collider) {
-    const intersection = this.world.intersectionPair(this.col, this.world.getCollider(otherCollider.handle));
-    return intersection;
+    return this.world.intersectionPair(this.collider, otherCollider);
   }
 }
