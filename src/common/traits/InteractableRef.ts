@@ -13,6 +13,6 @@ export class Interactable {
   }
 
   isIntersecting(otherCollider: Collider) {
-    return this.world.intersectionPair(this.collider, otherCollider);
+    return this.collider.intersectsShape(otherCollider.shape, otherCollider.translation(), otherCollider.rotation());
   }
 }
