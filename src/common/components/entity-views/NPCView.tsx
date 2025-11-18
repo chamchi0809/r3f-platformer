@@ -1,11 +1,8 @@
-import { useQuery } from "koota/react";
-import { IsEnemy } from "@/common/traits/IsEnemy.ts";
 import type { Entity } from "koota";
 import { useThreeInjector } from "@/common/hooks/injection/useThreeInjector.ts";
 import { useMaterialInjector } from "@/common/hooks/injection/useMaterialInjector.ts";
-import { useUnmount } from "react-use";
 
-const EnemyView = ({ entity}: { entity: Entity }) => {
+export default function NPCView({ entity }: { entity: Entity }) {
   const threeRef = useThreeInjector(entity);
   const materialRef = useMaterialInjector(entity);
 
@@ -20,15 +17,3 @@ const EnemyView = ({ entity}: { entity: Entity }) => {
     </group>
   );
 };
-
-export default function EnemiesRenderer() {
-  const enemies = useQuery(IsEnemy);
-
-  useUnmount(() => {
-    enemies.forEach(enemy => enemy.destroy());
-  });
-
-  return enemies.map((enemy) => {
-    return <EnemyView entity={enemy} />;
-  });
-}

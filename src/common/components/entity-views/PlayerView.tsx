@@ -1,11 +1,8 @@
-import { useQuery } from "koota/react";
-import { IsPlayer } from "@/common/traits/IsPlayer.ts";
 import type { Entity } from "koota";
 import { useThreeInjector } from "@/common/hooks/injection/useThreeInjector.ts";
 import { useMaterialInjector } from "@/common/hooks/injection/useMaterialInjector.ts";
-import { useUnmount } from "react-use";
 
-const PlayerView = ({ entity}: { entity: Entity }) => {
+export default function PlayerView({ entity }: { entity: Entity }) {
   const threeRef = useThreeInjector(entity);
   const materialRef = useMaterialInjector(entity);
 
@@ -31,13 +28,3 @@ const PlayerView = ({ entity}: { entity: Entity }) => {
     </group>
   );
 };
-
-export default function PlayersRenderer() {
-  const players = useQuery(IsPlayer);
-
-  useUnmount(() => {
-    players.forEach(p => p.destroy());
-  });
-
-  return players.map(player => <PlayerView entity={player} />);
-}
