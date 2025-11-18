@@ -17,6 +17,7 @@ import styled from "styled-components";
 import TitleBar from "@/common/components/TitleBar.tsx";
 import { PauseModal } from "@/common/components/PauseModal.tsx";
 import { Loader } from "@/common/components/Loader.tsx";
+import { InteractionHint } from "./common/components/InteractionHint";
 
 const RENDER_HEIGHT = PPU * CAM_SIZE * 2;
 const DEV_VIEWS = ["game", "tileset-editor"] as const;
@@ -99,6 +100,7 @@ function App() {
                 </Physics>
               </Suspense>
             </Canvas>
+            <InteractionHint />
             <PauseModal />
           </GameContainer>
         )}

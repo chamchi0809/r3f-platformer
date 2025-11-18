@@ -4,6 +4,7 @@ import { applyCharacterVelocity } from "@/common/systems/physics/applyCharacterV
 import { physicsSettings } from "@/common/defs/physicsSettings.ts";
 import { updateCamPos } from "@/common/systems/physics/updateCamPos.ts";
 import useBeforePhysicsStep from "@/common/hooks/physics/useBeforePhysicsStep.tsx";
+import { updateInteractionFocus } from "@/common/systems/physics/updateInteractionFocus";
 
 export default function PhysicsLoop() {
   const world = useWorld();
@@ -11,6 +12,7 @@ export default function PhysicsLoop() {
   useBeforePhysicsStep(() => {
     applyCharacterGravity(world);
     applyCharacterVelocity(world);
+    updateInteractionFocus(world);
     updateCamPos(world, physicsSettings.timestep);
   });
   return <></>;
