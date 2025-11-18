@@ -9,6 +9,6 @@ export const COL_GROUP = {
 
 export const INTERACTION_GROUPS: Record<ColGroup, number> = {
   DEFAULT: interactionGroups(COL_GROUP.DEFAULT),
-  CHARACTER: interactionGroups(COL_GROUP.CHARACTER, COL_GROUP.DEFAULT),
+  CHARACTER: interactionGroups(COL_GROUP.CHARACTER, [COL_GROUP.DEFAULT, COL_GROUP.SENSOR]),
   SENSOR: interactionGroups(COL_GROUP.SENSOR),
 };
