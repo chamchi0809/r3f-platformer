@@ -38,7 +38,7 @@ export default function EntityRenderers() {
 const EntityRenderer = <T extends QueryParameter[]>(
   {
     params,
-    view,
+    view: View,
   }: {
     params: T
     view: (p: { entity: Entity }) => JSX.Element
@@ -52,7 +52,11 @@ const EntityRenderer = <T extends QueryParameter[]>(
   return (
     <>
       {entities.map((entity) => {
-        return <Fragment key={entity}>{view({ entity })}</Fragment>;
+        return (
+          <Fragment key={entity}>
+            <View entity={entity} />
+          </Fragment>
+        );
       })}
     </>
   );
