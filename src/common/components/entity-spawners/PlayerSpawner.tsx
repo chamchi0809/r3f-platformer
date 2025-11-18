@@ -15,6 +15,7 @@ import { SpriteAnim, SpriteAnimImpl } from "@/common/traits/SpriteAnim.ts";
 import { useWorld } from "koota/react";
 import { useEffect } from "react";
 import { Vector2 } from "three";
+import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 
 export default function PlayerSpawner(props: EntityRendererProps) {
   const worldPos = getEntityWorldPosition(props);
@@ -24,7 +25,8 @@ export default function PlayerSpawner(props: EntityRendererProps) {
   const { rapier, world: rapierWorld } = useRapier();
   const collider = useCreateCollider({
     startPosition: startPosition.clone(),
-    colliderDesc: rapier.ColliderDesc.cuboid(0.8, 1),
+    colliderDesc: rapier.ColliderDesc.cuboid(0.8, 1)
+      .setCollisionGroups(INTERACTION_GROUPS.CHARACTER),
   });
 
   useEffect(() => {

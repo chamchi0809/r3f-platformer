@@ -12,6 +12,7 @@ import { SpriteAnim, SpriteAnimImpl } from "@/common/traits/SpriteAnim.ts";
 import { useWorld } from "koota/react";
 import { useEffect } from "react";
 import { Vector2 } from "three";
+import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 
 export default function NPCSpawner(props: EntityRendererProps) {
   const { ldtkDir } = useLdtkLevelContext();
@@ -33,6 +34,7 @@ export default function NPCSpawner(props: EntityRendererProps) {
   const sensor = useCreateCollider({
     startPosition,
     colliderDesc: rapier.ColliderDesc.cuboid(SensorWidth / 2, SensorHeight / 2)
+      .setCollisionGroups(INTERACTION_GROUPS.SENSOR)
       .setSensor(true),
   });
 
