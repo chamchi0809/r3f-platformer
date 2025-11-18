@@ -1,5 +1,5 @@
 import { trait } from "koota";
-import type { Collider, KinematicCharacterController, World } from "@dimforge/rapier2d";
+import { type Collider, type KinematicCharacterController, QueryFilterFlags, type World } from "@dimforge/rapier2d";
 import { deg2rad } from "@/common/utils/mathUtils.ts";
 
 export const CharacterControllerRef = trait(() => ({}) as unknown as CharacterController);
@@ -26,12 +26,12 @@ export class CharacterController {
 
   get isGrounded() {
     const checkDist = 0.01;
-    this.controller.computeColliderMovement(this.col, { x: 0, y: -checkDist * 2 }, undefined, this.col.collisionGroups());
+    this.controller.computeColliderMovement(this.col, { x: 0, y: -checkDist * 2 }, QueryFilterFlags.EXCLUDE_SENSORS, this.col.collisionGroups());
     return Math.abs(this.controller.computedMovement().y) < checkDist;
   }
 
   move(x: number, y: number) {
-    this.controller.computeColliderMovement(this.col, { x, y }, undefined, this.col.collisionGroups());
+    this.controller.computeColliderMovement(this.col, { x, y }, QueryFilterFlags.EXCLUDE_SENSORS, this.col.collisionGroups());
     this.col.setTranslation({
       x: this.col.translation().x + this.controller.computedMovement().x,
       y: this.col.translation().y + this.controller.computedMovement().y,
