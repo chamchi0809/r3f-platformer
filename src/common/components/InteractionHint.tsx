@@ -15,6 +15,12 @@ const HintContainer = styled.div`
   color: white;
   white-space: nowrap;
 `;
+const Kbd = styled.kbd`
+  background: #222;
+  border: 1px solid #555;
+  border-radius: 3px;
+  padding: 2px 6px;
+`;
 
 function HintLabel({ entity }: { entity: Entity }) {
   const groupRef = useRef<Group>(null);
@@ -36,7 +42,7 @@ function HintLabel({ entity }: { entity: Entity }) {
           Press
           {/* TODO: 키를 정규화할 방법 찾기 */}
           {/* TODO: kdb 컴포넌트 구현 */}
-          {activeKeymap.find(v => v.name === "interact")?.keys}
+          {activeKeymap.find(v => v.name === "interact")?.keys.map(k => (<Kbd>{k}</Kbd>))}
           Key
         </HintContainer>
       </Html>
