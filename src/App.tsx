@@ -127,10 +127,9 @@ const UiContainer = styled.div<{ visible: boolean }>`
   left: 0;
   width: 100%;
   height: 100%;
-= visibility: ${props => (props.visible ? "visible" : "hidden")};
+  visibility: ${props => (props.visible ? "visible" : "hidden")};
   pointer-events: ${props => (props.visible ? "auto" : "none")};
   z-index: 10;
-=
 `;
 
 const GameContainer = styled.div<{ visible: boolean }>`
@@ -139,10 +138,9 @@ const GameContainer = styled.div<{ visible: boolean }>`
   left: 0;
   width: 100%;
   height: 100%;
-= visibility: ${props => (props.visible ? "visible" : "hidden")};
+  visibility: ${props => (props.visible ? "visible" : "hidden")};
   pointer-events: ${props => (props.visible ? "auto" : "none")};
   z-index: 1;
-=
 `;
 
 export default App;
