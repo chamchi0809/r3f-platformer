@@ -1,3 +1,5 @@
+import DebugPhysics from "@/common/components/DebugPhysics.tsx";
+
 const rapierPromise = import("@dimforge/rapier2d");
 import { type Vector2, type World } from "@dimforge/rapier2d";
 import { createContext, type Dispatch, memo, type ReactNode, type SetStateAction, use, useEffect, useMemo, useRef, useState } from "react";
@@ -17,10 +19,12 @@ export default memo(function Physics(
   {
     timeStep,
     gravity,
+    debug,
     children,
   }: {
     timeStep: number
     gravity: Vector2
+    debug?: boolean
     children?: ReactNode
   },
 ) {
@@ -51,6 +55,7 @@ export default memo(function Physics(
     }}
     >
       {children}
+      {debug && <DebugPhysics />}
     </RapierContext>
   );
 });
