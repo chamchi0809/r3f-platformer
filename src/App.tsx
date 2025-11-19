@@ -82,7 +82,11 @@ function App() {
               resize={{ scroll: false }}
             >
               <Suspense fallback={<Loader />}>
-                <Physics timeStep={physicsSettings.timestep} gravity={{ x: 0, y: physicsSettings.gravity }}>
+                <Physics
+                  timeStep={physicsSettings.timestep}
+                  gravity={{ x: 0, y: physicsSettings.gravity }}
+                  debug
+                >
                   <KeyboardControls map={activeKeymap}>
                     {
                       devView === "game"
