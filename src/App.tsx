@@ -85,7 +85,7 @@ function App() {
                 <Physics
                   timeStep={physicsSettings.timestep}
                   gravity={{ x: 0, y: physicsSettings.gravity }}
-                  debug
+                  debug={isDev}
                 >
                   <KeyboardControls map={activeKeymap}>
                     {
