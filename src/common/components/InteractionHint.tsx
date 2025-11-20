@@ -1,13 +1,9 @@
-import { useQueryFirst } from "koota/react";
-import { InteractableRef } from "../traits/InteractableRef";
-import { IsInteractionFocused } from "../traits/IsInteractionFocused";
-import type { Entity } from "koota";
-import { Html } from "@react-three/drei";
-import { useRef } from "react";
-import { Group } from "three";
-import styled from "styled-components";
 import { useApp } from "@/store/useAppStore";
-import { useFrame } from "@react-three/fiber";
+import { Html } from "@react-three/drei";
+import type { Entity } from "koota";
+import styled from "styled-components";
+import { useRefTrait } from "../hooks/ecs/useRefTrait";
+import { InteractionRef } from "../traits/InteractionRef";
 
 const HintContainer = styled.div`
   padding: 8px 12px;
@@ -22,35 +18,21 @@ const Kbd = styled.kbd`
   padding: 2px 6px;
 `;
 
-function HintLabel({ entity }: { entity: Entity }) {
-  const groupRef = useRef<Group>(null);
-  const interactable = entity.get(InteractableRef);
+export function InteractionHintView({ entity }: { entity: Entity }) {
+  const interactionRef = useRefTrait(entity, InteractionRef);
 
-  useFrame(() => {
-    if (!groupRef.current) return;
-    if (!interactable) return;
-    const pos = groupRef.current.position;
-    const targetPos = interactable.collider.translation();
-    groupRef.current.position.set(targetPos.x, targetPos.y, pos.z);
-  });
+  console.log("Rendering interaction hint");
 
   const { activeKeymap } = useApp();
   return (
-    <group ref={groupRef}>
-      <Html>
+    <group ref={interactionRef}>
+      <Html center>
         <HintContainer>
           Press
-          {/* TODO: 키를 정규화할 방법 찾기 */}
-          {/* TODO: kdb 컴포넌트 구현 */}
-          {activeKeymap.find(v => v.name === "interact")?.keys.map(k => (<Kbd>{k}</Kbd>))}
+          {activeKeymap.find(v => v.name === "interact")?.keys.map(k => (<Kbd key={k}>{k}</Kbd>))}
           Key
         </HintContainer>
       </Html>
     </group>
   );
-}
-
-export function InteractionHint() {
-  const focused = useQueryFirst(IsInteractionFocused, InteractableRef);
-  return focused && <HintLabel entity={focused} />;
 }

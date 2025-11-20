@@ -10,6 +10,8 @@ import NPCView from "@/common/components/entity-views/NPCView.tsx";
 import EnemyView from "@/common/components/entity-views/EnemyView.tsx";
 import { IsCamera } from "@/common/traits/IsCamera.ts";
 import CameraView from "@/common/components/entity-views/CameraView.tsx";
+import { IsInteractionFocused } from "@/common/traits/IsInteractionFocused";
+import { InteractionHintView } from "../InteractionHint";
 
 /** Koota entity renderers */
 export default function EntityRenderers() {
@@ -26,6 +28,10 @@ export default function EntityRenderers() {
       <EntityRenderer
         params={[IsEnemy]}
         view={EnemyView}
+      />
+      <EntityRenderer
+        params={[IsInteractionFocused]}
+        view={InteractionHintView}
       />
       <EntityRenderer
         params={[IsCamera]}

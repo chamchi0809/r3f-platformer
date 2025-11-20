@@ -1,23 +1,22 @@
 import "@/App.css";
-import { Canvas } from "@react-three/fiber";
-import Game from "@/views/game/Game.tsx";
-import { Suspense } from "react";
-import { KeyboardControls } from "@react-three/drei";
-import { physicsSettings } from "@/common/defs/physicsSettings.ts";
-import { CAM_SIZE } from "@/common/defs/camSize.ts";
-import { useKeyPressEvent, useMeasure } from "react-use";
-import { PPU } from "@/common/defs/ppu.ts";
-import { Leva, useControls } from "leva";
-import TilesetEditor from "@/views/tileset-editor/TilesetEditor.tsx";
+import { Loader } from "@/common/components/Loader.tsx";
+import { PauseModal } from "@/common/components/PauseModal.tsx";
 import Physics from "@/common/components/Physics.tsx";
+import TitleBar from "@/common/components/TitleBar.tsx";
+import { CAM_SIZE } from "@/common/defs/camSize.ts";
+import { physicsSettings } from "@/common/defs/physicsSettings.ts";
+import { PPU } from "@/common/defs/ppu.ts";
+import { useApp } from "@/store/useAppStore.ts";
+import Game from "@/views/game/Game.tsx";
 import MainMenu from "@/views/main-menu/MainMenu.tsx";
 import Setting from "@/views/setting/Setting.tsx";
-import { useApp } from "@/store/useAppStore.ts";
+import TilesetEditor from "@/views/tileset-editor/TilesetEditor.tsx";
+import { KeyboardControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { Leva, useControls } from "leva";
+import { Suspense } from "react";
+import { useKeyPressEvent, useMeasure } from "react-use";
 import styled from "styled-components";
-import TitleBar from "@/common/components/TitleBar.tsx";
-import { PauseModal } from "@/common/components/PauseModal.tsx";
-import { Loader } from "@/common/components/Loader.tsx";
-import { InteractionHint } from "./common/components/InteractionHint";
 
 const RENDER_HEIGHT = PPU * CAM_SIZE * 2;
 const DEV_VIEWS = ["game", "tileset-editor"] as const;
@@ -99,7 +98,6 @@ function App() {
                   </KeyboardControls>
                 </Physics>
               </Suspense>
-              <InteractionHint />
             </Canvas>
             <PauseModal />
           </GameContainer>
