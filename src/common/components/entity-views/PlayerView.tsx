@@ -2,14 +2,14 @@ import type { Entity } from "koota";
 import { useRefTrait } from "@/common/hooks/ecs/useRefTrait.ts";
 import { ThreeRef } from "@/common/traits/ThreeRef.ts";
 import { MaterialRef } from "@/common/traits/MaterialRef.ts";
-import { BoxGeometryRef } from "@/common/traits/BoxGeometryRef.ts";
+import { PlaneGeometryRef } from "@/common/traits/PlaneGeometryRef.ts";
 
 export default function PlayerView({ entity }: { entity: Entity }) {
   return (
     <group ref={useRefTrait(entity, ThreeRef)}>
       <group position-z={1}>
         <mesh>
-          <planeGeometry args={[1.6, 2, 1]} ref={useRefTrait(entity, BoxGeometryRef)} />
+          <planeGeometry args={[1.6, 2, 1]} ref={useRefTrait(entity, PlaneGeometryRef)} />
           <meshLambertMaterial color="white" ref={useRefTrait(entity, MaterialRef)} transparent />
         </mesh>
         <pointLight
