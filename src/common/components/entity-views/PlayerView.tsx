@@ -1,10 +1,11 @@
 import type { Entity } from "koota";
-import { useThreeInjector } from "@/common/hooks/injection/useThreeInjector.ts";
-import { useMaterialInjector } from "@/common/hooks/injection/useMaterialInjector.ts";
+import { useRefTrait } from "@/common/hooks/ecs/useRefTrait.ts";
+import { ThreeRef } from "@/common/traits/ThreeRef.ts";
+import { MaterialRef } from "@/common/traits/MaterialRef.ts";
 
 export default function PlayerView({ entity }: { entity: Entity }) {
-  const threeRef = useThreeInjector(entity);
-  const materialRef = useMaterialInjector(entity);
+  const threeRef = useRefTrait(entity, ThreeRef);
+  const materialRef = useRefTrait(entity, MaterialRef);
 
   return (
     <group ref={threeRef}>

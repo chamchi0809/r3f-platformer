@@ -2,8 +2,9 @@ import type { Entity } from "koota";
 import { useThree } from "@react-three/fiber";
 import { useMemo } from "react";
 import { CAM_SIZE } from "@/common/defs/camSize.ts";
-import { useThreeInjector } from "@/common/hooks/injection/useThreeInjector.ts";
 import { OrthographicCamera } from "@react-three/drei";
+import { useRefTrait } from "@/common/hooks/ecs/useRefTrait.ts";
+import { ThreeRef } from "@/common/traits/ThreeRef.ts";
 
 export default function CameraView({ entity }: { entity: Entity }) {
   const { aspect } = useThree(state => state.viewport);
@@ -19,11 +20,11 @@ export default function CameraView({ entity }: { entity: Entity }) {
     };
   }, [aspect]);
 
-  const injectRef = useThreeInjector(entity);
+  const threeRef = useRefTrait(entity, ThreeRef);
 
   return (
     <OrthographicCamera
-      ref={injectRef}
+      ref={threeRef}
       manual
       makeDefault
       {...frustum}
