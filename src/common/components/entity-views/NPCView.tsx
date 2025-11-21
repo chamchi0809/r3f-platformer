@@ -2,17 +2,15 @@ import type { Entity } from "koota";
 import { useRefTrait } from "@/common/hooks/ecs/useRefTrait.ts";
 import { ThreeRef } from "@/common/traits/ThreeRef.ts";
 import { MaterialRef } from "@/common/traits/MaterialRef.ts";
+import { MeshRef } from "@/common/traits/MeshRef.ts";
 
 export default function NPCView({ entity }: { entity: Entity }) {
-  const threeRef = useRefTrait(entity, ThreeRef);
-  const materialRef = useRefTrait(entity, MaterialRef);
-
   return (
-    <group ref={threeRef}>
+    <group ref={useRefTrait(entity, ThreeRef)}>
       <group position-z={1}>
-        <mesh>
-          <planeGeometry args={[1.6, 2, 1]} />
-          <meshLambertMaterial color="white" ref={materialRef} transparent />
+        <mesh ref={useRefTrait(entity, MeshRef)}>
+          <planeGeometry args={[2, 2, 1]} />
+          <meshLambertMaterial color="white" ref={useRefTrait(entity, MaterialRef)} transparent />
         </mesh>
       </group>
     </group>

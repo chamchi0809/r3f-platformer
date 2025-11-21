@@ -20,11 +20,9 @@ export default function CameraView({ entity }: { entity: Entity }) {
     };
   }, [aspect]);
 
-  const threeRef = useRefTrait(entity, ThreeRef);
-
   return (
     <OrthographicCamera
-      ref={threeRef}
+      ref={useRefTrait(entity, ThreeRef)}
       manual
       makeDefault
       {...frustum}
