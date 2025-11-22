@@ -4,7 +4,7 @@ import { useWorld } from "koota/react";
 import { useKeyboardControls } from "@react-three/drei";
 import type { KeyboardControlType } from "@/common/defs/keyboardControlMap.ts";
 import { syncVisualPositionAndMesh } from "@/common/systems/syncVisualPositionAndMesh.ts";
-import { updateCharacterVelocity } from "@/common/systems/updateCharacterVelocity.ts";
+import { applyCharacterInputToVelocity } from "@/common/systems/applyCharacterInputToVelocity.ts";
 import { addJumpBuffer } from "@/common/systems/addJumpBuffer.ts";
 import { freeJumpBuffer } from "@/common/systems/freeJumpBuffer.ts";
 import { doJump } from "@/common/systems/doJump.ts";
@@ -42,7 +42,7 @@ export default function FrameLoop() {
     pollPlayerInput(world, input);
     syncControllerAndVisualPosition(world);
     syncVisualPositionAndMesh(world);
-    updateCharacterVelocity(world);
+    applyCharacterInputToVelocity(world);
 
     addJumpBuffer(world);
     doJump(world);
