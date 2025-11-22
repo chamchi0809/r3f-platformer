@@ -1,3 +1,9 @@
 import { trait } from "koota";
 
-export const IsInteracting = trait();
+export type InteractionType = "talk" | "battle";
+
+export const IsInteracting = trait<{
+  type: InteractionType
+}>({
+  type: "talk",
+});
