@@ -1,5 +1,5 @@
 import { useQuery } from "koota/react";
-import type { Entity, QueryParameter } from "koota";
+import { type Entity, Not, type QueryParameter } from "koota";
 import { Fragment, type JSX } from "react";
 import { IsPlayer } from "@/common/traits/IsPlayer.ts";
 import PlayerView from "@/common/components/entity-views/PlayerView.tsx";
@@ -12,6 +12,7 @@ import { IsCamera } from "@/common/traits/IsCamera.ts";
 import CameraView from "@/common/components/entity-views/CameraView.tsx";
 import { IsInteractionFocused } from "@/common/traits/IsInteractionFocused";
 import { InteractionHintView } from "../InteractionHint";
+import { IsInteracting } from "@/common/traits/IsInteracting.ts";
 
 /** Koota entity renderers */
 export default function EntityRenderers() {
@@ -30,7 +31,7 @@ export default function EntityRenderers() {
         view={EnemyView}
       />
       <EntityRenderer
-        params={[IsInteractionFocused]}
+        params={[IsInteractionFocused, Not(IsInteracting)]}
         view={InteractionHintView}
       />
       <EntityRenderer
