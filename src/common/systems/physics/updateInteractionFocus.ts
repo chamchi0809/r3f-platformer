@@ -4,7 +4,6 @@ import { IsInteractionFocused } from "@/common/traits/IsInteractionFocused";
 import { IsPlayer } from "@/common/traits/IsPlayer";
 import type { Entity, World } from "koota";
 
-let prevEntity = null as Entity | null;
 export const updateInteractionFocus = (world: World) => {
   const playerCol = world
     .queryFirst(IsPlayer)
@@ -31,9 +30,10 @@ export const updateInteractionFocus = (world: World) => {
       }
     });
 
-  if (closestEntity?.id() !== prevEntity?.id()) {
+  const focusedEntity = world.queryFirst(IsInteractionFocused);
+
+  if (closestEntity?.id() !== focusedEntity?.id()) {
     closestEntity?.add(IsInteractionFocused);
-    prevEntity?.remove(IsInteractionFocused);
+    focusedEntity?.remove(IsInteractionFocused);
   }
-  prevEntity = closestEntity;
 };
