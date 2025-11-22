@@ -60,7 +60,7 @@ const EntityRenderer = <T extends QueryParameter[]>(
     <>
       {entities.map((entity) => {
         return (
-          <Fragment key={entity}>
+          <Fragment key={entity.id()}>
             <View entity={entity} />
           </Fragment>
         );
