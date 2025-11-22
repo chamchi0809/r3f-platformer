@@ -48,7 +48,7 @@ export default function EnemySpawner(props: EntityRendererProps) {
         length: 8,
         loop: true,
       })),
-      InteractableRef(new Interactable(sensor, rapierWorld)),
+      InteractableRef(new Interactable(sensor, rapierWorld, "battle")),
     );
   }, [sensor]);
 

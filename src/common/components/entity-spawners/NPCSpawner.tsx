@@ -48,7 +48,7 @@ export default function NPCSpawner(props: EntityRendererProps) {
         length: 8,
         loop: true,
       })),
-      InteractableRef(new Interactable(sensor, rapierWorld)),
+      InteractableRef(new Interactable(sensor, rapierWorld, "talk")),
     );
   }, [sensor]);
 
