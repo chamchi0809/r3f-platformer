@@ -10,19 +10,17 @@ import { CAM_INTERACTION_SIZE } from "@/common/defs/camSize.ts";
 export const updateInteractionCamera = (delta: number) => {
   const player = world.queryFirst(IsPlayer);
   const opponent = world.queryFirst(IsInteracting);
-  const camera = world.queryFirst(IsCamera);
 
-  if (player && opponent && camera) {
+  if (player && opponent) {
     const playerPos = player.get(ThreeRef)!.position;
     const opponentPos = opponent.get(ThreeRef)!.position;
 
     const midPointX = (playerPos.x + opponentPos.x) / 2;
     const midPointY = (playerPos.y + opponentPos.y) / 2; // Slightly above the midpoint
 
-    const camObj = camera.get(ThreeRef)!;
-
-    camObj.position.lerp(new THREE.Vector3(midPointX, midPointY, 10), delta * 5);
-    if (camera.get(CameraSize)?.size === CAM_INTERACTION_SIZE) return;
-    camera.set(CameraSize, { size: CAM_INTERACTION_SIZE });
+    world.query(IsCamera, ThreeRef, CameraSize).updateEach(([, camObj, camSize]) => {
+      camObj.position.lerp(new THREE.Vector3(midPointX, midPointY, 10), delta * 5);
+      camSize.size = THREE.MathUtils.lerp(camSize.size, CAM_INTERACTION_SIZE, delta * 5);
+    });
   }
 };

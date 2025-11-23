@@ -3,10 +3,10 @@ import { IsCamera } from "@/common/traits/IsCamera.ts";
 import { ThreeRef } from "@/common/traits/ThreeRef.ts";
 import { IsPlayer } from "@/common/traits/IsPlayer.ts";
 import { CharacterControllerRef } from "@/common/traits/CharacterControllerRef.ts";
-import * as THREE from "three";
 import { IsInteracting } from "@/common/traits/IsInteracting.ts";
 import { CameraSize } from "@/common/traits/CameraSize.ts";
 import { CAM_SIZE } from "@/common/defs/camSize.ts";
+import * as THREE from "three";
 
 export const updateCamera = (world: World, delta: number) => {
   world.query(IsCamera, ThreeRef, CameraSize).updateEach(([, camera, camSize]) => {
@@ -18,9 +18,7 @@ export const updateCamera = (world: World, delta: number) => {
       // Snap camera position to pixel grid on both axes
       cam.position.lerp(new THREE.Vector3(translation.x, translation.y, 10), delta * 5);
 
-      if (camSize.size !== CAM_SIZE) {
-        camSize.size = CAM_SIZE;
-      }
+      camSize.size = THREE.MathUtils.lerp(camSize.size, CAM_SIZE, delta * 5);
     });
   });
 };
