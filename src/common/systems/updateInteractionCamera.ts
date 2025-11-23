@@ -7,7 +7,7 @@ import * as THREE from "three";
 import { CameraSize } from "@/common/traits/CameraSize.ts";
 import { CAM_INTERACTION_SIZE } from "@/common/defs/camSize.ts";
 
-export const updateInteractionCamPos = (delta: number) => {
+export const updateInteractionCamera = (delta: number) => {
   const player = world.queryFirst(IsPlayer);
   const opponent = world.queryFirst(IsInteracting);
   const camera = world.queryFirst(IsCamera);

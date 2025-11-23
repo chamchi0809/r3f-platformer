@@ -12,7 +12,7 @@ import { syncControllerAndVisualPosition } from "@/common/systems/syncController
 import { updateElapsedTime } from "@/common/systems/updateElapsedTime.ts";
 import { tickSpriteAnim } from "@/common/systems/tickSpriteAnim.ts";
 import { applySpriteAnim } from "@/common/systems/applySpriteAnim.ts";
-import { updateInteractionCamPos } from "@/common/systems/updateInteractionCamPos.ts";
+import { updateInteractionCamera } from "@/common/systems/updateInteractionCamera.ts";
 
 export default function FrameLoop() {
   const world = useWorld();
@@ -52,7 +52,7 @@ export default function FrameLoop() {
     tickSpriteAnim(world);
     applySpriteAnim(world);
 
-    updateInteractionCamPos(delta);
+    updateInteractionCamera(delta);
   });
 
   return <></>;
