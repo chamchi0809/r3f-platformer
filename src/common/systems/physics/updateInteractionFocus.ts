@@ -3,8 +3,11 @@ import { InteractableRef } from "@/common/traits/InteractableRef";
 import { IsInteractionFocused } from "@/common/traits/IsInteractionFocused";
 import { IsPlayer } from "@/common/traits/IsPlayer";
 import type { Entity, World } from "koota";
+import { IsInteracting } from "@/common/traits/IsInteracting.ts";
 
 export const updateInteractionFocus = (world: World) => {
+  if (world.queryFirst(IsInteracting)) return;
+
   const playerCol = world
     .queryFirst(IsPlayer)
     ?.get(CharacterControllerRef)
