@@ -4,10 +4,12 @@ import { ThreeRef } from "@/common/traits/ThreeRef.ts";
 import { IsPlayer } from "@/common/traits/IsPlayer.ts";
 import { CharacterControllerRef } from "@/common/traits/CharacterControllerRef.ts";
 import * as THREE from "three";
+import { IsInteracting } from "@/common/traits/IsInteracting.ts";
 
 export const updateCamPos = (world: World, delta: number) => {
   world.query(IsCamera, ThreeRef).updateEach(([, camera]) => {
     world.query(IsPlayer, CharacterControllerRef).updateEach(([, ctrl]) => {
+      if (world.queryFirst(IsInteracting)) return;
       const cam = camera as THREE.Camera;
       const translation = ctrl.col.translation();
 
