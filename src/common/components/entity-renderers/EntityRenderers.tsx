@@ -11,8 +11,8 @@ import EnemyView from "@/common/components/entity-views/EnemyView.tsx";
 import { IsCamera } from "@/common/traits/IsCamera.ts";
 import CameraView from "@/common/components/entity-views/CameraView.tsx";
 import { IsInteractionFocused } from "@/common/traits/IsInteractionFocused";
-import { InteractionHintView } from "../InteractionHint";
 import { IsInteracting } from "@/common/traits/IsInteracting.ts";
+import InteractionHintView from "@/common/components/entity-views/InteractionHintView.tsx";
 
 /** Koota entity renderers */
 export default function EntityRenderers() {

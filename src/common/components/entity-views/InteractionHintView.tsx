@@ -1,9 +1,9 @@
 import { Html } from "@react-three/drei";
 import type { Entity } from "koota";
 import styled from "styled-components";
-import { useRefTrait } from "../hooks/ecs/useRefTrait";
-import { InteractionRef } from "../traits/InteractionRef";
-import { useApp } from "@/store/useAppStore";
+import { useRefTrait } from "../../hooks/ecs/useRefTrait.ts";
+import { InteractionRef } from "../../traits/InteractionRef.ts";
+import { useApp } from "@/store/useAppStore.ts";
 
 const HintContainer = styled.div`
   padding: 8px 12px;
@@ -25,7 +25,7 @@ const Kbd = styled.kbd`
   background: #222;
 `;
 
-export function InteractionHintView({ entity }: { entity: Entity }) {
+export default function InteractionHintView({ entity }: { entity: Entity }) {
   const { activeKeymap } = useApp();
   const interactKeys = activeKeymap.find(v => v.name === "interact")?.keys ?? [];
 
