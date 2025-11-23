@@ -934,7 +934,7 @@
 					"tilesetUid": null
 				},
 				{
-					"identifier": "TauntLines",
+					"identifier": "Lines",
 					"doc": null,
 					"__type": "Array<String>",
 					"uid": 68,
@@ -2039,7 +2039,7 @@
 									"params": ["Dino Girl"]
 								}] },
 								{ "__identifier": "Description", "__type": "String", "__value": null, "__tile": null, "defUid": 67, "realEditorValues": [] },
-								{ "__identifier": "TauntLines", "__type": "Array<String>", "__value": [], "__tile": null, "defUid": 68, "realEditorValues": [] },
+								{ "__identifier": "Lines", "__type": "Array<String>", "__value": [], "__tile": null, "defUid": 68, "realEditorValues": [] },
 								{ "__identifier": "Idle", "__type": "FilePath", "__value": "../img/dancing/hips.png", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["../img/dancing/hips.png"]
