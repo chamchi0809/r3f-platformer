@@ -25,10 +25,12 @@ export default function NPCSpawner(props: EntityRendererProps) {
     Idle,
     SensorWidth,
     SensorHeight,
+    Lines,
   } = stripEntityInstanceFields<{
     Idle: string
     SensorWidth: number
     SensorHeight: number
+    Lines: string[]
   }>(props.entity);
 
   const sensor = useCreateCollider({
