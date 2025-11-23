@@ -13,6 +13,7 @@ import { updateElapsedTime } from "@/common/systems/updateElapsedTime.ts";
 import { tickSpriteAnim } from "@/common/systems/tickSpriteAnim.ts";
 import { applySpriteAnim } from "@/common/systems/applySpriteAnim.ts";
 import { updateInteractionCamera } from "@/common/systems/updateInteractionCamera.ts";
+import { updateInteractionMoveInput } from "@/common/systems/updateInteractionMoveInput.ts";
 
 export default function FrameLoop() {
   const world = useWorld();
@@ -41,9 +42,10 @@ export default function FrameLoop() {
     updateElapsedTime(world, delta);
 
     pollPlayerInput(world, input);
+    updateInteractionMoveInput();
+    applyCharacterInputToVelocity(world);
     syncControllerAndVisualPosition(world);
     syncVisualPositionAndMesh(world);
-    applyCharacterInputToVelocity(world);
 
     addJumpBuffer(world);
     doJump(world);
