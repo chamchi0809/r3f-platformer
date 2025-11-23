@@ -24,17 +24,18 @@ export default function EntitiesLayerRenderer() {
   return (
     <>
       {layer.entityInstances.map((entity) => {
+        const MatchingEntityRenderer = entityRendererMap?.[entity.__identifier];
+        if (!MatchingEntityRenderer) return null;
         return (
-          <Fragment key={entity.iid}>
-            {entityRendererMap?.[entity.__identifier]?.({
-              entity,
-              layer,
-              tileset,
-              texture,
-              layerPxOffsets,
-              layerPxDimensions,
-            })}
-          </Fragment>
+          <MatchingEntityRenderer
+            key={entity.iid}
+            entity={entity}
+            layer={layer}
+            tileset={tileset}
+            texture={texture}
+            layerPxOffsets={layerPxOffsets}
+            layerPxDimensions={layerPxDimensions}
+          />
         );
       })}
     </>
