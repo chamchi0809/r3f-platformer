@@ -15,7 +15,7 @@ import { IsInteracting } from "@/common/traits/IsInteracting.ts";
 import InteractionHintView from "@/common/components/entity-views/InteractionHintView.tsx";
 import BattleView from "@/common/components/entity-views/BattleView.tsx";
 import { InteractionLines } from "@/common/traits/InteractionLines";
-import { InteractionChatView } from "../entity-views/InteractionChatView";
+import { InteractionChatView } from "@/common/components/entity-views/InteractionChatView.tsx";
 
 /** Koota entity renderers */
 export default function EntityRenderers() {
