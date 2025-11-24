@@ -3,7 +3,9 @@ import { Loader } from "@/common/components/Loader.tsx";
 import { PauseModal } from "@/common/components/PauseModal.tsx";
 import Physics from "@/common/components/Physics.tsx";
 import TitleBar from "@/common/components/TitleBar.tsx";
+import { CAM_SIZE } from "@/common/defs/camSize.ts";
 import { physicsSettings } from "@/common/defs/physicsSettings.ts";
+import { PPU } from "@/common/defs/ppu.ts";
 import { useApp } from "@/store/useAppStore.ts";
 import Game from "@/views/game/Game.tsx";
 import MainMenu from "@/views/main-menu/MainMenu.tsx";
@@ -13,9 +15,10 @@ import { KeyboardControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Leva, useControls } from "leva";
 import { Suspense } from "react";
-import { useKeyPressEvent } from "react-use";
+import { useKeyPressEvent, useMeasure } from "react-use";
 import styled from "styled-components";
 
+const RENDER_HEIGHT = PPU * CAM_SIZE * 2;
 const DEV_VIEWS = ["game", "tileset-editor"] as const;
 type DevView = typeof DEV_VIEWS[number];
 
@@ -29,6 +32,8 @@ function App() {
     resumeGame,
     previousGameState,
   } = useApp();
+
+  const [ref, { height }] = useMeasure<HTMLCanvasElement>();
   const isDev = window.api?.isDev();
   const { view } = useControls({ view: { value: "game" as DevView, options: DEV_VIEWS } });
   const devView = view as DevView;
@@ -60,6 +65,8 @@ function App() {
             <Leva hidden={!window.electron || !isDev} />
             <Canvas
               gl={{ antialias: false, powerPreference: "high-performance" }}
+              ref={ref}
+              dpr={RENDER_HEIGHT / (height ?? 1)}
               shadows="basic"
               linear={true}
               flat={true}
@@ -70,6 +77,7 @@ function App() {
                 position: "absolute",
                 top: 0,
                 left: 0,
+                imageRendering: "pixelated",
               }}
               resize={{ scroll: false }}
             >
