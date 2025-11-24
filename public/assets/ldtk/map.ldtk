@@ -11,7 +11,7 @@
 	"iid": "f0b52c50-5e50-11f0-81ed-5363aec19dcb",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 71,
+	"nextUid": 76,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "PlayerStart",
@@ -750,6 +750,43 @@
 					"tilesetUid": null
 				},
 				{
+					"identifier": "IdleLength",
+					"doc": null,
+					"__type": "Int",
+					"uid": 71,
+					"type": "F_Int",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
 					"identifier": "SensorWidth",
 					"doc": null,
 					"__type": "Float",
@@ -1008,6 +1045,43 @@
 					"tilesetUid": null
 				},
 				{
+					"identifier": "IdleLength",
+					"doc": null,
+					"__type": "Int",
+					"uid": 72,
+					"type": "F_Int",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
 					"identifier": "BattleStart",
 					"doc": null,
 					"__type": "FilePath",
@@ -1048,12 +1122,49 @@
 					"identifier": "Rhythm",
 					"doc": null,
 					"__type": "Array<FilePath>",
-					"uid": 65,
+					"uid": 75,
 					"type": "F_Path",
 					"isArray": true,
 					"canBeNull": true,
-					"arrayMinLength": null,
-					"arrayMaxLength": null,
+					"arrayMinLength": 8,
+					"arrayMaxLength": 8,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": [".png"],
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "RhythmLengths",
+					"doc": null,
+					"__type": "Array<Int>",
+					"uid": 73,
+					"type": "F_Int",
+					"isArray": true,
+					"canBeNull": false,
+					"arrayMinLength": 8,
+					"arrayMaxLength": 8,
 					"editorDisplayMode": "Hidden",
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
@@ -1337,6 +1448,7 @@
 									"id": "V_String",
 									"params": ["../img/dancing/hips.png"]
 								}] },
+								{ "__identifier": "IdleLength", "__type": "Int", "__value": 8, "__tile": null, "defUid": 71, "realEditorValues": [{ "id": "V_Int", "params": [8] }] },
 								{ "__identifier": "SensorWidth", "__type": "Float", "__value": 1.5, "__tile": null, "defUid": 56, "realEditorValues": [{ "id": "V_Float", "params": [1.5] }] },
 								{ "__identifier": "SensorHeight", "__type": "Float", "__value": 1.5, "__tile": null, "defUid": 57, "realEditorValues": [{ "id": "V_Float", "params": [1.5] }] }
 							],
@@ -2061,18 +2173,71 @@
 							"defUid": 50,
 							"px": [32,160],
 							"fieldInstances": [
-								{ "__identifier": "Name", "__type": "String", "__value": "Dino Girl", "__tile": null, "defUid": 51, "realEditorValues": [{
+								{ "__identifier": "Name", "__type": "String", "__value": "Hiphop Boy", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["Dino Girl"]
+									"params": ["Hiphop Boy"]
 								}] },
 								{ "__identifier": "Description", "__type": "String", "__value": null, "__tile": null, "defUid": 67, "realEditorValues": [] },
 								{ "__identifier": "Lines", "__type": "Array<String>", "__value": [], "__tile": null, "defUid": 68, "realEditorValues": [] },
-								{ "__identifier": "Idle", "__type": "FilePath", "__value": "../img/dancing/hips.png", "__tile": null, "defUid": 61, "realEditorValues": [{
+								{ "__identifier": "Idle", "__type": "FilePath", "__value": "../img/hiphopboy/hiphopboy_dance1.png", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["../img/dancing/hips.png"]
+									"params": ["../img/hiphopboy/hiphopboy_dance1.png"]
 								}] },
+								{ "__identifier": "IdleLength", "__type": "Int", "__value": 5, "__tile": null, "defUid": 72, "realEditorValues": [{ "id": "V_Int", "params": [5] }] },
 								{ "__identifier": "BattleStart", "__type": "FilePath", "__value": null, "__tile": null, "defUid": 62, "realEditorValues": [] },
-								{ "__identifier": "Rhythm", "__type": "Array<FilePath>", "__value": [], "__tile": null, "defUid": 65, "realEditorValues": [] },
+								{ "__identifier": "Rhythm", "__type": "Array<FilePath>", "__value": [
+									"../img/hiphopboy/hiphopboy_dance1.png",
+									"../img/hiphopboy/hiphopboy_dance2.png",
+									"../img/hiphopboy/hiphopboy_dance3.png",
+									"../img/hiphopboy/hiphopboy_dance4.png",
+									"../img/hiphopboy/hiphopboy_dance5.png",
+									"../img/hiphopboy/hiphopboy_dance6.png",
+									"../img/hiphopboy/hiphopboy_dance7.png",
+									"../img/hiphopboy/hiphopboy_dance8.png"
+								], "__tile": null, "defUid": 75, "realEditorValues": [
+									{
+										"id": "V_String",
+										"params": ["../img/hiphopboy/hiphopboy_dance1.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/hiphopboy/hiphopboy_dance2.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/hiphopboy/hiphopboy_dance3.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/hiphopboy/hiphopboy_dance4.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/hiphopboy/hiphopboy_dance5.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/hiphopboy/hiphopboy_dance6.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/hiphopboy/hiphopboy_dance7.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/hiphopboy/hiphopboy_dance8.png"]
+									}
+								] },
+								{ "__identifier": "RhythmLengths", "__type": "Array<Int>", "__value": [5,5,4,5,5,5,5,5], "__tile": null, "defUid": 73, "realEditorValues": [
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [4] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] }
+								] },
 								{ "__identifier": "SensorWidth", "__type": "Float", "__value": 1, "__tile": null, "defUid": 58, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
 								{ "__identifier": "SensorHeight", "__type": "Float", "__value": 1, "__tile": null, "defUid": 59, "realEditorValues": [{ "id": "V_Float", "params": [1] }] }
 							],
