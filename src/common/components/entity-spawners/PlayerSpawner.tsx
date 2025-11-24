@@ -38,8 +38,8 @@ export default function PlayerSpawner(props: EntityRendererProps) {
       CharacterStartPosition(startPosition.clone()), CharacterVisualPosition(startPosition.clone()), CharacterVelocity,
       CharacterStats.speed(5), CharacterStats.jumpStrength(12),
       SpriteAnim(new SpriteAnimImpl({
-        path: "/assets/img/dancing/hips.png",
-        length: 8,
+        path: "/assets/img/hiphopboy/hiphopboy_dance1.png",
+        length: 5,
       })),
       CharacterControllerRef(new CharacterController(collider, rapierWorld)),
     );

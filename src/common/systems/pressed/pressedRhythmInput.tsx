@@ -7,20 +7,20 @@ export const pressedRhythmInput = (world: World, index: 1 | 2 | 3 | 4) => {
     .updateEach(([, anim]) => {
       switch (index) {
         case 1:
-          anim.changeLength(8);
-          anim.changePath("/assets/img/dancing/hips.png");
+          anim.changeLength(5);
+          anim.changePath("/assets/img/hiphopboy/hiphopboy_dance1.png");
           break;
         case 2:
-          anim.changeLength(8);
-          anim.changePath("/assets/img/dancing/hips.png");
+          anim.changeLength(5);
+          anim.changePath("/assets/img/hiphopboy/hiphopboy_dance2.png");
           break;
         case 3:
-          anim.changeLength(8);
-          anim.changePath("/assets/img/dancing/hips.png");
+          anim.changeLength(4);
+          anim.changePath("/assets/img/hiphopboy/hiphopboy_dance3.png");
           break;
         case 4:
-          anim.changeLength(8);
-          anim.changePath("/assets/img/dancing/hips.png");
+          anim.changeLength(5);
+          anim.changePath("/assets/img/hiphopboy/hiphopboy_dance4.png");
           break;
       }
     });
