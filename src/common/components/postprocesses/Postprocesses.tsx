@@ -10,7 +10,7 @@ export default function Postprocesses() {
       />
       <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
       <Noise opacity={0.07} />
-      <Vignette technique={VignetteTechnique.DEFAULT} offset={0.1} darkness={1.1} />
+      <Vignette technique={VignetteTechnique.DEFAULT} offset={0.1} darkness={0.8} />
     </EffectComposer>
   );
 }
