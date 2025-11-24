@@ -23,11 +23,13 @@ export default function EnemySpawner(props: EntityRendererProps) {
 
   const {
     Idle,
+    IdleLength,
     SensorWidth,
     SensorHeight,
     Lines,
   } = stripEntityInstanceFields<{
     Idle: string
+    IdleLength: number
     SensorWidth: number
     SensorHeight: number
     Lines: string[]
@@ -47,7 +49,7 @@ export default function EnemySpawner(props: EntityRendererProps) {
       CharacterStartPosition(startPosition.clone()), CharacterVisualPosition(startPosition.clone()),
       SpriteAnim(new SpriteAnimImpl({
         path: `${ldtkDir}${Idle.trim()}`,
-        length: 8,
+        length: IdleLength,
         loop: true,
       })),
       InteractableRef(new Interactable(sensor, rapierWorld)),
