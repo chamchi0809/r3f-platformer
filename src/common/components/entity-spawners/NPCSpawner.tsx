@@ -1,3 +1,4 @@
+import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
 import useRapier from "@/common/hooks/physics/useRapier.ts";
 import type { EntityRendererProps } from "@/common/ldtk/components/layers/EntitiesLayerRenderer.tsx";
@@ -7,13 +8,12 @@ import { getEntityWorldPosition } from "@/common/ldtk/utils/positionUtils.ts";
 import { CharacterStartPosition } from "@/common/traits/CharacterStartPosition.ts";
 import { CharacterVisualPosition } from "@/common/traits/CharacterVisualPosition.ts";
 import { Interactable, InteractableRef } from "@/common/traits/InteractableRef.ts";
+import { InteractLine } from "@/common/traits/InteractLine";
 import { IsNPC } from "@/common/traits/IsNPC.ts";
 import { SpriteAnim, SpriteAnimImpl } from "@/common/traits/SpriteAnim.ts";
 import { useWorld } from "koota/react";
 import { useEffect } from "react";
 import { Vector2 } from "three";
-import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
-import { InteractionLines } from "@/common/traits/InteractionLines";
 import { CharacterFacingDirection } from "@/common/traits/CharacterFacingDirection.ts";
 
 export default function NPCSpawner(props: EntityRendererProps) {
@@ -54,7 +54,7 @@ export default function NPCSpawner(props: EntityRendererProps) {
         loop: true,
       })),
       InteractableRef(new Interactable(sensor, rapierWorld)),
-      InteractionLines(Lines),
+      InteractLine({ lines: Lines }),
     );
   }, [sensor]);
 

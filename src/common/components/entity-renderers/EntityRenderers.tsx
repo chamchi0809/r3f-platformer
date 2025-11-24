@@ -1,21 +1,21 @@
-import { useQuery } from "koota/react";
-import { type Entity, Not, type QueryParameter } from "koota";
-import { Fragment, type JSX } from "react";
-import { IsPlayer } from "@/common/traits/IsPlayer.ts";
-import PlayerView from "@/common/components/entity-views/PlayerView.tsx";
-import { useUnmount } from "react-use";
-import { IsNPC } from "@/common/traits/IsNPC.ts";
-import { IsEnemy } from "@/common/traits/IsEnemy.ts";
-import NPCView from "@/common/components/entity-views/NPCView.tsx";
-import EnemyView from "@/common/components/entity-views/EnemyView.tsx";
-import { IsCamera } from "@/common/traits/IsCamera.ts";
 import CameraView from "@/common/components/entity-views/CameraView.tsx";
-import { IsInteractionFocused } from "@/common/traits/IsInteractionFocused";
+import EnemyView from "@/common/components/entity-views/EnemyView.tsx";
+import NPCView from "@/common/components/entity-views/NPCView.tsx";
+import PlayerView from "@/common/components/entity-views/PlayerView.tsx";
+import { InteractLine } from "@/common/traits/InteractLine";
+import { IsCamera } from "@/common/traits/IsCamera.ts";
+import { IsEnemy } from "@/common/traits/IsEnemy.ts";
 import { IsInteracting } from "@/common/traits/IsInteracting.ts";
+import { IsInteractionFocused } from "@/common/traits/IsInteractionFocused";
+import { IsNPC } from "@/common/traits/IsNPC.ts";
+import { IsPlayer } from "@/common/traits/IsPlayer.ts";
+import { type Entity, Not, type QueryParameter } from "koota";
+import { useQuery } from "koota/react";
+import { Fragment, type JSX } from "react";
+import { useUnmount } from "react-use";
+import { InteractionLineView } from "../entity-views/InteractionLineView";
 import InteractionHintView from "@/common/components/entity-views/InteractionHintView.tsx";
 import BattleView from "@/common/components/entity-views/BattleView.tsx";
-import { InteractionLines } from "@/common/traits/InteractionLines";
-import { InteractionChatView } from "@/common/components/entity-views/InteractionChatView.tsx";
 
 /** Koota entity renderers */
 export default function EntityRenderers() {
@@ -38,8 +38,8 @@ export default function EntityRenderers() {
         view={InteractionHintView}
       />
       <EntityRenderer
-        params={[IsInteracting, InteractionLines]}
-        view={InteractionChatView}
+        params={[IsInteracting, InteractLine]}
+        view={InteractionLineView}
       />
       <EntityRenderer
         params={[IsCamera]}
