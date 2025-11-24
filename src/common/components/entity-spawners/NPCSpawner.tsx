@@ -13,6 +13,7 @@ import { useWorld } from "koota/react";
 import { useEffect } from "react";
 import { Vector2 } from "three";
 import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
+import { InteractionLines } from "@/common/traits/InteractionLines";
 
 export default function NPCSpawner(props: EntityRendererProps) {
   const { ldtkDir } = useLdtkLevelContext();
@@ -51,6 +52,7 @@ export default function NPCSpawner(props: EntityRendererProps) {
         loop: true,
       })),
       InteractableRef(new Interactable(sensor, rapierWorld)),
+      InteractionLines(Lines),
     );
   }, [sensor]);
 

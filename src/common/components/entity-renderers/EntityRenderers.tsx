@@ -14,6 +14,8 @@ import { IsInteractionFocused } from "@/common/traits/IsInteractionFocused";
 import { IsInteracting } from "@/common/traits/IsInteracting.ts";
 import InteractionHintView from "@/common/components/entity-views/InteractionHintView.tsx";
 import BattleView from "@/common/components/entity-views/BattleView.tsx";
+import { InteractionLines } from "@/common/traits/InteractionLines";
+import { InteractionChatView } from "../entity-views/InteractionChatView";
 
 /** Koota entity renderers */
 export default function EntityRenderers() {
@@ -34,6 +36,10 @@ export default function EntityRenderers() {
       <EntityRenderer
         params={[IsInteractionFocused, Not(IsInteracting)]}
         view={InteractionHintView}
+      />
+      <EntityRenderer
+        params={[IsInteracting, InteractionLines]}
+        view={InteractionChatView}
       />
       <EntityRenderer
         params={[IsCamera]}
