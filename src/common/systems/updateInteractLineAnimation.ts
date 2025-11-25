@@ -10,6 +10,9 @@ export const updateInteractLineAnimation = (world: World, delta: number) => {
     if (!line) return;
     if (interactLine.animIndex >= line.length) return;
     interactLine.animDelta += delta;
-    interactLine.animIndex = Math.floor(interactLine.animDelta / ANIM_INTERVAL);
+    if (interactLine.animDelta >= ANIM_INTERVAL) {
+      interactLine.animDelta = 0;
+      interactLine.animIndex += 1;
+    }
   });
 };
