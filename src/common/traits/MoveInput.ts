@@ -1,4 +1,15 @@
-import { trait } from "koota";
-import { Vector2 } from "three";
+import { traitWithActions } from "@/common/utils/ecsUtils.ts";
 
-export const MoveInput = trait(() => new Vector2());
+export const MoveInput = traitWithActions({
+  x: 0,
+  y: 0,
+}, {
+  reset: (value, defaultVal: number) => {
+    value.x = defaultVal;
+    value.y = defaultVal;
+  },
+  set: (value, x: number, y: number) => {
+    value.x = x;
+    value.y = y;
+  },
+});
