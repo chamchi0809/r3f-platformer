@@ -1,18 +1,19 @@
-import { useFrame } from "@react-three/fiber";
-import pollPlayerInput from "@/common/systems/pollPlayerInput.ts";
-import { useWorld } from "koota/react";
-import { useKeyboardControls } from "@react-three/drei";
 import type { KeyboardControlType } from "@/common/defs/keyboardControlMap.ts";
-import { syncVisualPositionAndMesh } from "@/common/systems/syncVisualPositionAndMesh.ts";
-import { applyCharacterInputToVelocity } from "@/common/systems/applyCharacterInputToVelocity.ts";
 import { addJumpBuffer } from "@/common/systems/addJumpBuffer.ts";
-import { freeJumpBuffer } from "@/common/systems/freeJumpBuffer.ts";
-import { doJump } from "@/common/systems/doJump.ts";
-import { syncControllerAndVisualPosition } from "@/common/systems/syncControllerAndVisualPosition.ts";
-import { updateElapsedTime } from "@/common/systems/updateElapsedTime.ts";
-import { tickSpriteAnim } from "@/common/systems/tickSpriteAnim.ts";
+import { applyCharacterInputToVelocity } from "@/common/systems/applyCharacterInputToVelocity.ts";
 import { applySpriteAnim } from "@/common/systems/applySpriteAnim.ts";
+import { doJump } from "@/common/systems/doJump.ts";
+import { freeJumpBuffer } from "@/common/systems/freeJumpBuffer.ts";
+import pollPlayerInput from "@/common/systems/pollPlayerInput.ts";
+import { syncControllerAndVisualPosition } from "@/common/systems/syncControllerAndVisualPosition.ts";
+import { syncVisualPositionAndMesh } from "@/common/systems/syncVisualPositionAndMesh.ts";
+import { tickSpriteAnim } from "@/common/systems/tickSpriteAnim.ts";
+import { updateElapsedTime } from "@/common/systems/updateElapsedTime.ts";
 import { updateInteractionCamera } from "@/common/systems/updateInteractionCamera.ts";
+import { updateInteractLineAnimation } from "@/common/systems/updateInteractLineAnimation.ts";
+import { useKeyboardControls } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import { useWorld } from "koota/react";
 import { updateInteractionMoveInput } from "@/common/systems/updateInteractionMoveInput.ts";
 import { applyFacingDirection } from "@/common/systems/applyFacingDirection.ts";
 import { playIdleAnim } from "@/common/systems/playIdleAnim.ts";
@@ -65,6 +66,7 @@ export default function FrameLoop() {
     updateFacingDirection();
     applyFacingDirection();
 
+    updateInteractLineAnimation(world, delta);
     updateInteractionCamera(delta);
   });
 

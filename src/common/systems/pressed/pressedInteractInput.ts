@@ -11,9 +11,13 @@ export const pressedInteractInput = () => {
         if (InteractLine.current + 1 >= InteractLine.lines.length) {
           entity.remove(IsInteracting);
           InteractLine.current = 0;
+          InteractLine.animIndex = 0;
+          InteractLine.animDelta = 0;
         }
         else {
           InteractLine.current += 1;
+          InteractLine.animIndex = 0;
+          InteractLine.animDelta = 0;
         }
       }
       else {

@@ -23,12 +23,15 @@ const LineContainer = styled.div`
 export function InteractionLineView({ entity }: { entity: Entity }) {
   const interactLine = useTrait(entity, InteractLine);
 
+  const currentText = interactLine?.lines[interactLine.current] ?? "";
+  const visibleText = currentText.slice(0, interactLine?.animIndex ?? 0);
+
   const interactionRef = useRefTrait(entity, InteractionRef);
   return (
     <group ref={interactionRef}>
       <Html>
         <LineContainer>
-          {interactLine?.lines[interactLine.current]}
+          {visibleText}
         </LineContainer>
       </Html>
     </group>
