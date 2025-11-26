@@ -11,7 +11,7 @@
 	"iid": "f0b52c50-5e50-11f0-81ed-5363aec19dcb",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 76,
+	"nextUid": 77,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "PlayerStart",
@@ -648,7 +648,7 @@
 					"canBeNull": true,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
-					"editorDisplayMode": "Hidden",
+					"editorDisplayMode": "NameAndValue",
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
@@ -906,7 +906,7 @@
 					"canBeNull": true,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
-					"editorDisplayMode": "Hidden",
+					"editorDisplayMode": "NameAndValue",
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
@@ -1089,6 +1089,43 @@
 					"type": "F_Path",
 					"isArray": false,
 					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "BattleStartLength",
+					"doc": null,
+					"__type": "Int",
+					"uid": 76,
+					"type": "F_Int",
+					"isArray": false,
+					"canBeNull": false,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "Hidden",
@@ -2179,12 +2216,16 @@
 								}] },
 								{ "__identifier": "Description", "__type": "String", "__value": null, "__tile": null, "defUid": 67, "realEditorValues": [] },
 								{ "__identifier": "Lines", "__type": "Array<String>", "__value": [], "__tile": null, "defUid": 68, "realEditorValues": [] },
-								{ "__identifier": "Idle", "__type": "FilePath", "__value": "../img/hiphopboy/hiphopboy_dance1.png", "__tile": null, "defUid": 61, "realEditorValues": [{
+								{ "__identifier": "Idle", "__type": "FilePath", "__value": "../img/hiphopboy/hiphopboy_idle.png", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["../img/hiphopboy/hiphopboy_dance1.png"]
+									"params": ["../img/hiphopboy/hiphopboy_idle.png"]
 								}] },
-								{ "__identifier": "IdleLength", "__type": "Int", "__value": 5, "__tile": null, "defUid": 72, "realEditorValues": [{ "id": "V_Int", "params": [5] }] },
-								{ "__identifier": "BattleStart", "__type": "FilePath", "__value": null, "__tile": null, "defUid": 62, "realEditorValues": [] },
+								{ "__identifier": "IdleLength", "__type": "Int", "__value": 10, "__tile": null, "defUid": 72, "realEditorValues": [{ "id": "V_Int", "params": [10] }] },
+								{ "__identifier": "BattleStart", "__type": "FilePath", "__value": "../img/hiphopboy/hiphopboy_fight.png", "__tile": null, "defUid": 62, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["../img/hiphopboy/hiphopboy_fight.png"]
+								}] },
+								{ "__identifier": "BattleStartLength", "__type": "Int", "__value": 5, "__tile": null, "defUid": 76, "realEditorValues": [{ "id": "V_Int", "params": [5] }] },
 								{ "__identifier": "Rhythm", "__type": "Array<FilePath>", "__value": [
 									"../img/hiphopboy/hiphopboy_dance1.png",
 									"../img/hiphopboy/hiphopboy_dance2.png",
@@ -2243,6 +2284,182 @@
 							],
 							"__worldX": 560,
 							"__worldY": -80
+						},
+						{
+							"__identifier": "Enemy",
+							"__grid": [11,5],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#FF009F",
+							"iid": "f344ce70-ac70-11f0-afc1-bb3984b1ed6a",
+							"width": 16,
+							"height": 16,
+							"defUid": 50,
+							"px": [176,80],
+							"fieldInstances": [
+								{ "__identifier": "Name", "__type": "String", "__value": "Martial Artist", "__tile": null, "defUid": 51, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["Martial Artist"]
+								}] },
+								{ "__identifier": "Description", "__type": "String", "__value": null, "__tile": null, "defUid": 67, "realEditorValues": [] },
+								{ "__identifier": "Lines", "__type": "Array<String>", "__value": [], "__tile": null, "defUid": 68, "realEditorValues": [] },
+								{ "__identifier": "Idle", "__type": "FilePath", "__value": "../img/martialartist/martialartist_idle.png", "__tile": null, "defUid": 61, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["../img/martialartist/martialartist_idle.png"]
+								}] },
+								{ "__identifier": "IdleLength", "__type": "Int", "__value": 10, "__tile": null, "defUid": 72, "realEditorValues": [{ "id": "V_Int", "params": [10] }] },
+								{ "__identifier": "BattleStart", "__type": "FilePath", "__value": "../img/martialartist/martialartist_fight.png", "__tile": null, "defUid": 62, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["../img/martialartist/martialartist_fight.png"]
+								}] },
+								{ "__identifier": "BattleStartLength", "__type": "Int", "__value": 5, "__tile": null, "defUid": 76, "realEditorValues": [{ "id": "V_Int", "params": [5] }] },
+								{ "__identifier": "Rhythm", "__type": "Array<FilePath>", "__value": [
+									"../img/martialartist/martialartist_dance1.png",
+									"../img/martialartist/martialartist_dance2.png",
+									"../img/martialartist/martialartist_dance3.png",
+									"../img/martialartist/martialartist_dance4.png",
+									"../img/martialartist/martialartist_dance5.png",
+									"../img/martialartist/martialartist_dance6.png",
+									"../img/martialartist/martialartist_dance7.png",
+									"../img/martialartist/martialartist_dance8.png"
+								], "__tile": null, "defUid": 75, "realEditorValues": [
+									{
+										"id": "V_String",
+										"params": ["../img/martialartist/martialartist_dance1.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/martialartist/martialartist_dance2.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/martialartist/martialartist_dance3.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/martialartist/martialartist_dance4.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/martialartist/martialartist_dance5.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/martialartist/martialartist_dance6.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/martialartist/martialartist_dance7.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/martialartist/martialartist_dance8.png"]
+									}
+								] },
+								{ "__identifier": "RhythmLengths", "__type": "Array<Int>", "__value": [5,5,5,5,5,5,5,5], "__tile": null, "defUid": 73, "realEditorValues": [
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] }
+								] },
+								{ "__identifier": "SensorWidth", "__type": "Float", "__value": 1, "__tile": null, "defUid": 58, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
+								{ "__identifier": "SensorHeight", "__type": "Float", "__value": 1, "__tile": null, "defUid": 59, "realEditorValues": [{ "id": "V_Float", "params": [1] }] }
+							],
+							"__worldX": 704,
+							"__worldY": -160
+						},
+						{
+							"__identifier": "Enemy",
+							"__grid": [16,5],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#FF009F",
+							"iid": "47eba4d0-ac70-11f0-afc1-0dca28b07112",
+							"width": 16,
+							"height": 16,
+							"defUid": 50,
+							"px": [256,80],
+							"fieldInstances": [
+								{ "__identifier": "Name", "__type": "String", "__value": "Rudolf Girl", "__tile": null, "defUid": 51, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["Rudolf Girl"]
+								}] },
+								{ "__identifier": "Description", "__type": "String", "__value": null, "__tile": null, "defUid": 67, "realEditorValues": [] },
+								{ "__identifier": "Lines", "__type": "Array<String>", "__value": [], "__tile": null, "defUid": 68, "realEditorValues": [] },
+								{ "__identifier": "Idle", "__type": "FilePath", "__value": "../img/RudolfGirl/RudolfGirl_idle.png", "__tile": null, "defUid": 61, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["../img/RudolfGirl/RudolfGirl_idle.png"]
+								}] },
+								{ "__identifier": "IdleLength", "__type": "Int", "__value": 10, "__tile": null, "defUid": 72, "realEditorValues": [{ "id": "V_Int", "params": [10] }] },
+								{ "__identifier": "BattleStart", "__type": "FilePath", "__value": "../img/RudolfGirl/RudolfGirl_fight.png", "__tile": null, "defUid": 62, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["../img/RudolfGirl/RudolfGirl_fight.png"]
+								}] },
+								{ "__identifier": "BattleStartLength", "__type": "Int", "__value": 5, "__tile": null, "defUid": 76, "realEditorValues": [{ "id": "V_Int", "params": [5] }] },
+								{ "__identifier": "Rhythm", "__type": "Array<FilePath>", "__value": [
+									"../img/RudolfGirl/RudolfGirl_dance1.png",
+									"../img/RudolfGirl/RudolfGirl_dance2.png",
+									"../img/RudolfGirl/RudolfGirl_dance3.png",
+									"../img/RudolfGirl/RudolfGirl_dance4.png",
+									"../img/RudolfGirl/RudolfGirl_dance5.png",
+									"../img/RudolfGirl/RudolfGirl_dance6.png",
+									"../img/RudolfGirl/RudolfGirl_dance7.png",
+									"../img/RudolfGirl/RudolfGirl_dance8.png"
+								], "__tile": null, "defUid": 75, "realEditorValues": [
+									{
+										"id": "V_String",
+										"params": ["../img/RudolfGirl/RudolfGirl_dance1.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/RudolfGirl/RudolfGirl_dance2.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/RudolfGirl/RudolfGirl_dance3.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/RudolfGirl/RudolfGirl_dance4.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/RudolfGirl/RudolfGirl_dance5.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/RudolfGirl/RudolfGirl_dance6.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/RudolfGirl/RudolfGirl_dance7.png"]
+									},
+									{
+										"id": "V_String",
+										"params": ["../img/RudolfGirl/RudolfGirl_dance8.png"]
+									}
+								] },
+								{ "__identifier": "RhythmLengths", "__type": "Array<Int>", "__value": [5,5,5,5,5,5,5,5], "__tile": null, "defUid": 73, "realEditorValues": [
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] },
+									{ "id": "V_Int", "params": [5] }
+								] },
+								{ "__identifier": "SensorWidth", "__type": "Float", "__value": 1, "__tile": null, "defUid": 58, "realEditorValues": [{ "id": "V_Float", "params": [1] }] },
+								{ "__identifier": "SensorHeight", "__type": "Float", "__value": 1, "__tile": null, "defUid": 59, "realEditorValues": [{ "id": "V_Float", "params": [1] }] }
+							],
+							"__worldX": 784,
+							"__worldY": -160
 						}
 					]
 				},
