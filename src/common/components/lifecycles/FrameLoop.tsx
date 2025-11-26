@@ -15,6 +15,9 @@ import { applySpriteAnim } from "@/common/systems/applySpriteAnim.ts";
 import { updateInteractionCamera } from "@/common/systems/updateInteractionCamera.ts";
 import { updateInteractionMoveInput } from "@/common/systems/updateInteractionMoveInput.ts";
 import { applyFacingDirection } from "@/common/systems/applyFacingDirection.ts";
+import { playIdleAnim } from "@/common/systems/playIdleAnim.ts";
+import { playWalkAnim } from "@/common/systems/playWalkAnim.ts";
+import { playPlayerBattleStartAnim } from "@/common/systems/playPlayerBattleStartAnim.ts";
 
 export default function FrameLoop() {
   const world = useWorld();
@@ -51,6 +54,10 @@ export default function FrameLoop() {
     addJumpBuffer(world);
     doJump(world);
     freeJumpBuffer(world);
+
+    playIdleAnim();
+    playWalkAnim();
+    playPlayerBattleStartAnim();
 
     tickSpriteAnim(world);
     applySpriteAnim(world);
