@@ -8,16 +8,15 @@ import { IsInteracting } from "@/common/traits/IsInteracting.ts";
 export default function pollPlayerInput(world: World, keys: Record<KeyboardControlType, boolean>) {
   world.query(IsPlayer, MoveInput, JumpInput)
     .updateEach(([, moveInput, jumpInput]) => {
-      const moveInputActions = MoveInput.actions(moveInput);
       if (world.queryFirst(IsInteracting)) {
-        moveInputActions.set(0, 0);
+        moveInput.set(0, 0);
         jumpInput.on = false;
         return;
       }
       const horizontal = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);
       const vertical = (keys.up ? 1 : 0) - (keys.down ? 1 : 0);
 
-      moveInputActions.set(horizontal, vertical);
+      moveInput.set(horizontal, vertical);
       jumpInput.on = keys.jump;
     });
 }
