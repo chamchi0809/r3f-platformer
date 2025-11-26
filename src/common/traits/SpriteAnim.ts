@@ -136,4 +136,23 @@ export class SpriteAnimImpl implements SpriteAnimDef {
     this.path = path;
     this.restart();
   }
+
+  isPlaying(animDef: Partial<SpriteAnimDef>) {
+    if (animDef.length !== undefined && animDef.length !== this.length) {
+      return false;
+    }
+    if (animDef.path !== undefined && animDef.path !== this.path) {
+      return false;
+    }
+    if (animDef.frameDuration !== undefined && animDef.frameDuration !== this.frameDuration) {
+      return false;
+    }
+    if (animDef.loop !== undefined && animDef.loop !== this.loop) {
+      return false;
+    }
+    if (animDef.reverse !== undefined && animDef.reverse !== this.reverse) {
+      return false;
+    }
+    return true;
+  }
 }
