@@ -1,4 +1,4 @@
 import { trait } from "koota";
 import { createSpriteAnimDef } from "@/common/traits/SpriteAnim.ts";
 
-export const BattleStartAnim = trait({ ...createSpriteAnimDef() });
+export const BattleStartAnim = trait({ ...createSpriteAnimDef(), playedOnce: false, playedReverse: false });
