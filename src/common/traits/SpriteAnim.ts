@@ -16,6 +16,14 @@ export interface SpriteAnimDef {
   reverse?: boolean
 }
 
+export const createSpriteAnimDef = () => ({
+  length: 1,
+  path: "",
+  loop: false,
+  reverse: false,
+  frameDuration: 0.1,
+}) as SpriteAnimDef;
+
 export const SpriteAnim = trait(() => null! as SpriteAnimImpl);
 
 export class SpriteAnimImpl implements SpriteAnimDef {
