@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { Vector2 } from "three";
 import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 import { InteractionLines } from "@/common/traits/InteractionLines";
+import { CharacterFacingDirection } from "@/common/traits/CharacterFacingDirection.ts";
 
 export default function NPCSpawner(props: EntityRendererProps) {
   const { ldtkDir } = useLdtkLevelContext();
@@ -46,6 +47,7 @@ export default function NPCSpawner(props: EntityRendererProps) {
     world.spawn(
       IsNPC,
       CharacterStartPosition(startPosition.clone()), CharacterVisualPosition(startPosition.clone()),
+      CharacterFacingDirection,
       SpriteAnim(new SpriteAnimImpl({
         path: `${ldtkDir}${Idle.trim()}`,
         length: 8,

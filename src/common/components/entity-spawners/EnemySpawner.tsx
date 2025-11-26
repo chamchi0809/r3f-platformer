@@ -13,6 +13,7 @@ import useCreateCollider from "@/common/hooks/physics/useCreateCollider.ts";
 import useRapier from "@/common/hooks/physics/useRapier.ts";
 import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 import { Interactable, InteractableRef } from "@/common/traits/InteractableRef.ts";
+import { CharacterFacingDirection } from "@/common/traits/CharacterFacingDirection.ts";
 
 export default function EnemySpawner(props: EntityRendererProps) {
   const { ldtkDir } = useLdtkLevelContext();
@@ -47,6 +48,7 @@ export default function EnemySpawner(props: EntityRendererProps) {
     world.spawn(
       IsEnemy,
       CharacterStartPosition(startPosition.clone()), CharacterVisualPosition(startPosition.clone()),
+      CharacterFacingDirection,
       SpriteAnim(new SpriteAnimImpl({
         path: `${ldtkDir}${Idle.trim()}`,
         length: IdleLength,

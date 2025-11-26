@@ -14,6 +14,7 @@ import { tickSpriteAnim } from "@/common/systems/tickSpriteAnim.ts";
 import { applySpriteAnim } from "@/common/systems/applySpriteAnim.ts";
 import { updateInteractionCamera } from "@/common/systems/updateInteractionCamera.ts";
 import { updateInteractionMoveInput } from "@/common/systems/updateInteractionMoveInput.ts";
+import { applyFacingDirection } from "@/common/systems/applyFacingDirection.ts";
 
 export default function FrameLoop() {
   const world = useWorld();
@@ -53,6 +54,7 @@ export default function FrameLoop() {
 
     tickSpriteAnim(world);
     applySpriteAnim(world);
+    applyFacingDirection();
 
     updateInteractionCamera(delta);
   });

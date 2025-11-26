@@ -16,6 +16,7 @@ import { useWorld } from "koota/react";
 import { useEffect } from "react";
 import { Vector2 } from "three";
 import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
+import { CharacterFacingDirection } from "@/common/traits/CharacterFacingDirection.ts";
 
 export default function PlayerSpawner(props: EntityRendererProps) {
   const worldPos = getEntityWorldPosition(props);
@@ -37,6 +38,7 @@ export default function PlayerSpawner(props: EntityRendererProps) {
       MoveInput(new Vector2(0, 0)), JumpInput,
       CharacterStartPosition(startPosition.clone()), CharacterVisualPosition(startPosition.clone()), CharacterVelocity,
       CharacterStats.speed(5), CharacterStats.jumpStrength(12),
+      CharacterFacingDirection,
       SpriteAnim(new SpriteAnimImpl({
         path: "/assets/img/hiphopboy/hiphopboy_dance1.png",
         length: 5,
