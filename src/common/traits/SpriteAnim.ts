@@ -157,7 +157,7 @@ export class SpriteAnimImpl implements SpriteAnimDef {
       if (this.reverse && this.current === 0) {
         return false;
       }
-      if (this.current === this.length - 1) {
+      if (!this.reverse && this.current === this.length - 1) {
         return false;
       }
     }
