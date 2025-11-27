@@ -5,7 +5,7 @@ import type { World } from "koota";
 const ANIM_INTERVAL = 0.05;
 
 export const updateInteractLineAnimation = (world: World, delta: number) => {
-  world.query(IsInteracting, InteractLine).updateEach(([, interactLine]) => {
+  world.query(IsInteracting, InteractLine).updateEach(([interactLine]) => {
     const line = interactLine.lines[interactLine.current];
     if (!line) return;
     if (interactLine.animIndex >= line.length) return;

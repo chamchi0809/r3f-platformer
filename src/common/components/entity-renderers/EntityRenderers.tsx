@@ -16,6 +16,7 @@ import { useUnmount } from "react-use";
 import { InteractionLineView } from "../entity-views/InteractionLineView";
 import InteractionHintView from "@/common/components/entity-views/InteractionHintView.tsx";
 import BattleView from "@/common/components/entity-views/BattleView.tsx";
+import { IsBattle } from "@/common/traits/IsBattle";
 
 /** Koota entity renderers */
 export default function EntityRenderers() {
@@ -46,7 +47,7 @@ export default function EntityRenderers() {
         view={CameraView}
       />
       <EntityRenderer
-        params={[IsInteracting]}
+        params={[IsBattle]}
         view={BattleView}
       />
     </>
