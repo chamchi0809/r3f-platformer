@@ -9,6 +9,8 @@ import { useTrait } from "koota/react";
 import styled from "styled-components";
 
 const LineContainer = styled.div`
+  transform: translate3d(3%, -120%, 0);
+
   display: inline-block;
   width: max-content;
   max-width: 30vw;
