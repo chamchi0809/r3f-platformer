@@ -1,9 +1,10 @@
+import Kbd from "@/common/components/Kbd";
+import { useRefTrait } from "@/common/hooks/ecs/useRefTrait";
+import { InteractionRef } from "@/common/traits/InteractionRef";
+import { useApp } from "@/store/useAppStore";
 import { Html } from "@react-three/drei";
 import type { Entity } from "koota";
 import styled from "styled-components";
-import { useRefTrait } from "../../hooks/ecs/useRefTrait.ts";
-import { InteractionRef } from "../../traits/InteractionRef.ts";
-import { useApp } from "@/store/useAppStore.ts";
 
 const HintContainer = styled.div`
   padding: 8px 12px;
@@ -12,17 +13,6 @@ const HintContainer = styled.div`
 
   color: white;
   white-space: nowrap;
-`;
-
-const Kbd = styled.kbd`
-  display: inline-block;
-
-  margin: 0 4px;
-  padding: 2px 6px;
-  border: 1px solid #555;
-  border-radius: 3px;
-
-  background: #222;
 `;
 
 export default function InteractionHintView({ entity }: { entity: Entity }) {
@@ -35,11 +25,7 @@ export default function InteractionHintView({ entity }: { entity: Entity }) {
       <Html center>
         <HintContainer>
           Press
-          {
-            interactKeys
-              .map(k => k.replace(/^Key/, ""))
-              .map(k => (<Kbd key={k}>{k}</Kbd>))
-          }
+          {interactKeys.map(k => (<Kbd label={k} />))}
           to interact
         </HintContainer>
       </Html>
