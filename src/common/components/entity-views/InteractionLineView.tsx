@@ -25,12 +25,8 @@ const Line = styled.p`
   font-size: 1.2em;
 `;
 
-const KbdContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  margin: -8px;
-  padding-top: 8px;
+const KbdContainer = styled.span`
+  margin: -8px -8px -8px 2px;
 
   animation: blink 4s infinite;
 
@@ -47,21 +43,23 @@ export function InteractionLineView({ entity }: { entity: Entity }) {
 
   const currentText = interactLine?.lines[interactLine.current] ?? "";
   const visibleText = currentText.slice(0, interactLine?.animIndex ?? 0);
+  const animationEnded = interactLine && interactLine.animIndex >= currentText.length;
 
   const interactionRef = useRefTrait(entity, InteractionRef);
   return (
     <group ref={interactionRef}>
       <Html>
         <LineContainer>
-          <Line>{visibleText}</Line>
-          {currentText.length > (interactLine?.animIndex ?? 0)
-            ? null
-            : (
-                <KbdContainer>
-                  ▶
-                  {interactKeys.map(k => (<Kbd label={k} />))}
-                </KbdContainer>
-              )}
+          <Line>
+            {visibleText}
+            {animationEnded
+              ? (
+                  <KbdContainer>
+                    {interactKeys.map((k, i) => (<Kbd key={i} label={k} />))}
+                  </KbdContainer>
+                )
+              : null}
+          </Line>
         </LineContainer>
       </Html>
     </group>

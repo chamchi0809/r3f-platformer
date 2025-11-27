@@ -14,7 +14,5 @@ const Container = styled.kbd`
 `;
 
 export default function Kbd({ label }: { label: string }) {
-  return (
-    <Container>{label.replace(/^Key/, "")}</Container>
-  );
+  return (<Container>{label.replace(/^Key/, "")}</Container>);
 }

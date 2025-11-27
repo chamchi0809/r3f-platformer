@@ -25,7 +25,7 @@ export default function InteractionHintView({ entity }: { entity: Entity }) {
       <Html center>
         <HintContainer>
           Press
-          {interactKeys.map(k => (<Kbd label={k} />))}
+          {interactKeys.map((k, i) => (<Kbd key={i} label={k} />))}
           to interact
         </HintContainer>
       </Html>
