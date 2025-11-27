@@ -54,10 +54,14 @@ export function InteractionLineView({ entity }: { entity: Entity }) {
       <Html>
         <LineContainer>
           <Line>{visibleText}</Line>
-          <KbdContainer>
-            ▶
-            {interactKeys.map(k => (<Kbd label={k} />))}
-          </KbdContainer>
+          {currentText.length > (interactLine?.animIndex ?? 0)
+            ? null
+            : (
+                <KbdContainer>
+                  ▶
+                  {interactKeys.map(k => (<Kbd label={k} />))}
+                </KbdContainer>
+              )}
         </LineContainer>
       </Html>
     </group>
