@@ -15,4 +15,4 @@ export default function EnemyView({ entity }: { entity: Entity }) {
       </group>
     </group>
   );
-};
+}

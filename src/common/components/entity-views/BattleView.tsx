@@ -1,27 +1,55 @@
-export default function BattleView() {
-  return <></>;
 import type { Entity } from "koota";
-import { useTrait } from "koota/react";
-import { IsInteracting } from "@/common/traits/IsInteracting.ts";
-import { Html, Svg } from "@react-three/drei";
+import { Html } from "@react-three/drei";
 import { useRefTrait } from "@/common/hooks/ecs/useRefTrait";
 import { BattleViewRef } from "@/common/traits/BattleViewRef";
-import ArrowSvg from "@/assets/ui/battle/filled-arrow.svg";
+import styled from "styled-components";
+import { pressedRunawayInput } from "@/common/systems/pressed/pressedRunawayInput";
+import { useWorld } from "koota/react";
+import { useCallback } from "react";
+
+const StyledRootContainer = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  height: 100%;
+  width: 100%;
+`;
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 30%;
+  padding: 5% 0;
+  gap: 5%;
+  justify-content: center;
+  box-sizing: border-box;
+`;
+
+const StyledButton = styled.button`
+  display: flex;
+  width: 15%;
+  font-size: 2vw;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default function BattleView({ entity }: { entity: Entity }) {
-  const type = useTrait(entity, IsInteracting)?.type;
   const battleViewRef = useRefTrait(entity, BattleViewRef);
+  const world = useWorld();
 
-  if (type !== "battle") return <></>;
+  const handleRunaway = useCallback(() => {
+    pressedRunawayInput(world);
+  }, [world]);
 
   return (
     <group ref={battleViewRef}>
-      <Svg
-        position={[0, 0, 0]}
-        src={`<svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="10px" width="10px" xmlns="http://www.w3.org/2000/svg">
-  <path d="M50 15 L85 50 L70 50 L70 90 L30 90 L30 50 L15 50 Z" />
-</svg>`}
-      />
+      <Html fullscreen>
+        <StyledRootContainer>
+          <StyledButtonContainer>
+            <StyledButton>Attack</StyledButton>
+            <StyledButton onClick={handleRunaway}>Run away</StyledButton>
+          </StyledButtonContainer>
+        </StyledRootContainer>
+      </Html>
     </group>
   );
 }

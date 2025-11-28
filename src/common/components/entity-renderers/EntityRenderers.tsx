@@ -18,55 +18,35 @@ import InteractionHintView from "@/common/components/entity-views/InteractionHin
 import BattleView from "@/common/components/entity-views/BattleView.tsx";
 import { IsBattle } from "@/common/traits/IsBattle";
 import { IsChat } from "@/common/traits/IsChat.ts";
+import HealthBarView from "@/common/components/entity-views/HealthBarView";
 
 /** Koota entity renderers */
 export default function EntityRenderers() {
   return (
     <>
-      <EntityRenderer
-        params={[IsPlayer]}
-        view={PlayerView}
-      />
-      <EntityRenderer
-        params={[IsNPC]}
-        view={NPCView}
-      />
-      <EntityRenderer
-        params={[IsEnemy]}
-        view={EnemyView}
-      />
-      <EntityRenderer
-        params={[IsInteractionFocused, Not(IsInteracting)]}
-        view={InteractionHintView}
-      />
-      <EntityRenderer
-        params={[IsInteracting, IsChat, InteractLine]}
-        view={InteractionLineView}
-      />
-      <EntityRenderer
-        params={[IsCamera]}
-        view={CameraView}
-      />
-      <EntityRenderer
-        params={[IsInteracting, IsBattle]}
-        view={BattleView}
-      />
+      <EntityRenderer params={[IsPlayer]} view={PlayerView} />
+      <EntityRenderer params={[IsNPC]} view={NPCView} />
+      <EntityRenderer params={[IsEnemy]} view={EnemyView} />
+      <EntityRenderer params={[IsInteractionFocused, Not(IsInteracting)]} view={InteractionHintView} />
+      <EntityRenderer params={[IsInteracting, IsChat, InteractLine]} view={InteractionLineView} />
+      <EntityRenderer params={[IsCamera]} view={CameraView} />
+      <EntityRenderer params={[IsInteracting, IsBattle]} view={BattleView} />
+      <EntityRenderer params={[IsInteracting, IsBattle]} view={HealthBarView} />
     </>
   );
 }
 
-const EntityRenderer = <T extends QueryParameter[]>(
-  {
-    params,
-    view: View,
-  }: {
-    params: T
-    view: (p: { entity: Entity }) => JSX.Element
-  }) => {
+const EntityRenderer = <T extends QueryParameter[]>({
+  params,
+  view: View,
+}: {
+  params: T;
+  view: (p: { entity: Entity }) => JSX.Element;
+}) => {
   const entities = useQuery(...params);
 
   useUnmount(() => {
-    entities.forEach(e => e.destroy());
+    entities.forEach((e) => e.destroy());
   });
 
   return (
