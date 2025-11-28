@@ -14,6 +14,7 @@ import useRapier from "@/common/hooks/physics/useRapier.ts";
 import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 import { Interactable, InteractableRef } from "@/common/traits/InteractableRef.ts";
 import { CharacterFacingDirection } from "@/common/traits/CharacterFacingDirection.ts";
+import { InteractLine } from "@/common/traits/InteractLine.ts";
 
 export default function EnemySpawner(props: EntityRendererProps) {
   const { ldtkDir } = useLdtkLevelContext();
@@ -55,6 +56,7 @@ export default function EnemySpawner(props: EntityRendererProps) {
         loop: true,
       })),
       InteractableRef(new Interactable(sensor, rapierWorld)),
+      InteractLine({ lines: Lines }),
     );
   }, [sensor]);
 
