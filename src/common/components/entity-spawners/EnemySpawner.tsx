@@ -15,6 +15,9 @@ import { INTERACTION_GROUPS } from "@/common/defs/colGroup.ts";
 import { Interactable, InteractableRef } from "@/common/traits/InteractableRef.ts";
 import { CharacterFacingDirection } from "@/common/traits/CharacterFacingDirection.ts";
 import { InteractLine } from "@/common/traits/InteractLine.ts";
+import { IdleAnim } from "@/common/traits/IdleAnim.ts";
+import { BattleStartAnim } from "@/common/traits/BattleStartAnim.ts";
+import { MoveInput } from "@/common/traits/MoveInput.ts";
 
 export default function EnemySpawner(props: EntityRendererProps) {
   const { ldtkDir } = useLdtkLevelContext();
@@ -26,12 +29,16 @@ export default function EnemySpawner(props: EntityRendererProps) {
   const {
     Idle,
     IdleLength,
+    BattleStart,
+    BattleStartLength,
     SensorWidth,
     SensorHeight,
     Lines,
   } = stripEntityInstanceFields<{
     Idle: string
     IdleLength: number
+    BattleStart: string
+    BattleStartLength: number
     SensorWidth: number
     SensorHeight: number
     Lines: string[]
@@ -48,15 +55,25 @@ export default function EnemySpawner(props: EntityRendererProps) {
     if (!sensor) return;
     world.spawn(
       IsEnemy,
+      MoveInput,
       CharacterStartPosition(startPosition.clone()), CharacterVisualPosition(startPosition.clone()),
       CharacterFacingDirection,
+      InteractableRef(new Interactable(sensor, rapierWorld)),
+      InteractLine({ lines: Lines }),
       SpriteAnim(new SpriteAnimImpl({
         path: `${ldtkDir}${Idle.trim()}`,
         length: IdleLength,
         loop: true,
       })),
-      InteractableRef(new Interactable(sensor, rapierWorld)),
-      InteractLine({ lines: Lines }),
+      IdleAnim({
+        path: `${ldtkDir}${Idle.trim()}`,
+        length: IdleLength,
+        loop: true,
+      }),
+      BattleStartAnim({
+        path: `${ldtkDir}${BattleStart.trim()}`,
+        length: BattleStartLength,
+      }),
     );
   }, [sensor]);
 

@@ -8,14 +8,12 @@ import { ThreeRef } from "@/common/traits/ThreeRef.ts";
 export const updateFacingDirection = () => {
   const player = world.queryFirst(IsPlayer);
   const opponent = world.queryFirst(IsInteracting);
-  world.query(CharacterFacingDirection).updateEach(([facingDirection], entity) => {
+  world.query(CharacterFacingDirection, MoveInput).updateEach(([facingDirection, moveInput], entity) => {
+    if (moveInput.x !== 0) {
+      facingDirection.value = Math.sign(moveInput.x);
+      return;
+    }
     if (entity.has(IsPlayer)) {
-      const moveInput = entity.get(MoveInput);
-      if (moveInput && moveInput.x !== 0) {
-        facingDirection.value = Math.sign(moveInput.x);
-        return;
-      }
-
       if (opponent) {
         const playerPos = entity.get(ThreeRef)!.position.x;
         const opponentPos = opponent.get(ThreeRef)!.position.x;

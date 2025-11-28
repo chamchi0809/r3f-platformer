@@ -18,7 +18,7 @@ import { updateInteractionMoveInput } from "@/common/systems/updateInteractionMo
 import { applyFacingDirection } from "@/common/systems/applyFacingDirection.ts";
 import { playIdleAnim } from "@/common/systems/playIdleAnim.ts";
 import { playWalkAnim } from "@/common/systems/playWalkAnim.ts";
-import { playPlayerBattleStartAnim } from "@/common/systems/playPlayerBattleStartAnim.ts";
+import { playBattleStartAnim } from "@/common/systems/playBattleStartAnim.ts";
 import { updateFacingDirection } from "@/common/systems/updateFacingDirection.ts";
 
 export default function FrameLoop() {
@@ -59,7 +59,7 @@ export default function FrameLoop() {
 
     playIdleAnim();
     playWalkAnim();
-    playPlayerBattleStartAnim();
+    playBattleStartAnim();
 
     tickSpriteAnim(world);
     applySpriteAnim(world);

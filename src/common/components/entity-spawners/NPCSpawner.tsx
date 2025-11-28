@@ -15,6 +15,8 @@ import { useWorld } from "koota/react";
 import { useEffect } from "react";
 import { Vector2 } from "three";
 import { CharacterFacingDirection } from "@/common/traits/CharacterFacingDirection.ts";
+import { MoveInput } from "@/common/traits/MoveInput.ts";
+import { IdleAnim } from "@/common/traits/IdleAnim.ts";
 
 export default function NPCSpawner(props: EntityRendererProps) {
   const { ldtkDir } = useLdtkLevelContext();
@@ -25,11 +27,13 @@ export default function NPCSpawner(props: EntityRendererProps) {
 
   const {
     Idle,
+    IdleLength,
     SensorWidth,
     SensorHeight,
     Lines,
   } = stripEntityInstanceFields<{
     Idle: string
+    IdleLength: number
     SensorWidth: number
     SensorHeight: number
     Lines: string[]
@@ -46,15 +50,21 @@ export default function NPCSpawner(props: EntityRendererProps) {
     if (!sensor) return;
     world.spawn(
       IsNPC,
+      MoveInput,
       CharacterStartPosition(startPosition.clone()), CharacterVisualPosition(startPosition.clone()),
       CharacterFacingDirection,
+      InteractableRef(new Interactable(sensor, rapierWorld)),
+      InteractLine({ lines: Lines }),
       SpriteAnim(new SpriteAnimImpl({
         path: `${ldtkDir}${Idle.trim()}`,
         length: 8,
         loop: true,
       })),
-      InteractableRef(new Interactable(sensor, rapierWorld)),
-      InteractLine({ lines: Lines }),
+      IdleAnim({
+        path: `${ldtkDir}${Idle.trim()}`,
+        length: IdleLength,
+        loop: true,
+      }),
     );
   }, [sensor]);
 

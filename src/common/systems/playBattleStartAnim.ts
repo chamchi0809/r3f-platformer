@@ -4,7 +4,7 @@ import { BattleStartAnim } from "@/common/traits/BattleStartAnim.ts";
 import { IsInteracting } from "@/common/traits/IsInteracting.ts";
 import { MoveInput } from "@/common/traits/MoveInput.ts";
 
-export const playPlayerBattleStartAnim = () => {
+export const playBattleStartAnim = () => {
   const opponent = world.queryFirst(IsInteracting);
 
   world.query(BattleStartAnim, SpriteAnim, MoveInput).updateEach(([battleStartAnim, spriteAnim, moveInput]) => {
