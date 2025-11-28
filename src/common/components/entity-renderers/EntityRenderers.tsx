@@ -17,6 +17,7 @@ import { InteractionLineView } from "../entity-views/InteractionLineView";
 import InteractionHintView from "@/common/components/entity-views/InteractionHintView.tsx";
 import BattleView from "@/common/components/entity-views/BattleView.tsx";
 import { IsBattle } from "@/common/traits/IsBattle";
+import { IsChat } from "@/common/traits/IsChat.ts";
 
 /** Koota entity renderers */
 export default function EntityRenderers() {
@@ -39,7 +40,7 @@ export default function EntityRenderers() {
         view={InteractionHintView}
       />
       <EntityRenderer
-        params={[IsInteracting, InteractLine]}
+        params={[IsInteracting, IsChat, InteractLine]}
         view={InteractionLineView}
       />
       <EntityRenderer
@@ -47,7 +48,7 @@ export default function EntityRenderers() {
         view={CameraView}
       />
       <EntityRenderer
-        params={[IsBattle]}
+        params={[IsInteracting, IsBattle]}
         view={BattleView}
       />
     </>
