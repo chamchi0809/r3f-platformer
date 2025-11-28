@@ -1,0 +1,37 @@
+import { world } from "@/common/world.ts";
+import { MoveInput } from "@/common/traits/MoveInput.ts";
+import { CharacterFacingDirection } from "@/common/traits/CharacterFacingDirection.ts";
+import { IsInteracting } from "@/common/traits/IsInteracting.ts";
+import { IsPlayer } from "@/common/traits/IsPlayer.ts";
+import { ThreeRef } from "@/common/traits/ThreeRef.ts";
+
+export const updateFacingDirection = () => {
+  const player = world.queryFirst(IsPlayer);
+  const opponent = world.queryFirst(IsInteracting);
+  world.query(MoveInput, CharacterFacingDirection).updateEach(([moveInput, facingDirection], entity) => {
+    if (moveInput.x !== 0) {
+      facingDirection.value = Math.sign(moveInput.x);
+      return;
+    }
+
+    if (entity.has(IsPlayer)) {
+      if (opponent) {
+        const playerPos = entity.get(ThreeRef)!.position.x;
+        const opponentPos = opponent.get(ThreeRef)!.position.x;
+        const dir = Math.sign(opponentPos - playerPos);
+        facingDirection.value = dir;
+      }
+      return;
+    }
+
+    if (entity.has(IsInteracting)) {
+      if (player) {
+        const opponentPos = entity.get(ThreeRef)!.position.x;
+        const playerPos = player.get(ThreeRef)!.position.x;
+        const dir = Math.sign(playerPos - opponentPos);
+        facingDirection.value = dir;
+      }
+      return;
+    }
+  });
+};

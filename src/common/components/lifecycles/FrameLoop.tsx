@@ -18,6 +18,7 @@ import { applyFacingDirection } from "@/common/systems/applyFacingDirection.ts";
 import { playIdleAnim } from "@/common/systems/playIdleAnim.ts";
 import { playWalkAnim } from "@/common/systems/playWalkAnim.ts";
 import { playPlayerBattleStartAnim } from "@/common/systems/playPlayerBattleStartAnim.ts";
+import { updateFacingDirection } from "@/common/systems/updateFacingDirection.ts";
 
 export default function FrameLoop() {
   const world = useWorld();
@@ -61,6 +62,7 @@ export default function FrameLoop() {
 
     tickSpriteAnim(world);
     applySpriteAnim(world);
+    updateFacingDirection();
     applyFacingDirection();
 
     updateInteractionCamera(delta);
