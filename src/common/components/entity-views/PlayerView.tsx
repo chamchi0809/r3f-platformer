@@ -1,12 +1,12 @@
 import type { Entity } from "koota";
 import { useRefTrait } from "@/common/hooks/ecs/useRefTrait.ts";
-import { ThreeRef } from "@/common/traits/ThreeRef.ts";
+import { RootRef } from "@/common/traits/RootRef.ts";
 import { MaterialRef } from "@/common/traits/MaterialRef.ts";
 import { MeshRef } from "@/common/traits/MeshRef.ts";
 
 export default function PlayerView({ entity }: { entity: Entity }) {
   return (
-    <group ref={useRefTrait(entity, ThreeRef)}>
+    <group ref={useRefTrait(entity, RootRef)}>
       <group position-z={1}>
         <mesh ref={useRefTrait(entity, MeshRef)}>
           <planeGeometry args={[2, 2, 1]} />

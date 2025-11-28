@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { CAM_SIZE } from "@/common/defs/camSize.ts";
 import { CameraControls, OrthographicCamera } from "@react-three/drei";
 import { useRefTrait } from "@/common/hooks/ecs/useRefTrait.ts";
-import { ThreeRef } from "@/common/traits/ThreeRef.ts";
+import { RootRef } from "@/common/traits/RootRef.ts";
 import { useTrait } from "koota/react";
 import { CameraSize } from "@/common/traits/CameraSize.ts";
 import { useControls } from "leva";
@@ -31,7 +31,7 @@ export default function CameraView({ entity }: { entity: Entity }) {
 
   return (
     <OrthographicCamera
-      ref={useRefTrait(entity, ThreeRef)}
+      ref={useRefTrait(entity, RootRef)}
       manual
       makeDefault
       rotation={isDebugCamera ? undefined : [0, 0, 0]}
