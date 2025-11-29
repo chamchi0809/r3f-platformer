@@ -3,12 +3,13 @@ import { SpriteAnim } from "@/common/traits/SpriteAnim.ts";
 import { BattleStartAnim } from "@/common/traits/BattleStartAnim.ts";
 import { IsInteracting } from "@/common/traits/IsInteracting.ts";
 import { MoveInput } from "@/common/traits/MoveInput.ts";
+import { IsBattle } from "@/common/traits/IsBattle.ts";
 
 export const playBattleStartAnim = () => {
-  const opponent = world.queryFirst(IsInteracting);
+  const battleOpponent = world.queryFirst(IsInteracting, IsBattle);
 
   world.query(BattleStartAnim, SpriteAnim, MoveInput).updateEach(([battleStartAnim, spriteAnim, moveInput]) => {
-    if (!opponent) {
+    if (!battleOpponent) {
       battleStartAnim.playedOnce = false;
       battleStartAnim.playedReverse = false;
       return;
