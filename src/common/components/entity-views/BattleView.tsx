@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { pressedRunawayInput } from "@/common/systems/pressed/pressedRunawayInput";
 import { useWorld } from "koota/react";
 import { useCallback } from "react";
+import { HealthSystem } from "@/common/systems/health";
 
 const StyledRootContainer = styled.div`
   display: flex;
@@ -40,13 +41,17 @@ export default function BattleView({ entity }: { entity: Entity }) {
     pressedRunawayInput(world);
   }, [world]);
 
+  const handleAttack = useCallback(() => {
+    HealthSystem.from(world).damage(10);
+  }, [world]);
+
   return (
     <group ref={battleViewRef}>
       <Html fullscreen>
         <StyledRootContainer>
           <StyledButtonContainer>
-            <StyledButton>Attack</StyledButton>
-            <StyledButton onClick={handleRunaway}>Run away</StyledButton>
+            <StyledButton onClick={handleAttack}>Attack</StyledButton>
+            <StyledButton onClick={handleRunaway}>Runaway</StyledButton>
           </StyledButtonContainer>
         </StyledRootContainer>
       </Html>
