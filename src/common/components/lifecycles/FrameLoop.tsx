@@ -21,6 +21,7 @@ import { playWalkAnim } from "@/common/systems/playWalkAnim.ts";
 import { playBattleStartAnim } from "@/common/systems/playBattleStartAnim.ts";
 import { updateFacingDirection } from "@/common/systems/updateFacingDirection.ts";
 import { syncCameraAndBattleView } from "@/common/systems/syncCameraAndBattleView";
+import { syncHealthBarView } from "@/common/systems/syncHealthBarView";
 
 export default function FrameLoop() {
   const world = useWorld();
@@ -70,6 +71,7 @@ export default function FrameLoop() {
     updateInteractLineAnimation(world, delta);
     updateInteractionCamera(delta);
     syncCameraAndBattleView();
+    syncHealthBarView();
   });
 
   return <></>;

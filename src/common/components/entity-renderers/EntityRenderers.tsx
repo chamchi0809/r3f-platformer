@@ -19,6 +19,7 @@ import BattleView from "@/common/components/entity-views/BattleView.tsx";
 import { IsBattle } from "@/common/traits/IsBattle";
 import { IsChat } from "@/common/traits/IsChat.ts";
 import HealthBarView from "@/common/components/entity-views/HealthBarView";
+import { HealthPoint } from "@/common/traits/HealthPoint";
 
 /** Koota entity renderers */
 export default function EntityRenderers() {
@@ -31,7 +32,7 @@ export default function EntityRenderers() {
       <EntityRenderer params={[IsInteracting, IsChat, InteractLine]} view={InteractionLineView} />
       <EntityRenderer params={[IsCamera]} view={CameraView} />
       <EntityRenderer params={[IsInteracting, IsBattle]} view={BattleView} />
-      <EntityRenderer params={[IsInteracting, IsBattle]} view={HealthBarView} />
+      <EntityRenderer params={[IsInteracting, IsBattle, HealthPoint]} view={HealthBarView} />
     </>
   );
 }
