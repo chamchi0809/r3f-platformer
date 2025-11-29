@@ -1,7 +1,7 @@
 import { world } from "@/common/world";
 import { IsBattle } from "@/common/traits/IsBattle";
 import { HealthBarViewRef } from "@/common/traits/HealthBarViewRef";
-import { ThreeRef } from "@/common/traits/ThreeRef";
+import { RootRef } from "@/common/traits/RootRef";
 import { MeshRef } from "@/common/traits/MeshRef";
 import { Box3, Vector3 } from "three";
 
@@ -12,7 +12,7 @@ export const syncHealthBarView = () => {
 
   if (!opponent) return;
 
-  const opponentObj = opponent.get(ThreeRef);
+  const opponentObj = opponent.get(RootRef);
   const opponentMesh = opponent.get(MeshRef);
 
   if (!opponentObj || !opponentMesh) return;
